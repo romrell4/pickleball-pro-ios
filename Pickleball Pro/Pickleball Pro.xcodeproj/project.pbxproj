@@ -1,0 +1,1196 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F82DB87B26BB48F00003F7FD /* MatchStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87A26BB48F00003F7FD /* MatchStatsView.swift */; };
+		F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */; };
+		F82DB87F26BB4E570003F7FD /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87E26BB4E570003F7FD /* StatView.swift */; };
+		F82DB88126BB4E6E0003F7FD /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88026BB4E6E0003F7FD /* Stat.swift */; };
+		F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80026A34486001A6655 /* RoundImageView.swift */; };
+		F8A4C80326A3460C001A6655 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80226A3460C001A6655 /* AsyncImage.swift */; };
+		F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */; };
+		F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */; };
+		F8E75ED226A337570000F93F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ED126A337570000F93F /* ContentView.swift */; };
+		F8E75ED426A337580000F93F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75ED326A337580000F93F /* Assets.xcassets */; };
+		F8E75ED726A337580000F93F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75ED626A337580000F93F /* Preview Assets.xcassets */; };
+		F8E75EE226A337590000F93F /* Pickleball_ProTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75EE126A337590000F93F /* Pickleball_ProTests.swift */; };
+		F8E75EED26A337590000F93F /* Pickleball_ProUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75EEC26A337590000F93F /* Pickleball_ProUITests.swift */; };
+		F8E75EF226A337590000F93F /* Pickleball Pro WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F8E75EF126A337590000F93F /* Pickleball Pro WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F8E75EF726A3375A0000F93F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75EF626A3375A0000F93F /* Assets.xcassets */; };
+		F8E75EFE26A3375B0000F93F /* Pickleball Pro WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F8E75EFD26A3375B0000F93F /* Pickleball Pro WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F8E75F0326A3375B0000F93F /* Pickleball_ProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F0226A3375B0000F93F /* Pickleball_ProApp.swift */; };
+		F8E75F0526A3375B0000F93F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F0426A3375B0000F93F /* ContentView.swift */; };
+		F8E75F0726A3375B0000F93F /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F0626A3375B0000F93F /* NotificationController.swift */; };
+		F8E75F0926A3375B0000F93F /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F0826A3375B0000F93F /* NotificationView.swift */; };
+		F8E75F0B26A3375B0000F93F /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F0A26A3375B0000F93F /* ComplicationController.swift */; };
+		F8E75F0D26A3375C0000F93F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75F0C26A3375C0000F93F /* Assets.xcassets */; };
+		F8E75F1026A3375C0000F93F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75F0F26A3375C0000F93F /* Preview Assets.xcassets */; };
+		F8E75F1C26A3375C0000F93F /* Pickleball_Pro_WatchKit_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F1B26A3375C0000F93F /* Pickleball_Pro_WatchKit_AppTests.swift */; };
+		F8E75F2726A3375C0000F93F /* Pickleball_Pro_WatchKit_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F2626A3375C0000F93F /* Pickleball_Pro_WatchKit_AppUITests.swift */; };
+		F8E75F4426A339170000F93F /* MatchScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4326A339170000F93F /* MatchScoreView.swift */; };
+		F8E75F4726A33E960000F93F /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4626A33E960000F93F /* Match.swift */; };
+		F8E75F4926A33EC60000F93F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4826A33EC60000F93F /* Player.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F8E75EDE26A337590000F93F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E75EC426A337570000F93F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8E75ECB26A337570000F93F;
+			remoteInfo = "Pickleball Pro";
+		};
+		F8E75EE926A337590000F93F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E75EC426A337570000F93F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8E75ECB26A337570000F93F;
+			remoteInfo = "Pickleball Pro";
+		};
+		F8E75EF326A337590000F93F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E75EC426A337570000F93F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8E75EF026A337590000F93F;
+			remoteInfo = "Pickleball Pro WatchKit App";
+		};
+		F8E75EFF26A3375B0000F93F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E75EC426A337570000F93F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8E75EFC26A3375B0000F93F;
+			remoteInfo = "Pickleball Pro WatchKit Extension";
+		};
+		F8E75F1826A3375C0000F93F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E75EC426A337570000F93F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8E75EFC26A3375B0000F93F;
+			remoteInfo = "Pickleball Pro WatchKit Extension";
+		};
+		F8E75F2326A3375C0000F93F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E75EC426A337570000F93F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F8E75EF026A337590000F93F;
+			remoteInfo = "Pickleball Pro WatchKit App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F8E75F2E26A3375C0000F93F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F8E75EFE26A3375B0000F93F /* Pickleball Pro WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75F3226A3375C0000F93F /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F8E75EF226A337590000F93F /* Pickleball Pro WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F82DB87A26BB48F00003F7FD /* MatchStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchStatsView.swift; sourceTree = "<group>"; };
+		F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
+		F82DB87E26BB4E570003F7FD /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
+		F82DB88026BB4E6E0003F7FD /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
+		F8A4C80026A34486001A6655 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
+		F8A4C80226A3460C001A6655 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedRoundImageViews.swift; sourceTree = "<group>"; };
+		F8E75ECC26A337570000F93F /* Pickleball Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pickleball Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_ProApp.swift; sourceTree = "<group>"; };
+		F8E75ED126A337570000F93F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F8E75ED326A337580000F93F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F8E75ED626A337580000F93F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F8E75ED826A337580000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E75EDD26A337590000F93F /* Pickleball ProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pickleball ProTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E75EE126A337590000F93F /* Pickleball_ProTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_ProTests.swift; sourceTree = "<group>"; };
+		F8E75EE326A337590000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E75EE826A337590000F93F /* Pickleball ProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pickleball ProUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E75EEC26A337590000F93F /* Pickleball_ProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_ProUITests.swift; sourceTree = "<group>"; };
+		F8E75EEE26A337590000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E75EF126A337590000F93F /* Pickleball Pro WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pickleball Pro WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E75EF626A3375A0000F93F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F8E75EF826A3375A0000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E75EFD26A3375B0000F93F /* Pickleball Pro WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pickleball Pro WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E75F0226A3375B0000F93F /* Pickleball_ProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_ProApp.swift; sourceTree = "<group>"; };
+		F8E75F0426A3375B0000F93F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F8E75F0626A3375B0000F93F /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		F8E75F0826A3375B0000F93F /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		F8E75F0A26A3375B0000F93F /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		F8E75F0C26A3375C0000F93F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F8E75F0F26A3375C0000F93F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F8E75F1126A3375C0000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E75F1226A3375C0000F93F /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		F8E75F1726A3375C0000F93F /* Pickleball Pro WatchKit AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pickleball Pro WatchKit AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E75F1B26A3375C0000F93F /* Pickleball_Pro_WatchKit_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_Pro_WatchKit_AppTests.swift; sourceTree = "<group>"; };
+		F8E75F1D26A3375C0000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E75F2226A3375C0000F93F /* Pickleball Pro WatchKit AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pickleball Pro WatchKit AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E75F2626A3375C0000F93F /* Pickleball_Pro_WatchKit_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_Pro_WatchKit_AppUITests.swift; sourceTree = "<group>"; };
+		F8E75F2826A3375C0000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E75F4326A339170000F93F /* MatchScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchScoreView.swift; sourceTree = "<group>"; };
+		F8E75F4626A33E960000F93F /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		F8E75F4826A33EC60000F93F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F8E75EC926A337570000F93F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EDA26A337590000F93F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EE526A337590000F93F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EFA26A3375B0000F93F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75F1426A3375C0000F93F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75F1F26A3375C0000F93F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F8E75EC326A337570000F93F = {
+			isa = PBXGroup;
+			children = (
+				F8E75ECE26A337570000F93F /* Pickleball Pro */,
+				F8E75EE026A337590000F93F /* Pickleball ProTests */,
+				F8E75EEB26A337590000F93F /* Pickleball ProUITests */,
+				F8E75EF526A337590000F93F /* Pickleball Pro WatchKit App */,
+				F8E75F0126A3375B0000F93F /* Pickleball Pro WatchKit Extension */,
+				F8E75F1A26A3375C0000F93F /* Pickleball Pro WatchKit AppTests */,
+				F8E75F2526A3375C0000F93F /* Pickleball Pro WatchKit AppUITests */,
+				F8E75ECD26A337570000F93F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F8E75ECD26A337570000F93F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75ECC26A337570000F93F /* Pickleball Pro.app */,
+				F8E75EDD26A337590000F93F /* Pickleball ProTests.xctest */,
+				F8E75EE826A337590000F93F /* Pickleball ProUITests.xctest */,
+				F8E75EF126A337590000F93F /* Pickleball Pro WatchKit App.app */,
+				F8E75EFD26A3375B0000F93F /* Pickleball Pro WatchKit Extension.appex */,
+				F8E75F1726A3375C0000F93F /* Pickleball Pro WatchKit AppTests.xctest */,
+				F8E75F2226A3375C0000F93F /* Pickleball Pro WatchKit AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8E75ECE26A337570000F93F /* Pickleball Pro */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75F4526A33E8A0000F93F /* model */,
+				F8E75F4226A338F10000F93F /* view */,
+				F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */,
+				F8E75ED126A337570000F93F /* ContentView.swift */,
+				F8E75ED326A337580000F93F /* Assets.xcassets */,
+				F8E75ED826A337580000F93F /* Info.plist */,
+				F8E75ED526A337580000F93F /* Preview Content */,
+			);
+			path = "Pickleball Pro";
+			sourceTree = "<group>";
+		};
+		F8E75ED526A337580000F93F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75ED626A337580000F93F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F8E75EE026A337590000F93F /* Pickleball ProTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75EE126A337590000F93F /* Pickleball_ProTests.swift */,
+				F8E75EE326A337590000F93F /* Info.plist */,
+			);
+			path = "Pickleball ProTests";
+			sourceTree = "<group>";
+		};
+		F8E75EEB26A337590000F93F /* Pickleball ProUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75EEC26A337590000F93F /* Pickleball_ProUITests.swift */,
+				F8E75EEE26A337590000F93F /* Info.plist */,
+			);
+			path = "Pickleball ProUITests";
+			sourceTree = "<group>";
+		};
+		F8E75EF526A337590000F93F /* Pickleball Pro WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75EF626A3375A0000F93F /* Assets.xcassets */,
+				F8E75EF826A3375A0000F93F /* Info.plist */,
+			);
+			path = "Pickleball Pro WatchKit App";
+			sourceTree = "<group>";
+		};
+		F8E75F0126A3375B0000F93F /* Pickleball Pro WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75F0226A3375B0000F93F /* Pickleball_ProApp.swift */,
+				F8E75F0426A3375B0000F93F /* ContentView.swift */,
+				F8E75F0626A3375B0000F93F /* NotificationController.swift */,
+				F8E75F0826A3375B0000F93F /* NotificationView.swift */,
+				F8E75F0A26A3375B0000F93F /* ComplicationController.swift */,
+				F8E75F0C26A3375C0000F93F /* Assets.xcassets */,
+				F8E75F1126A3375C0000F93F /* Info.plist */,
+				F8E75F1226A3375C0000F93F /* PushNotificationPayload.apns */,
+				F8E75F0E26A3375C0000F93F /* Preview Content */,
+			);
+			path = "Pickleball Pro WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		F8E75F0E26A3375C0000F93F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75F0F26A3375C0000F93F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F8E75F1A26A3375C0000F93F /* Pickleball Pro WatchKit AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75F1B26A3375C0000F93F /* Pickleball_Pro_WatchKit_AppTests.swift */,
+				F8E75F1D26A3375C0000F93F /* Info.plist */,
+			);
+			path = "Pickleball Pro WatchKit AppTests";
+			sourceTree = "<group>";
+		};
+		F8E75F2526A3375C0000F93F /* Pickleball Pro WatchKit AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75F2626A3375C0000F93F /* Pickleball_Pro_WatchKit_AppUITests.swift */,
+				F8E75F2826A3375C0000F93F /* Info.plist */,
+			);
+			path = "Pickleball Pro WatchKit AppUITests";
+			sourceTree = "<group>";
+		};
+		F8E75F4226A338F10000F93F /* view */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75F4326A339170000F93F /* MatchScoreView.swift */,
+				F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */,
+				F8A4C80026A34486001A6655 /* RoundImageView.swift */,
+				F8A4C80226A3460C001A6655 /* AsyncImage.swift */,
+				F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */,
+				F82DB87A26BB48F00003F7FD /* MatchStatsView.swift */,
+				F82DB87E26BB4E570003F7FD /* StatView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		F8E75F4526A33E8A0000F93F /* model */ = {
+			isa = PBXGroup;
+			children = (
+				F8E75F4626A33E960000F93F /* Match.swift */,
+				F8E75F4826A33EC60000F93F /* Player.swift */,
+				F82DB88026BB4E6E0003F7FD /* Stat.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F8E75ECB26A337570000F93F /* Pickleball Pro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E75F3326A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro" */;
+			buildPhases = (
+				F8E75EC826A337570000F93F /* Sources */,
+				F8E75EC926A337570000F93F /* Frameworks */,
+				F8E75ECA26A337570000F93F /* Resources */,
+				F8E75F3226A3375C0000F93F /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8E75EF426A337590000F93F /* PBXTargetDependency */,
+			);
+			name = "Pickleball Pro";
+			productName = "Pickleball Pro";
+			productReference = F8E75ECC26A337570000F93F /* Pickleball Pro.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F8E75EDC26A337590000F93F /* Pickleball ProTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E75F3626A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball ProTests" */;
+			buildPhases = (
+				F8E75ED926A337590000F93F /* Sources */,
+				F8E75EDA26A337590000F93F /* Frameworks */,
+				F8E75EDB26A337590000F93F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8E75EDF26A337590000F93F /* PBXTargetDependency */,
+			);
+			name = "Pickleball ProTests";
+			productName = "Pickleball ProTests";
+			productReference = F8E75EDD26A337590000F93F /* Pickleball ProTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F8E75EE726A337590000F93F /* Pickleball ProUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E75F3926A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball ProUITests" */;
+			buildPhases = (
+				F8E75EE426A337590000F93F /* Sources */,
+				F8E75EE526A337590000F93F /* Frameworks */,
+				F8E75EE626A337590000F93F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8E75EEA26A337590000F93F /* PBXTargetDependency */,
+			);
+			name = "Pickleball ProUITests";
+			productName = "Pickleball ProUITests";
+			productReference = F8E75EE826A337590000F93F /* Pickleball ProUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		F8E75EF026A337590000F93F /* Pickleball Pro WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E75F2F26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit App" */;
+			buildPhases = (
+				F8E75EEF26A337590000F93F /* Resources */,
+				F8E75F2E26A3375C0000F93F /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8E75F0026A3375B0000F93F /* PBXTargetDependency */,
+			);
+			name = "Pickleball Pro WatchKit App";
+			productName = "Pickleball Pro WatchKit App";
+			productReference = F8E75EF126A337590000F93F /* Pickleball Pro WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		F8E75EFC26A3375B0000F93F /* Pickleball Pro WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E75F2B26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit Extension" */;
+			buildPhases = (
+				F8E75EF926A3375B0000F93F /* Sources */,
+				F8E75EFA26A3375B0000F93F /* Frameworks */,
+				F8E75EFB26A3375B0000F93F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pickleball Pro WatchKit Extension";
+			productName = "Pickleball Pro WatchKit Extension";
+			productReference = F8E75EFD26A3375B0000F93F /* Pickleball Pro WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+		F8E75F1626A3375C0000F93F /* Pickleball Pro WatchKit AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E75F3C26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit AppTests" */;
+			buildPhases = (
+				F8E75F1326A3375C0000F93F /* Sources */,
+				F8E75F1426A3375C0000F93F /* Frameworks */,
+				F8E75F1526A3375C0000F93F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8E75F1926A3375C0000F93F /* PBXTargetDependency */,
+			);
+			name = "Pickleball Pro WatchKit AppTests";
+			productName = "Pickleball Pro WatchKit AppTests";
+			productReference = F8E75F1726A3375C0000F93F /* Pickleball Pro WatchKit AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F8E75F2126A3375C0000F93F /* Pickleball Pro WatchKit AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8E75F3F26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit AppUITests" */;
+			buildPhases = (
+				F8E75F1E26A3375C0000F93F /* Sources */,
+				F8E75F1F26A3375C0000F93F /* Frameworks */,
+				F8E75F2026A3375C0000F93F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F8E75F2426A3375C0000F93F /* PBXTargetDependency */,
+			);
+			name = "Pickleball Pro WatchKit AppUITests";
+			productName = "Pickleball Pro WatchKit AppUITests";
+			productReference = F8E75F2226A3375C0000F93F /* Pickleball Pro WatchKit AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F8E75EC426A337570000F93F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					F8E75ECB26A337570000F93F = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					F8E75EDC26A337590000F93F = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = F8E75ECB26A337570000F93F;
+					};
+					F8E75EE726A337590000F93F = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = F8E75ECB26A337570000F93F;
+					};
+					F8E75EF026A337590000F93F = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					F8E75EFC26A3375B0000F93F = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					F8E75F1626A3375C0000F93F = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = F8E75EFC26A3375B0000F93F;
+					};
+					F8E75F2126A3375C0000F93F = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = F8E75EF026A337590000F93F;
+					};
+				};
+			};
+			buildConfigurationList = F8E75EC726A337570000F93F /* Build configuration list for PBXProject "Pickleball Pro" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F8E75EC326A337570000F93F;
+			productRefGroup = F8E75ECD26A337570000F93F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F8E75ECB26A337570000F93F /* Pickleball Pro */,
+				F8E75EDC26A337590000F93F /* Pickleball ProTests */,
+				F8E75EE726A337590000F93F /* Pickleball ProUITests */,
+				F8E75EF026A337590000F93F /* Pickleball Pro WatchKit App */,
+				F8E75EFC26A3375B0000F93F /* Pickleball Pro WatchKit Extension */,
+				F8E75F1626A3375C0000F93F /* Pickleball Pro WatchKit AppTests */,
+				F8E75F2126A3375C0000F93F /* Pickleball Pro WatchKit AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F8E75ECA26A337570000F93F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E75ED726A337580000F93F /* Preview Assets.xcassets in Resources */,
+				F8E75ED426A337580000F93F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EDB26A337590000F93F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EE626A337590000F93F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EEF26A337590000F93F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E75EF726A3375A0000F93F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EFB26A3375B0000F93F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E75F1026A3375C0000F93F /* Preview Assets.xcassets in Resources */,
+				F8E75F0D26A3375C0000F93F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75F1526A3375C0000F93F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75F2026A3375C0000F93F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F8E75EC826A337570000F93F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F82DB87F26BB4E570003F7FD /* StatView.swift in Sources */,
+				F8A4C80326A3460C001A6655 /* AsyncImage.swift in Sources */,
+				F8E75ED226A337570000F93F /* ContentView.swift in Sources */,
+				F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */,
+				F82DB87B26BB48F00003F7FD /* MatchStatsView.swift in Sources */,
+				F8E75F4426A339170000F93F /* MatchScoreView.swift in Sources */,
+				F8E75F4926A33EC60000F93F /* Player.swift in Sources */,
+				F8E75F4726A33E960000F93F /* Match.swift in Sources */,
+				F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */,
+				F82DB88126BB4E6E0003F7FD /* Stat.swift in Sources */,
+				F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */,
+				F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75ED926A337590000F93F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E75EE226A337590000F93F /* Pickleball_ProTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EE426A337590000F93F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E75EED26A337590000F93F /* Pickleball_ProUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75EF926A3375B0000F93F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E75F0726A3375B0000F93F /* NotificationController.swift in Sources */,
+				F8E75F0526A3375B0000F93F /* ContentView.swift in Sources */,
+				F8E75F0B26A3375B0000F93F /* ComplicationController.swift in Sources */,
+				F8E75F0326A3375B0000F93F /* Pickleball_ProApp.swift in Sources */,
+				F8E75F0926A3375B0000F93F /* NotificationView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75F1326A3375C0000F93F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E75F1C26A3375C0000F93F /* Pickleball_Pro_WatchKit_AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8E75F1E26A3375C0000F93F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8E75F2726A3375C0000F93F /* Pickleball_Pro_WatchKit_AppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F8E75EDF26A337590000F93F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8E75ECB26A337570000F93F /* Pickleball Pro */;
+			targetProxy = F8E75EDE26A337590000F93F /* PBXContainerItemProxy */;
+		};
+		F8E75EEA26A337590000F93F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8E75ECB26A337570000F93F /* Pickleball Pro */;
+			targetProxy = F8E75EE926A337590000F93F /* PBXContainerItemProxy */;
+		};
+		F8E75EF426A337590000F93F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8E75EF026A337590000F93F /* Pickleball Pro WatchKit App */;
+			targetProxy = F8E75EF326A337590000F93F /* PBXContainerItemProxy */;
+		};
+		F8E75F0026A3375B0000F93F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8E75EFC26A3375B0000F93F /* Pickleball Pro WatchKit Extension */;
+			targetProxy = F8E75EFF26A3375B0000F93F /* PBXContainerItemProxy */;
+		};
+		F8E75F1926A3375C0000F93F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8E75EFC26A3375B0000F93F /* Pickleball Pro WatchKit Extension */;
+			targetProxy = F8E75F1826A3375C0000F93F /* PBXContainerItemProxy */;
+		};
+		F8E75F2426A3375C0000F93F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F8E75EF026A337590000F93F /* Pickleball Pro WatchKit App */;
+			targetProxy = F8E75F2326A3375C0000F93F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F8E75F2926A3375C0000F93F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F8E75F2A26A3375C0000F93F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		F8E75F2C26A3375C0000F93F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro WatchKit Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Pickleball Pro WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Debug;
+		};
+		F8E75F2D26A3375C0000F93F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro WatchKit Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Pickleball Pro WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Release;
+		};
+		F8E75F3026A3375C0000F93F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				IBSC_MODULE = Pickleball_Pro_WatchKit_Extension;
+				INFOPLIST_FILE = "Pickleball Pro WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Debug;
+		};
+		F8E75F3126A3375C0000F93F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				IBSC_MODULE = Pickleball_Pro_WatchKit_Extension;
+				INFOPLIST_FILE = "Pickleball Pro WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Release;
+		};
+		F8E75F3426A3375C0000F93F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Pickleball Pro/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F8E75F3526A3375C0000F93F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Pickleball Pro/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F8E75F3726A3375C0000F93F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				INFOPLIST_FILE = "Pickleball ProTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-ProTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pickleball Pro.app/Pickleball Pro";
+			};
+			name = Debug;
+		};
+		F8E75F3826A3375C0000F93F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				INFOPLIST_FILE = "Pickleball ProTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-ProTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pickleball Pro.app/Pickleball Pro";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F8E75F3A26A3375C0000F93F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				INFOPLIST_FILE = "Pickleball ProUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-ProUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Pickleball Pro";
+			};
+			name = Debug;
+		};
+		F8E75F3B26A3375C0000F93F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				INFOPLIST_FILE = "Pickleball ProUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-ProUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Pickleball Pro";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F8E75F3D26A3375C0000F93F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				INFOPLIST_FILE = "Pickleball Pro WatchKit AppTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro-WatchKit-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pickleball Pro WatchKit Extension.appex/Pickleball Pro WatchKit Extension";
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Debug;
+		};
+		F8E75F3E26A3375C0000F93F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				INFOPLIST_FILE = "Pickleball Pro WatchKit AppTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro-WatchKit-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pickleball Pro WatchKit Extension.appex/Pickleball Pro WatchKit Extension";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Release;
+		};
+		F8E75F4026A3375C0000F93F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				INFOPLIST_FILE = "Pickleball Pro WatchKit AppUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro-WatchKit-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Pickleball Pro WatchKit App";
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Debug;
+		};
+		F8E75F4126A3375C0000F93F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				INFOPLIST_FILE = "Pickleball Pro WatchKit AppUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro-WatchKit-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Pickleball Pro WatchKit App";
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 7.4;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F8E75EC726A337570000F93F /* Build configuration list for PBXProject "Pickleball Pro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E75F2926A3375C0000F93F /* Debug */,
+				F8E75F2A26A3375C0000F93F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E75F2B26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E75F2C26A3375C0000F93F /* Debug */,
+				F8E75F2D26A3375C0000F93F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E75F2F26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E75F3026A3375C0000F93F /* Debug */,
+				F8E75F3126A3375C0000F93F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E75F3326A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E75F3426A3375C0000F93F /* Debug */,
+				F8E75F3526A3375C0000F93F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E75F3626A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball ProTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E75F3726A3375C0000F93F /* Debug */,
+				F8E75F3826A3375C0000F93F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E75F3926A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball ProUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E75F3A26A3375C0000F93F /* Debug */,
+				F8E75F3B26A3375C0000F93F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E75F3C26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E75F3D26A3375C0000F93F /* Debug */,
+				F8E75F3E26A3375C0000F93F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8E75F3F26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8E75F4026A3375C0000F93F /* Debug */,
+				F8E75F4126A3375C0000F93F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F8E75EC426A337570000F93F /* Project object */;
+}
