@@ -7,18 +7,19 @@
 
 import Foundation
 
-struct Match {
-    let id: String 
+struct Match: Hashable {
+    let id: String
+    let date: Date
     let team1: [Player]
     let team2: [Player]
-    let scores: [(Int, Int)]
+    let scores: [GameScore]
     let stats: [Stat]
     
     var team1Scores: [Int] {
-        scores.map { $0.0 }
+        scores.map { $0.team1Score }
     }
     var team2Scores: [Int] {
-        scores.map { $0.1 }
+        scores.map { $0.team2Score }
     }
     
     func statGroupings(gameIndex: Int? = nil) -> [Stat.Grouping] {
@@ -45,6 +46,15 @@ struct Match {
             grouping("Backhand Errors") { $0.category == .backhand && $0.result == .error },
         ]
     }
+    
+    static func == (lhs: Match, rhs: Match) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+struct GameScore: Hashable {
+    let team1Score: Int
+    let team2Score: Int
 }
 
 #if DEBUG
@@ -52,14 +62,16 @@ struct Match {
 extension Match {
     static let doubles = Match(
         id: "1",
+        date: Date(),
         team1: [Player.eric, Player.jessica],
         team2: [Player.bryan, Player.bob],
         scores: [
-            (6, 10),
-            (10, 7),
-            (4, 10),
+            GameScore(team1Score: 6, team2Score: 10),
+            GameScore(team1Score: 10, team2Score: 7),
+            GameScore(team1Score: 4, team2Score: 10),
         ],
         stats: [
+            // GAME 1
             // 0-0 Eric serving
             Stat.ace(playerId: Player.eric.id),
             // 1-0
@@ -103,15 +115,100 @@ extension Match {
             // 6-9
             Stat.stat(playerId: Player.eric.id, result: .error, category: .backhand, type: .dink),
             // 6-10
-            Stat.stat(playerId: Player.eric.id, result: .error, category: .backhand, type: .dink),
             
-            // NEXT SET
-            
+            // GAME 2
             // 0-0 Jessica serving
-            Stat.stat(playerId: Player.bob.id, gameIndex: 1, result: .error, category: .forehand, type: .volley)
+            Stat.stat(playerId: Player.bob.id, gameIndex: 1, result: .error, category: .forehand, type: .volley),
             // 1-0
-            // ...
+            Stat.stat(playerId: Player.bryan.id, gameIndex: 1, result: .winner, category: .forehand, type: .lob),
+            // 1-0 Bryan serving
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 1),
+            // 1-1
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 1),
+            // 1-2
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 1),
+            // 1-3
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 1),
+            // 1-4
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 1),
+            // 1-5
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 1),
+            // 1-6
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 1),
+            // 1-7
+            Stat.fault(playerId: Player.bryan.id, gameIndex: 1),
+            // 1-7 Bob serving
+            Stat.fault(playerId: Player.bob.id, gameIndex: 1),
+            // 1-7 Jessica serving
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 2-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 3-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 4-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 5-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 6-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 7-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 8-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 9-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, result: .winner, category: .forehand, type: .dink),
+            // 10-7
+            
+            // GAME 3
+            // 0-0 Jessica serving
+            Stat.stat(playerId: Player.bob.id, gameIndex: 2, result: .error, category: .forehand, type: .volley),
+            // 1-0
+            Stat.stat(playerId: Player.bryan.id, gameIndex: 2, result: .winner, category: .forehand, type: .lob),
+            // 1-0 Bryan serving
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-1
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-2
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-3
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-4
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-5
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-6
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-7
+            Stat.fault(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-7 Bob serving
+            Stat.fault(playerId: Player.bob.id, gameIndex: 2),
+            // 1-7 Jessica serving
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, result: .winner, category: .forehand, type: .dink),
+            // 2-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, result: .winner, category: .forehand, type: .dink),
+            // 3-7
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, result: .winner, category: .forehand, type: .dink),
+            // 4-7
+            Stat.stat(playerId: Player.eric.id, gameIndex: 2, result: .error, category: .backhand, type: .drive),
+            // 4-7 Eric serving
+            Stat.stat(playerId: Player.eric.id, gameIndex: 2, result: .error, category: .backhand, type: .drive),
+            // 4-7 Bryan serving
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 4-8
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 4-9
+            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 4-10
         ]
+    )
+    
+    static let singles = Match(
+        id: "2",
+        date: Date(),
+        team1: [Player.eric],
+        team2: [Player.bryan],
+        scores: [GameScore(team1Score: 10, team2Score: 2)],
+        stats: []
     )
 }
 

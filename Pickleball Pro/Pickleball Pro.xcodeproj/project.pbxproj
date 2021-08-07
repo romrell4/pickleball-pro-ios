@@ -11,6 +11,8 @@
 		F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */; };
 		F82DB87F26BB4E570003F7FD /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87E26BB4E570003F7FD /* StatView.swift */; };
 		F82DB88126BB4E6E0003F7FD /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88026BB4E6E0003F7FD /* Stat.swift */; };
+		F82DB88326BCF6710003F7FD /* MatchHistoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88226BCF6710003F7FD /* MatchHistoryListView.swift */; };
+		F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */; };
 		F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80026A34486001A6655 /* RoundImageView.swift */; };
 		F8A4C80326A3460C001A6655 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80226A3460C001A6655 /* AsyncImage.swift */; };
 		F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */; };
@@ -112,6 +114,8 @@
 		F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
 		F82DB87E26BB4E570003F7FD /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
 		F82DB88026BB4E6E0003F7FD /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
+		F82DB88226BCF6710003F7FD /* MatchHistoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchHistoryListView.swift; sourceTree = "<group>"; };
+		F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSummaryView.swift; sourceTree = "<group>"; };
 		F8A4C80026A34486001A6655 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		F8A4C80226A3460C001A6655 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedRoundImageViews.swift; sourceTree = "<group>"; };
@@ -326,6 +330,8 @@
 				F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */,
 				F82DB87A26BB48F00003F7FD /* MatchStatsView.swift */,
 				F82DB87E26BB4E570003F7FD /* StatView.swift */,
+				F82DB88226BCF6710003F7FD /* MatchHistoryListView.swift */,
+				F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -599,6 +605,8 @@
 				F8E75F4926A33EC60000F93F /* Player.swift in Sources */,
 				F8E75F4726A33E960000F93F /* Match.swift in Sources */,
 				F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */,
+				F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */,
+				F82DB88326BCF6710003F7FD /* MatchHistoryListView.swift in Sources */,
 				F82DB88126BB4E6E0003F7FD /* Stat.swift in Sources */,
 				F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */,
 				F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */,

@@ -14,9 +14,7 @@ struct MatchStatsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            let filters = [
-                "Match"
-            ] + match.scores.indices.map { "Game \($0 + 1)" }
+            let filters = ["Match"] + match.scores.indices.map { "Game \($0 + 1)" }
             Picker("Game Filter", selection: $gameFilterIndex) {
                 ForEach(filters.indices) { index in
                     Text(filters[index]).tag(index)
@@ -26,7 +24,7 @@ struct MatchStatsView: View {
             .padding(.horizontal)
             .padding(.bottom)
             
-            ForEach(match.statGroupings(gameIndex: gameFilterIndex), id: \.self) {
+            ForEach(match.statGroupings(gameIndex: gameFilterIndex > 0 ? gameFilterIndex - 1 : nil), id: \.self) {
                 StatView(statGrouping: $0)
                     .frame(height: 50)
                     .padding(.horizontal, 8)

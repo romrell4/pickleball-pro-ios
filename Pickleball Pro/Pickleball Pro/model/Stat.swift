@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Stat {
+struct Stat: Hashable {
     let id: String
     let playerId: String
     let matchId: String
