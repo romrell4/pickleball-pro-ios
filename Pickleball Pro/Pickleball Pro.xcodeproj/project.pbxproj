@@ -16,6 +16,10 @@
 		F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80026A34486001A6655 /* RoundImageView.swift */; };
 		F8A4C80326A3460C001A6655 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80226A3460C001A6655 /* AsyncImage.swift */; };
 		F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */; };
+		F8B484B626BF83F700EE3E53 /* StatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484B526BF83F700EE3E53 /* StatTracker.swift */; };
+		F8B484B926BF8A8F00EE3E53 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484B826BF8A8F00EE3E53 /* ModalView.swift */; };
+		F8B484BC26C0408000EE3E53 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484BB26C0408000EE3E53 /* Extensions.swift */; };
+		F8B484BE26C042E200EE3E53 /* MatchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484BD26C042E200EE3E53 /* MatchTest.swift */; };
 		F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */; };
 		F8E75ED226A337570000F93F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ED126A337570000F93F /* ContentView.swift */; };
 		F8E75ED426A337580000F93F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75ED326A337580000F93F /* Assets.xcassets */; };
@@ -119,6 +123,10 @@
 		F8A4C80026A34486001A6655 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		F8A4C80226A3460C001A6655 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedRoundImageViews.swift; sourceTree = "<group>"; };
+		F8B484B526BF83F700EE3E53 /* StatTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTracker.swift; sourceTree = "<group>"; };
+		F8B484B826BF8A8F00EE3E53 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		F8B484BB26C0408000EE3E53 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F8B484BD26C042E200EE3E53 /* MatchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchTest.swift; sourceTree = "<group>"; };
 		F8E75ECC26A337570000F93F /* Pickleball Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pickleball Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_ProApp.swift; sourceTree = "<group>"; };
 		F8E75ED126A337570000F93F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -201,6 +209,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F8B484B726BF8A8300EE3E53 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				F8B484B826BF8A8F00EE3E53 /* ModalView.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		F8B484BA26C0407300EE3E53 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				F8B484BB26C0408000EE3E53 /* Extensions.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 		F8E75EC326A337570000F93F = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +256,7 @@
 		F8E75ECE26A337570000F93F /* Pickleball Pro */ = {
 			isa = PBXGroup;
 			children = (
+				F8B484BA26C0407300EE3E53 /* utils */,
 				F8E75F4526A33E8A0000F93F /* model */,
 				F8E75F4226A338F10000F93F /* view */,
 				F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */,
@@ -255,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				F8E75EE126A337590000F93F /* Pickleball_ProTests.swift */,
+				F8B484BD26C042E200EE3E53 /* MatchTest.swift */,
 				F8E75EE326A337590000F93F /* Info.plist */,
 			);
 			path = "Pickleball ProTests";
@@ -323,6 +349,7 @@
 		F8E75F4226A338F10000F93F /* view */ = {
 			isa = PBXGroup;
 			children = (
+				F8B484B726BF8A8300EE3E53 /* utils */,
 				F8E75F4326A339170000F93F /* MatchScoreView.swift */,
 				F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */,
 				F8A4C80026A34486001A6655 /* RoundImageView.swift */,
@@ -332,6 +359,7 @@
 				F82DB87E26BB4E570003F7FD /* StatView.swift */,
 				F82DB88226BCF6710003F7FD /* MatchHistoryListView.swift */,
 				F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */,
+				F8B484B526BF83F700EE3E53 /* StatTracker.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -598,8 +626,10 @@
 			files = (
 				F82DB87F26BB4E570003F7FD /* StatView.swift in Sources */,
 				F8A4C80326A3460C001A6655 /* AsyncImage.swift in Sources */,
+				F8B484B926BF8A8F00EE3E53 /* ModalView.swift in Sources */,
 				F8E75ED226A337570000F93F /* ContentView.swift in Sources */,
 				F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */,
+				F8B484B626BF83F700EE3E53 /* StatTracker.swift in Sources */,
 				F82DB87B26BB48F00003F7FD /* MatchStatsView.swift in Sources */,
 				F8E75F4426A339170000F93F /* MatchScoreView.swift in Sources */,
 				F8E75F4926A33EC60000F93F /* Player.swift in Sources */,
@@ -608,6 +638,7 @@
 				F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */,
 				F82DB88326BCF6710003F7FD /* MatchHistoryListView.swift in Sources */,
 				F82DB88126BB4E6E0003F7FD /* Stat.swift in Sources */,
+				F8B484BC26C0408000EE3E53 /* Extensions.swift in Sources */,
 				F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */,
 				F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */,
 			);
@@ -618,6 +649,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8E75EE226A337590000F93F /* Pickleball_ProTests.swift in Sources */,
+				F8B484BE26C042E200EE3E53 /* MatchTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

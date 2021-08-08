@@ -13,12 +13,9 @@ struct MatchHistoryListView: View {
     var body: some View {
         NavigationView {
             List(matches, id: \.self) { match in
-//                GroupBox {
                 NavigationLink(destination: MatchDetailView(match: match)) {
                     MatchSummaryView(match: match)
                 }
-//                }.buttonStyle(PlainButtonStyle())
-                
             }
             .navigationTitle("Match History")
             .navigationBarTitleDisplayMode(.inline)

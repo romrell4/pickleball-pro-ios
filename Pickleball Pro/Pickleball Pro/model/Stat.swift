@@ -12,47 +12,40 @@ struct Stat: Hashable {
     let playerId: String
     let matchId: String
     let gameIndex: Int
-    let result: Result
-    let category: ShotCategory
     let type: ShotType
+    let result: Result
+    var category: ShotCategory? = nil
     
-    enum Result {
-        case winner
-        case error
-    }
-    
-    enum ShotCategory {
+    enum ShotType: String, CaseIterable {
         case serve
-        case forehand
-        case backhand
-    }
-    
-    enum ShotType: String {
-        case ace
-        case fault
         case drop
         case dink
         case drive
-        case serviceReturn
         case volley
         case lob
         case overhead
         
-        var singularValue: String {
-            let value: String
+        var trackingOrder: Int {
             switch self {
-            case .serviceReturn: value = "return"
-            default: value = self.rawValue
-            }
-            return value.capitalized
-        }
-        
-        var pluralValue: String {
-            switch self {
-            case .volley: return "Vollies"
-            default: return self.singularValue.appending("s")
+            case .drop: return 1
+            case .dink: return 2
+            case .drive: return 3
+            case .volley: return 4
+            case .lob: return 5
+            case .overhead: return 6
+            case .serve: return 7
             }
         }
+    }
+    
+    enum Result: CaseIterable {
+        case winner
+        case error
+    }
+    
+    enum ShotCategory: CaseIterable {
+        case forehand
+        case backhand
     }
     
     struct Grouping: Hashable {
@@ -66,11 +59,11 @@ struct Stat: Hashable {
 
 extension Stat {
     static func ace(id: String = "", playerId: String = "", matchId: String = "", gameIndex: Int = 0) -> Stat {
-        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, result: .winner, category: .serve, type: .ace)
+        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, type: .serve, result: .winner)
     }
     
     static func fault(id: String = "", playerId: String = "", matchId: String = "", gameIndex: Int = 0) -> Stat {
-        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, result: .error, category: .serve, type: .fault)
+        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, type: .serve, result: .error)
     }
     
     static func stat(
@@ -78,11 +71,11 @@ extension Stat {
         playerId: String = "",
         matchId: String = "",
         gameIndex: Int = 0,
+        type: ShotType = .serve,
         result: Result = .winner,
-        category: ShotCategory = .serve,
-        type: ShotType = .ace
+        category: ShotCategory? = nil
     ) -> Stat {
-        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, result: result, category: category, type: type)
+        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, type: type, result: result, category: category)
     }
 }
 

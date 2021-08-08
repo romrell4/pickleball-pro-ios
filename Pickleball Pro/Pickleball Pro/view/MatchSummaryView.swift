@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-let DATE_FORMAT: DateFormatter = {
+private let DATE_FORMAT: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
     return formatter

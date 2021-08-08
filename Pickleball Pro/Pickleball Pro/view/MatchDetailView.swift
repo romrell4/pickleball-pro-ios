@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+private let DATE_FORMAT: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    return formatter
+}()
+
 struct MatchDetailView: View {
     let match: Match
     
@@ -16,6 +22,7 @@ struct MatchDetailView: View {
             MatchStatsView(match: match).padding()
             Spacer()
         }
+        .navigationTitle(DATE_FORMAT.string(from: match.date))
     }
 }
 

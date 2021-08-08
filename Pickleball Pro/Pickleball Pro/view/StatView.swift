@@ -50,11 +50,11 @@ struct StatView: View {
             }
             
             HStack(spacing: 0) {
-                Text("\(statGrouping.team1Amount)")
+                Text("\(statGrouping.team1Amount)").font(.caption)
                 Spacer()
-                Text(statGrouping.label)
+                Text(statGrouping.label).font(.caption)
                 Spacer()
-                Text("\(statGrouping.team2Amount)")
+                Text("\(statGrouping.team2Amount)").font(.caption)
             }
         }
     }
@@ -83,7 +83,7 @@ struct StatView_Previews: PreviewProvider {
                 team2Amount: 9
             )
         )
-        .frame(height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .frame(height: 35)
         .padding()
     }
 }
