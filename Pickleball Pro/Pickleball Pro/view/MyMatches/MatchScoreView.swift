@@ -11,7 +11,6 @@ struct MatchScoreView: View {
     let match: Match
     
     var body: some View {
-//        GroupBox {
         VStack {
             IndividualScoreView(
                 players: match.team1,

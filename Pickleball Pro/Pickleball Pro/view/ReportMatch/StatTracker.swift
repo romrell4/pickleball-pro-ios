@@ -14,8 +14,6 @@ struct StatTracker: View {
     
     var body: some View {
         VStack {
-            Text("How did the point end?")
-            
             let types = Stat.ShotType.allCases.sorted {
                 $0.trackingOrder < $1.trackingOrder
             }

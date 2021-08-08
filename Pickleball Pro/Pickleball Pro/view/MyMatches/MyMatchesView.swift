@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct MatchHistoryListView: View {
-    let matches: [Match]
+struct MyMatchesView: View {
+    // TODO: Create viewmodel
+    let matches: [Match] = [Match.doubles, Match.singles]
     
     var body: some View {
         NavigationView {
@@ -25,6 +26,6 @@ struct MatchHistoryListView: View {
 
 struct MatchHistoryListView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchHistoryListView(matches: [Match.doubles, Match.singles])
+        MyMatchesView()
     }
 }

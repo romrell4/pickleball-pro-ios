@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        MatchHistoryListView(matches: [Match.doubles, Match.singles])
+        MainTabView()
     }
 }
 
