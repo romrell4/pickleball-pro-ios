@@ -36,6 +36,20 @@ struct Stat: Hashable {
             case .serve: return 7
             }
         }
+        
+        var winnersLabel: String {
+            switch self {
+            case .serve: return "Aces"
+            default: return "\(self.rawValue.capitalized) Winners"
+            }
+        }
+        
+        var errorsLabel: String {
+            switch self {
+            case .serve: return "Faults"
+            default: return "\(self.rawValue.capitalized) Errors"
+            }
+        }
     }
     
     enum Result: CaseIterable {

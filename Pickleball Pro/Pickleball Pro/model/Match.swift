@@ -48,8 +48,8 @@ struct Match: Hashable {
         
         return Stat.ShotType.allCases.flatMap { type in
             [
-                grouping("\(type.rawValue.capitalized) Winners") { $0.type == type && $0.result == .winner },
-                grouping("\(type.rawValue.capitalized) Errors") { $0.type == type && $0.result == .error },
+                grouping(type.winnersLabel) { $0.type == type && $0.result == .winner },
+                grouping(type.errorsLabel) { $0.type == type && $0.result == .error },
             ]
         }
     }

@@ -127,6 +127,7 @@ struct MatchStatsView: View {
                         .frame(height: 35)
                         .padding(.horizontal, 8)
                 }
+                .padding()
             }
         }
     }

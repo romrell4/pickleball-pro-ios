@@ -19,7 +19,7 @@ struct MatchDetailView: View {
     var body: some View {
         VStack(spacing: 0) {
             MatchScoreView(match: match).padding()
-            MatchStatsView(match: match).padding()
+            MatchStatsView(match: match)
             Spacer()
         }
         .navigationTitle(DATE_FORMAT.string(from: match.date))
