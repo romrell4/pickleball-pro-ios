@@ -7,16 +7,24 @@
 
 import Foundation
 
-struct Stat: Hashable {
+struct Stat: Identifiable, Codable {
     let id: String
     let playerId: String
     let matchId: String
     let gameIndex: Int
     let type: ShotType
     let result: Result
-    var category: ShotCategory? = nil
+    var side: ShotSide? = nil
     
-    enum ShotType: String, CaseIterable {
+    var shot: Shot { Shot(type: type, result: result, side: side) }
+    
+    struct Shot {
+        let type: ShotType
+        let result: Result
+        let side: ShotSide?
+    }
+    
+    enum ShotType: String, CaseIterable, Codable {
         case serve
         case drop
         case dink
@@ -52,12 +60,12 @@ struct Stat: Hashable {
         }
     }
     
-    enum Result: CaseIterable {
+    enum Result: String, CaseIterable, Codable {
         case winner
         case error
     }
     
-    enum ShotCategory: CaseIterable {
+    enum ShotSide: String, CaseIterable, Codable {
         case forehand
         case backhand
     }
@@ -87,9 +95,9 @@ extension Stat {
         gameIndex: Int = 0,
         type: ShotType = .serve,
         result: Result = .winner,
-        category: ShotCategory? = nil
+        side: ShotSide? = nil
     ) -> Stat {
-        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, type: type, result: result, category: category)
+        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, type: type, result: result, side: side)
     }
 }
 
