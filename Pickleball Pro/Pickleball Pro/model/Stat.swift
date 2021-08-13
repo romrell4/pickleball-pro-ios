@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Stat: Identifiable, Codable {
+struct Stat: Identifiable, Hashable, Codable {
     let id: String
     let playerId: String
     let matchId: String
@@ -72,8 +72,29 @@ struct Stat: Identifiable, Codable {
     
     struct Grouping: Hashable {
         let label: String
-        let team1Amount: Int
-        let team2Amount: Int
+        let team1Stats: [Stat]
+        let team2Stats: [Stat]
+        let hasChildren: Bool
+        
+        var team1Amount: Int { team1Stats.count }
+        var team2Amount: Int { team2Stats.count }
+        
+        var forehandGrouping: Stat.Grouping {
+            Stat.Grouping(
+                label: "Forehands",
+                team1Stats: team1Stats.filter { $0.side == .forehand },
+                team2Stats: team2Stats.filter { $0.side == .forehand },
+                hasChildren: false
+            )
+        }
+        var backhandGrouping: Stat.Grouping {
+            Stat.Grouping(
+                label: "Backhands",
+                team1Stats: team1Stats.filter { $0.side == .backhand },
+                team2Stats: team2Stats.filter { $0.side == .backhand },
+                hasChildren: false
+            )
+        }
     }
 }
 

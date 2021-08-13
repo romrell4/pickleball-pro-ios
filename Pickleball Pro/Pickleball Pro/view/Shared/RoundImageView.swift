@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct RoundImageView: View {
     let url: String
     
     var body: some View {
-        AsyncImage(url: url)
+        WebImage(url: URL(string: url))
+            .resizable()
+            .indicator { isLoading, _ in ActivityIndicator(isLoading) }
             .clipShape(Circle())
     }
 }

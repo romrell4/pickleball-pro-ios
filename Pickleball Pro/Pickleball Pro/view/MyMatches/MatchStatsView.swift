@@ -116,18 +116,18 @@ struct MatchStatsView: View {
             }
             
             ScrollView {
-                ForEach(
-                    match.statGroupings(
-                        gameIndex: gameFilterIndex > 0 ? gameFilterIndex - 1 : nil,
-                        playerIds: playersBeingCompared?.map { $0.id }
-                    ),
-                    id: \.self
-                ) {
-                    StatView(statGrouping: $0)
-                        .frame(height: 35)
-                        .padding(.horizontal, 8)
+                VStack(spacing: 0) {
+                    ForEach(
+                        match.statGroupings(
+                            gameIndex: gameFilterIndex > 0 ? gameFilterIndex - 1 : nil,
+                            playerIds: playersBeingCompared?.map { $0.id }
+                        ),
+                        id: \.self
+                    ) {
+                        ParentStatView(statGrouping: $0)
+                            .padding(.vertical, 4)
+                    }
                 }
-                .padding()
             }
         }
     }

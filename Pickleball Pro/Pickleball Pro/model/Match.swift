@@ -42,14 +42,14 @@ struct Match: Identifiable, Codable {
         let team1Stats = groupedStats[true] ?? []
         let team2Stats = groupedStats[false] ?? []
         
-        func grouping(_ label: String, predicate: (Stat) -> Bool) -> Stat.Grouping {
-            return Stat.Grouping(label: label, team1Amount: team1Stats.filter(predicate).count, team2Amount: team2Stats.filter(predicate).count)
+        func grouping(_ label: String, hasChildren: Bool, predicate: (Stat) -> Bool) -> Stat.Grouping {
+            return Stat.Grouping(label: label, team1Stats: team1Stats.filter(predicate), team2Stats: team2Stats.filter(predicate), hasChildren: hasChildren)
         }
         
         return Stat.ShotType.allCases.flatMap { type in
             [
-                grouping(type.winnersLabel) { $0.type == type && $0.result == .winner },
-                grouping(type.errorsLabel) { $0.type == type && $0.result == .error },
+                grouping(type.winnersLabel, hasChildren: type != .serve) { $0.type == type && $0.result == .winner },
+                grouping(type.errorsLabel, hasChildren: type != .serve) { $0.type == type && $0.result == .error },
             ]
         }
     }
@@ -59,7 +59,7 @@ struct Match: Identifiable, Codable {
     }
 }
 
-struct GameScore: Codable {
+struct GameScore: Codable, Hashable {
     let team1Score: Int
     let team2Score: Int
 }

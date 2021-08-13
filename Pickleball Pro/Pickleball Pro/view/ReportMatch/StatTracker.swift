@@ -7,25 +7,6 @@
 
 import SwiftUI
 
-struct Test: View {
-    @State private var index = 0
-    
-    private let values = ["1", "2", "3", "4", "5"]
-    
-    var body: some View {
-        VStack {
-            Picker("Shot Type", selection: $index) {
-                ForEach(values.indices, id: \.self) { index in
-                    Text(values[index]).tag(index)
-                }
-            }
-        }
-        .frame(width: 200)
-        .background(Color.white)
-        .padding(.horizontal)
-    }
-}
-
 struct StatTracker: View {
     @Binding var shot: Stat.Shot? {
         didSet {

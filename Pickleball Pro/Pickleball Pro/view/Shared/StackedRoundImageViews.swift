@@ -30,8 +30,8 @@ struct StackedRoundImageViews_Previews: PreviewProvider {
     static var previews: some View {
         StackedRoundImageViews(
             size: 80,
-            url1: "https://lh3.googleusercontent.com/ogw/ADea4I51Dnoag6xwuUR6Q7thxOqlFzy8DhsWt61NfF_4dqc=s192-c-mo",
-            url2: "https://lh3.googleusercontent.com/ogw/ADea4I51Dnoag6xwuUR6Q7thxOqlFzy8DhsWt61NfF_4dqc=s192-c-mo"
+            url1: Player.eric.imageUrl,
+            url2: Player.jessica.imageUrl
         )
     }
 }
