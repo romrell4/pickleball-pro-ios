@@ -69,8 +69,7 @@ struct EnterMatchScoreView: View {
                             }
                     }
                 }
-                
-            }
+            }.padding(.bottom, 8)
             Button("Save") {
                 if let match = getMatch() {
                     print(match)

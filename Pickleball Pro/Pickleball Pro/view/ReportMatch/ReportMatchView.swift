@@ -14,18 +14,15 @@ struct ReportMatchView: View {
                 Spacer()
                 GroupBox {
                     NavigationLink("Track Live Match", destination: LiveMatchView())
-//                        .padding()
                 }
                 Spacer()
                 Text("or")
                 Spacer()
-                GroupBox {
-                    Text("Enter Completed Match").padding(.bottom, 8)
-                    EnterMatchScoreView()
-                }.padding()
+                Text("Enter Completed Match").padding(.bottom, 8)
+                EnterMatchScoreView()
                 Spacer()
             }
-            .navigationTitle("Report Match")
+            .navigationBarTitle("Report Match")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
@@ -34,5 +31,6 @@ struct ReportMatchView: View {
 struct ReportMatchView_Previews: PreviewProvider {
     static var previews: some View {
         ReportMatchView()
+            .environmentObject(PlayersViewModel())
     }
 }

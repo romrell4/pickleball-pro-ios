@@ -10,7 +10,6 @@ import Foundation
 struct Stat: Identifiable, Hashable, Codable {
     let id: String
     let playerId: String
-    let matchId: String
     let gameIndex: Int
     let type: ShotType
     let result: Result
@@ -101,24 +100,23 @@ struct Stat: Identifiable, Hashable, Codable {
 #if DEBUG
 
 extension Stat {
-    static func ace(id: String = "", playerId: String = "", matchId: String = "", gameIndex: Int = 0) -> Stat {
-        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, type: .serve, result: .winner)
+    static func ace(id: String = "", playerId: String = "", gameIndex: Int = 0) -> Stat {
+        return Stat(id: id, playerId: playerId, gameIndex: gameIndex, type: .serve, result: .winner)
     }
     
-    static func fault(id: String = "", playerId: String = "", matchId: String = "", gameIndex: Int = 0) -> Stat {
-        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, type: .serve, result: .error)
+    static func fault(id: String = "", playerId: String = "", gameIndex: Int = 0) -> Stat {
+        return Stat(id: id, playerId: playerId, gameIndex: gameIndex, type: .serve, result: .error)
     }
     
     static func stat(
         id: String = "",
         playerId: String = "",
-        matchId: String = "",
         gameIndex: Int = 0,
         type: ShotType = .serve,
         result: Result = .winner,
         side: ShotSide? = nil
     ) -> Stat {
-        return Stat(id: id, playerId: playerId, matchId: matchId, gameIndex: gameIndex, type: type, result: result, side: side)
+        return Stat(id: id, playerId: playerId, gameIndex: gameIndex, type: type, result: result, side: side)
     }
 }
 
