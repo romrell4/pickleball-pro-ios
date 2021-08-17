@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct StatTracker: View {
-    @Binding var shot: Stat.Shot? {
-        didSet {
-            if let shot = shot {
-                self.typeIndex = types.firstIndex(of: shot.type) ?? 0
-                self.resultIndex = results.firstIndex(of: shot.result) ?? 0
-                if let side = shot.side {
-                    self.sideIndex = sides.firstIndex(of: side) ?? 0
-                }
+    let onButtonTap: (Stat.Shot?) -> Void
+    
+    init(shot: Stat.Shot? = nil, onButtonTap: @escaping (Stat.Shot?) -> Void) {
+        if let shot = shot {
+            self.typeIndex = types.firstIndex(of: shot.type) ?? 0
+            self.resultIndex = results.firstIndex(of: shot.result) ?? 0
+            if let side = shot.side {
+                self.sideIndex = sides.firstIndex(of: side) ?? 0
             }
         }
+        self.onButtonTap = onButtonTap
     }
-    
-    let onButtonTap: () -> Void
     
     @State private var typeIndex = 0
     @State private var resultIndex = 0
@@ -64,11 +63,10 @@ struct StatTracker: View {
             
             HStack {
                 Button("Save") {
-                    shot = Stat.Shot(type: selectedType, result: selectedResult, side: selectedSide)
-                    onButtonTap()
+                    onButtonTap(Stat.Shot(type: selectedType, result: selectedResult, side: selectedSide))
                 }.padding()
                 Button("Cancel") {
-                    onButtonTap()
+                    onButtonTap(nil)
                 }
                 .foregroundColor(.red)
                 .padding()
@@ -81,7 +79,7 @@ struct StatTracker: View {
 
 struct StatTracker_Previews: PreviewProvider {
     static var previews: some View {
-        StatTracker(shot: .constant(nil)) {
+        StatTracker { _ in
             print("Done")
         }.previewLayout(.sizeThatFits)
     }

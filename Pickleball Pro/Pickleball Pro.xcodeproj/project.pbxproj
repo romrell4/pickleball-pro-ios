@@ -32,7 +32,6 @@
 		F8E75ED226A337570000F93F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ED126A337570000F93F /* ContentView.swift */; };
 		F8E75ED426A337580000F93F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75ED326A337580000F93F /* Assets.xcassets */; };
 		F8E75ED726A337580000F93F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75ED626A337580000F93F /* Preview Assets.xcassets */; };
-		F8E75EE226A337590000F93F /* Pickleball_ProTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75EE126A337590000F93F /* Pickleball_ProTests.swift */; };
 		F8E75EED26A337590000F93F /* Pickleball_ProUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75EEC26A337590000F93F /* Pickleball_ProUITests.swift */; };
 		F8E75EF226A337590000F93F /* Pickleball Pro WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F8E75EF126A337590000F93F /* Pickleball Pro WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F8E75EF726A3375A0000F93F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75EF626A3375A0000F93F /* Assets.xcassets */; };
@@ -150,7 +149,6 @@
 		F8E75ED626A337580000F93F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F8E75ED826A337580000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8E75EDD26A337590000F93F /* Pickleball ProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pickleball ProTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8E75EE126A337590000F93F /* Pickleball_ProTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_ProTests.swift; sourceTree = "<group>"; };
 		F8E75EE326A337590000F93F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8E75EE826A337590000F93F /* Pickleball ProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Pickleball ProUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E75EEC26A337590000F93F /* Pickleball_ProUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_ProUITests.swift; sourceTree = "<group>"; };
@@ -356,7 +354,6 @@
 		F8E75EE026A337590000F93F /* Pickleball ProTests */ = {
 			isa = PBXGroup;
 			children = (
-				F8E75EE126A337590000F93F /* Pickleball_ProTests.swift */,
 				F8B484BD26C042E200EE3E53 /* MatchTest.swift */,
 				F8E75EE326A337590000F93F /* Info.plist */,
 			);
@@ -736,7 +733,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8E75EE226A337590000F93F /* Pickleball_ProTests.swift in Sources */,
 				F8B484BE26C042E200EE3E53 /* MatchTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

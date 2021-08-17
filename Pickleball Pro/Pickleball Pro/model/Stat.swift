@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Stat: Identifiable, Hashable, Codable {
-    let id: String
+struct Stat: Hashable, Codable {
     let playerId: String
     let gameIndex: Int
     let type: ShotType
@@ -100,23 +99,22 @@ struct Stat: Identifiable, Hashable, Codable {
 #if DEBUG
 
 extension Stat {
-    static func ace(id: String = "", playerId: String = "", gameIndex: Int = 0) -> Stat {
-        return Stat(id: id, playerId: playerId, gameIndex: gameIndex, type: .serve, result: .winner)
+    static func ace(playerId: String = "", gameIndex: Int = 0) -> Stat {
+        return Stat(playerId: playerId, gameIndex: gameIndex, type: .serve, result: .winner)
     }
     
-    static func fault(id: String = "", playerId: String = "", gameIndex: Int = 0) -> Stat {
-        return Stat(id: id, playerId: playerId, gameIndex: gameIndex, type: .serve, result: .error)
+    static func fault(playerId: String = "", gameIndex: Int = 0) -> Stat {
+        return Stat(playerId: playerId, gameIndex: gameIndex, type: .serve, result: .error)
     }
     
     static func stat(
-        id: String = "",
         playerId: String = "",
         gameIndex: Int = 0,
         type: ShotType = .serve,
         result: Result = .winner,
         side: ShotSide? = nil
     ) -> Stat {
-        return Stat(id: id, playerId: playerId, gameIndex: gameIndex, type: type, result: result, side: side)
+        return Stat(playerId: playerId, gameIndex: gameIndex, type: type, result: result, side: side)
     }
 }
 
