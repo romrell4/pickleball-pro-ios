@@ -25,10 +25,10 @@ struct LiveMatchView: View {
                     ).padding(.leading, 8).padding(.bottom, 120)
                     
                     VStack(spacing: 0) {
-                        PlayerSideView(modalState: $modalState, players: match.team1, middleSpacers: 1)
+                        PlayerSideView(modalState: $modalState, players: match.team1, isBottomView: false)
                         Image("pickleball_court")
                             .resizable()
-                        PlayerSideView(modalState: $modalState, players: match.team2, middleSpacers: 2)
+                        PlayerSideView(modalState: $modalState, players: match.team2, isBottomView: true)
                     }.padding(.vertical)
                 }
                 switch modalState {
@@ -76,7 +76,7 @@ struct LiveMatchView: View {
 private struct PlayerSideView: View {
     @Binding var modalState: ModalState
     var players: [Player]
-    var middleSpacers: Int
+    var isBottomView: Bool
     
     var body: some View {
         HStack {
@@ -87,7 +87,10 @@ private struct PlayerSideView: View {
                     modalState = .visible(player: players[0])
                 }
             if players.count == 2 {
-                ForEach(0..<middleSpacers) { _ in
+                Spacer()
+                
+                // The players need extra space on the bottom
+                if isBottomView {
                     Spacer()
                 }
                 RoundImageView(url: players[1].imageUrl)
