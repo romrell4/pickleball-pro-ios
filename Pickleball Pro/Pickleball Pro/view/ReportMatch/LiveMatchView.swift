@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    @State private var match: Match = Match(id: "", date: Date(), team1: [Player.eric, Player.jessica], team2: [Player.bryan, Player.bob], scores: [GameScore()], stats: [])
+    @State private var match = LiveMatch(
+        team1: LiveMatchTeam(
+            player1: LiveMatchPlayer(player: Player.eric, servingState: .serving(isFirstServer: false)),
+            player2: LiveMatchPlayer(player: Player.jessica)
+        ),
+        team2: LiveMatchTeam(
+            player1: LiveMatchPlayer(player: Player.bryan),
+            player2: LiveMatchPlayer(player: Player.bob)
+        )
+    )
     @State private var modalState: ModalState = .gone
-    
-    private var currentGameIndex: Int { match.scores.count - 1 }
     
     var body: some View {
         GeometryReader { fullScreen in
@@ -19,35 +26,35 @@ struct LiveMatchView: View {
                 Rectangle()
                     .fill(Color.black.opacity(0.75))
                 HStack(spacing: 4) {
-                    ScoresView(
-                        team1Score: $match.scores[currentGameIndex].team1Score,
-                        team2Score: $match.scores[currentGameIndex].team2Score
-                    ).padding(.leading, 8).padding(.bottom, 120)
+                    VStack {
+                        // TODO: Display previous games?
+                        ScoreView(score: $match.team1.scores[match.currentGameIndex])
+                            .padding(.bottom, 20)
+                        ScoreView(score: $match.team2.scores[match.currentGameIndex])
+                    }.padding(.leading, 8).padding(.bottom, 120)
                     
                     VStack(spacing: 0) {
-                        PlayerSideView(modalState: $modalState, players: match.team1, isBottomView: false)
+                        TeamView(modalState: $modalState, team: match.team1, isBottomView: false)
                         Image("pickleball_court")
                             .resizable()
-                        PlayerSideView(modalState: $modalState, players: match.team2, isBottomView: true)
+                        TeamView(modalState: $modalState, team: match.team2, isBottomView: true)
                     }.padding(.vertical)
                 }
                 switch modalState {
-                case .visible(let player):
+                case .visible(let player, let savedShot):
                     ZStack {
                         Rectangle()
                             .fill(Color.black.opacity(0.25))
                             .onTapGesture {
                                 modalState = .gone
                             }
-                        StatTracker { savedShot in
+                        StatTracker(shot: savedShot) { savedShot in
                             if let shot = savedShot {
-                                match.stats.append(Stat(playerId: player.id, gameIndex: currentGameIndex, type: shot.type, result: shot.result, side: shot.side))
+                                match.pointFinished(with: shot, by: player)
                             }
                             modalState = .gone
                         }
-                        .background(
-                            RoundedRectangle(cornerRadius: 20).fill(Color.white)
-                        )
+                        .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
                     }
                 case .gone: EmptyView()
                 }
@@ -62,7 +69,12 @@ struct LiveMatchView: View {
                         print(match)
                     }
                     Button("Start New Game") {
-                        match.scores.append(GameScore())
+                        match.startNewGame()
+                    }
+                    Button("Edit Last Shot") {
+                        if let stat = match.stats.popLast() {
+                            modalState = .visible(player: match.player(for: stat.playerId), savedShot: stat.shot)
+                        }
                     }
                 }) {
                     Image(systemName: "ellipsis.circle")
@@ -73,59 +85,52 @@ struct LiveMatchView: View {
     }
 }
 
-private struct PlayerSideView: View {
+private struct TeamView: View {
     @Binding var modalState: ModalState
-    var players: [Player]
+    var team: LiveMatchTeam
     var isBottomView: Bool
     
     var body: some View {
         HStack {
             Spacer()
-            RoundImageView(url: players[0].imageUrl)
-                .frame(width: 50, height: 50)
-                .onTapGesture {
-                    modalState = .visible(player: players[0])
-                }
-            if players.count == 2 {
+            PlayerView(modalState: $modalState, player: team.player1)
+            if let player2 = team.player2 {
                 Spacer()
                 
                 // The players need extra space on the bottom
                 if isBottomView {
                     Spacer()
                 }
-                RoundImageView(url: players[1].imageUrl)
-                    .frame(width: 50, height: 50)
-                    .onTapGesture {
-                        modalState = .visible(player: players[0])
-                    }
+                PlayerView(modalState: $modalState, player: player2)
             }
             Spacer()
         }
     }
 }
 
-private struct ScoresView: View {
-    @Binding var team1Score: Int
-    @Binding var team2Score: Int
+private struct PlayerView: View {
+    @Binding var modalState: ModalState
+    var player: LiveMatchPlayer
     
     private let pickleballImage: some View =
         Image("pickleball").resizable().frame(width: 20, height: 20)
     
     var body: some View {
-        VStack {
-            HStack(spacing: 0) {
-                pickleballImage
-                pickleballImage
-            }
-            
-            ScoreView(score: $team1Score)
-                .padding(.bottom, 20)
-            ScoreView(score: $team2Score)
-        
-            
-            HStack(spacing: 0) {
-                pickleballImage
-                pickleballImage
+        HStack(spacing: 4) {
+            RoundImageView(url: player.imageUrl)
+                .frame(width: 50, height: 50)
+                .onTapGesture {
+                    modalState = .visible(player: player)
+                }
+            VStack(spacing: 4) {
+                switch player.servingState {
+                case .serving(let isFirstServer):
+                    pickleballImage
+                    if !isFirstServer {
+                        pickleballImage
+                    }
+                case .notServing: EmptyView()
+                }
             }
         }
     }
@@ -143,9 +148,166 @@ private struct ScoreView: View {
     }
 }
 
-enum ModalState {
-    case visible(player: Player)
+private enum ModalState {
+    case visible(player: LiveMatchPlayer, savedShot: Stat.Shot? = nil)
     case gone
+}
+
+struct LiveMatch {
+    var team1: LiveMatchTeam
+    var team2: LiveMatchTeam
+    var stats: [Stat] = []
+    
+    var allPlayers: [LiveMatchPlayer] { team1.players + team2.players }
+    
+    var isDoubles: Bool { team1.player2 != nil && team2.player2 != nil }
+    
+    var currentGameIndex: Int { team1.scores.count - 1 }
+    
+    var currentServer: LiveMatchPlayer { allPlayers.first { $0.isServing }! }
+    
+    var currentServingTeam: LiveMatchTeam {
+        team1.players.contains(currentServer) ? team1 : team2
+    }
+    
+    func player(for id: String) -> LiveMatchPlayer {
+        allPlayers.first { $0.id == id }!
+    }
+    
+    mutating func startNewGame() {
+        team1.scores.append(0)
+        team2.scores.append(0)
+    }
+    
+    mutating func pointFinished(with shot: Stat.Shot, by player: LiveMatchPlayer) {
+        stats.append(Stat(playerId: player.id, gameIndex: currentGameIndex, type: shot.type, result: shot.result, side: shot.side))
+        
+        let playerTeam = team1.players.contains(player) ? team1 : team2
+        
+        // If it was a winner by the serving team or an error by the receiving team, add a point to the serving team
+        // If it was an error by the serving team or a winner by the receiving team, rotate servers
+        if (shot.result == .winner && playerTeam.isServing) ||
+            (shot.result == .error && !playerTeam.isServing) {
+            if team1.isServing {
+                team1.givePoint()
+            } else {
+                team2.givePoint()
+            }
+        } else if (shot.result == .error && playerTeam.isServing) ||
+                    (shot.result == .winner && !playerTeam.isServing) {
+            rotateServer()
+        }
+    }
+    
+    mutating func rotateServer() {
+        if isDoubles {
+            switch team1.player1.servingState {
+            case .serving(let isFirstServer):
+                if isFirstServer {
+                    team1.player2?.servingState = .serving(isFirstServer: false)
+                } else {
+                    team2.player1.servingState = .serving(isFirstServer: true)
+                }
+                team1.player1.servingState = .notServing
+                return
+            default: break
+            }
+            
+            switch team1.player2?.servingState {
+            case .serving(let isFirstServer):
+                if isFirstServer {
+                    team1.player1.servingState = .serving(isFirstServer: false)
+                } else {
+                    team2.player1.servingState = .serving(isFirstServer: true)
+                }
+                team1.player2?.servingState = .notServing
+                return
+            default: break
+            }
+            
+            switch team2.player1.servingState {
+            case .serving(let isFirstServer):
+                if isFirstServer {
+                    team2.player2?.servingState = .serving(isFirstServer: false)
+                } else {
+                    team1.player1.servingState = .serving(isFirstServer: true)
+                }
+                team2.player1.servingState = .notServing
+                return
+            default: break
+            }
+            
+            switch team2.player2?.servingState {
+            case .serving(let isFirstServer):
+                if isFirstServer {
+                    team2.player1.servingState = .serving(isFirstServer: false)
+                } else {
+                    team1.player1.servingState = .serving(isFirstServer: true)
+                }
+                team2.player2?.servingState = .notServing
+                return
+            default: break
+            }
+        } else {
+            if team1.player1.isServing {
+                team2.player1.servingState = .serving()
+                team1.player1.servingState = .notServing
+            } else {
+                team1.player1.servingState = .serving()
+                team2.player1.servingState = .notServing
+            }
+        }
+    }
+    
+    func toMatch() -> Match {
+        Match(
+            id: "",
+            date: Date(),
+            team1: team1.players.map { $0.player },
+            team2: team2.players.map { $0.player },
+            scores: zip(team1.scores, team2.scores)
+                .map { GameScore(team1Score: $0.0, team2Score: $0.1) },
+            stats: stats
+        )
+    }
+}
+
+struct LiveMatchTeam {
+    var player1: LiveMatchPlayer
+    var player2: LiveMatchPlayer?
+    var scores: [Int] = [0]
+    
+    var players: [LiveMatchPlayer] { [player1, player2].compactMap { $0 } }
+    var isServing: Bool { players.contains { $0.isServing } }
+    
+    mutating func givePoint() {
+        scores[scores.count - 1] += 1
+    }
+}
+
+struct LiveMatchPlayer: Equatable {
+    var player: Player
+    
+    var id: String { player.id }
+    var imageUrl: String { player.imageUrl }
+    
+    var servingState: ServingState = .notServing
+    
+    var isServing: Bool {
+        switch servingState {
+        case .notServing: return false
+        case .serving(_): return true
+        }
+    }
+    
+    static func == (lhs: LiveMatchPlayer, rhs: LiveMatchPlayer) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    enum ServingState {
+        case notServing
+        case serving(isFirstServer: Bool = true)
+    }
 }
 
 struct LiveMatchView_Previews: PreviewProvider {
