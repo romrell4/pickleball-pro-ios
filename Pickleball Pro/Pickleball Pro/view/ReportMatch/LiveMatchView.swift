@@ -189,12 +189,11 @@ struct LiveMatch {
         if (shot.result == .winner && playerTeam.isServing) ||
             (shot.result == .error && !playerTeam.isServing) {
             if team1.isServing {
-                team1.givePoint()
+                team1.earnPoint()
             } else {
-                team2.givePoint()
+                team2.earnPoint()
             }
-        } else if (shot.result == .error && playerTeam.isServing) ||
-                    (shot.result == .winner && !playerTeam.isServing) {
+        } else {
             rotateServer()
         }
     }
@@ -280,8 +279,15 @@ struct LiveMatchTeam {
     var players: [LiveMatchPlayer] { [player1, player2].compactMap { $0 } }
     var isServing: Bool { players.contains { $0.isServing } }
     
-    mutating func givePoint() {
+    mutating func earnPoint() {
         scores[scores.count - 1] += 1
+        
+        // If it's doubles, switch sides
+        if let player2 = player2 {
+            let tempPlayer = player1
+            self.player1 = player2
+            self.player2 = tempPlayer
+        }
     }
 }
 
