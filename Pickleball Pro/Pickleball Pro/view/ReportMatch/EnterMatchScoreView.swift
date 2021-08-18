@@ -203,7 +203,6 @@ struct EnterPlayersView: View {
             .actionSheet(isPresented: $showingActionSheet) {
                 ActionSheet(
                     title: Text("Select Player"),
-                    message: nil,
                     buttons: playersViewModel.players.compactMap { selectablePlayer in
                         .default(Text(selectablePlayer.name)) {
                             self.player = EnterPlayer(player: selectablePlayer)

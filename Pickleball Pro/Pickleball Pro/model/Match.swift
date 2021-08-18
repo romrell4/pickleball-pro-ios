@@ -10,10 +10,10 @@ import Foundation
 struct Match: Identifiable, Codable {
     let id: String
     let date: Date
-    let team1: [Player]
-    let team2: [Player]
-    let scores: [GameScore]
-    let stats: [Stat]
+    var team1: [Player]
+    var team2: [Player]
+    var scores: [GameScore]
+    var stats: [Stat]
     
     var team1Scores: [Int] {
         scores.map { $0.team1Score }
@@ -60,8 +60,8 @@ struct Match: Identifiable, Codable {
 }
 
 struct GameScore: Codable, Hashable {
-    let team1Score: Int
-    let team2Score: Int
+    var team1Score: Int = 0
+    var team2Score: Int = 0
 }
 
 #if DEBUG
