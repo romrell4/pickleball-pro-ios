@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    @State private var match = LiveMatch(
-        team1: LiveMatchTeam(
-            player1: LiveMatchPlayer(player: Player.eric, servingState: .serving(isFirstServer: false)),
-            player2: LiveMatchPlayer(player: Player.jessica)
-        ),
-        team2: LiveMatchTeam(
-            player1: LiveMatchPlayer(player: Player.bryan),
-            player2: LiveMatchPlayer(player: Player.bob)
-        )
-    )
+    @Environment(\.presentationMode) var presentationMode
+    @State private var match: LiveMatch
     @State private var modalState: ModalState = .gone
+    
+    init(players: ([Player], [Player])) {
+        _match = State(initialValue: LiveMatch(
+            team1: LiveMatchTeam(
+                player1: LiveMatchPlayer(player: players.0[0], servingState: .serving(isFirstServer: false)),
+                player2: LiveMatchPlayer(player: players.0[safe: 1])
+            ),
+            team2: LiveMatchTeam(
+                player1: LiveMatchPlayer(player: players.1[0]),
+                player2: LiveMatchPlayer(player: players.1[safe: 1])
+            )
+        ))
+    }
     
     var body: some View {
         GeometryReader { fullScreen in
@@ -65,8 +70,9 @@ struct LiveMatchView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button("Finish Match") {
-                        // TODO: Do something with the match? Save it?
+                        // TODO: Save the match?
                         print(match)
+                        presentationMode.wrappedValue.dismiss()
                     }
                     Button("Start New Game") {
                         match.startNewGame()
@@ -93,15 +99,19 @@ private struct TeamView: View {
     var body: some View {
         HStack {
             Spacer()
-            PlayerView(modalState: $modalState, player: team.player1)
-            if let player2 = team.player2 {
-                Spacer()
-                
-                // The players need extra space on the bottom
-                if isBottomView {
+            if isBottomView {
+                if let player2 = team.player2 {
+                    PlayerView(modalState: $modalState, player: player2)
+                    Spacer()
                     Spacer()
                 }
-                PlayerView(modalState: $modalState, player: player2)
+                PlayerView(modalState: $modalState, player: team.player1)
+            } else {
+                PlayerView(modalState: $modalState, player: team.player1)
+                if let player2 = team.player2 {
+                    Spacer()
+                    PlayerView(modalState: $modalState, player: player2)
+                }
             }
             Spacer()
         }
@@ -316,10 +326,20 @@ struct LiveMatchPlayer: Equatable {
     }
 }
 
+extension LiveMatchPlayer {
+    init?(player: Player?, servingState: ServingState = .notServing) {
+        if let player = player {
+            self.init(player: player, servingState: servingState)
+        } else {
+            return nil
+        }
+    }
+}
+
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LiveMatchView()
+            LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob]))
                 .ignoresSafeArea(.all, edges: .bottom)
         }
     }

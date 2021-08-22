@@ -10,6 +10,10 @@ import Foundation
 class PlayersViewModel: ObservableObject {
     @Published var players = [Player]()
     
+    init() {
+        load()
+    }
+    
     func load() {
         players = [
             Player.eric,
