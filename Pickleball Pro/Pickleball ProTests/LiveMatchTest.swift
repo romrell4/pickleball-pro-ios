@@ -11,8 +11,8 @@ import XCTest
 class LiveMatchTest: XCTestCase {
     func testSinglesServerRotation() throws {
         var match = LiveMatch(
-            team1: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "1", name: "", imageUrl: ""), servingState: .serving())),
-            team2: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "2", name: "", imageUrl: "")))
+            team1: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving())),
+            team2: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: "")))
         )
         match.rotateServer()
         XCTAssertFalse(match.team1.isServing)
@@ -30,12 +30,12 @@ class LiveMatchTest: XCTestCase {
     func testDoublesServerRotation() throws {
         var match = LiveMatch(
             team1: LiveMatchTeam(
-                player1: LiveMatchPlayer(player: Player(id: "1", name: "", imageUrl: ""), servingState: .serving(isFirstServer: false)),
-                player2: LiveMatchPlayer(player: Player(id: "2", name: "", imageUrl: ""))
+                player1: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving(isFirstServer: false)),
+                player2: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: ""))
             ),
             team2: LiveMatchTeam(
-                player1: LiveMatchPlayer(player: Player(id: "3", name: "", imageUrl: "")),
-                player2: LiveMatchPlayer(player: Player(id: "4", name: "", imageUrl: ""))
+                player1: LiveMatchPlayer(player: Player(id: "3", firstName: "", lastName: "", imageUrl: "")),
+                player2: LiveMatchPlayer(player: Player(id: "4", firstName: "", lastName: "", imageUrl: ""))
             )
         )
         
@@ -90,8 +90,8 @@ class LiveMatchTest: XCTestCase {
     
     func testSinglesPointFinished() {
         var match = LiveMatch(
-            team1: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "1", name: "", imageUrl: ""), servingState: .serving())),
-            team2: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "2", name: "", imageUrl: "")))
+            team1: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving())),
+            team2: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: "")))
         )
         match.pointFinished(with: Stat.Shot(type: .drive, result: .winner, side: .forehand), by: match.team1.player1)
         
@@ -125,12 +125,12 @@ class LiveMatchTest: XCTestCase {
     func testDoublesPointFinished() {
         var match = LiveMatch(
             team1: LiveMatchTeam(
-                player1: LiveMatchPlayer(player: Player(id: "1", name: "", imageUrl: ""), servingState: .serving(isFirstServer: false)),
-                player2: LiveMatchPlayer(player: Player(id: "2", name: "", imageUrl: ""))
+                player1: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving(isFirstServer: false)),
+                player2: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: ""))
             ),
             team2: LiveMatchTeam(
-                player1: LiveMatchPlayer(player: Player(id: "3", name: "", imageUrl: "")),
-                player2: LiveMatchPlayer(player: Player(id: "4", name: "", imageUrl: ""))
+                player1: LiveMatchPlayer(player: Player(id: "3", firstName: "", lastName: "", imageUrl: "")),
+                player2: LiveMatchPlayer(player: Player(id: "4", firstName: "", lastName: "", imageUrl: ""))
             )
         )
         

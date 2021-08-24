@@ -15,12 +15,12 @@ class MatchTest: XCTestCase {
             id: "m1",
             date: Date(),
             team1: [
-                Player(id: "p1", name: "", imageUrl: ""),
-                Player(id: "p2", name: "", imageUrl: ""),
+                Player(id: "p1", firstName: "", lastName: "", imageUrl: ""),
+                Player(id: "p2", firstName: "", lastName: "", imageUrl: ""),
             ],
             team2: [
-                Player(id: "p3", name: "", imageUrl: ""),
-                Player(id: "p4", name: "", imageUrl: ""),
+                Player(id: "p3", firstName: "", lastName: "", imageUrl: ""),
+                Player(id: "p4", firstName: "", lastName: "", imageUrl: ""),
             ],
             scores: [],
             stats: [

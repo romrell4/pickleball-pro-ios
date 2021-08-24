@@ -193,6 +193,6 @@ private struct EnterScoresStepView: View {
 struct ReportMatchView_Previews: PreviewProvider {
     static var previews: some View {
         ReportMatchView()
-            .environmentObject(PlayersViewModel())
+            .environmentObject(PlayersViewModel(repository: TestRepository()))
     }
 }

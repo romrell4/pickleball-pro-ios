@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct PlayersView: View {
+    @EnvironmentObject var playersViewModel: PlayersViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(playersViewModel.players) { player in
+            Text(player.fullName)
+        }
     }
 }
 
 struct PlayersView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayersView()
+        PlayersView().environmentObject(PlayersViewModel(repository: TestRepository()))
     }
 }

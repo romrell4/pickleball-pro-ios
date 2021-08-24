@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    private var repository = RepositoryImpl()
+    
     var body: some View {
         MainTabView()
-            .environmentObject(PlayersViewModel())
+            .environmentObject(PlayersViewModel(repository: repository))
     }
 }
 

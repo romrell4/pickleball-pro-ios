@@ -42,7 +42,7 @@ struct IndividualScoreView: View {
                 .frame(width: 40, height: 40)
             }
                 
-            Text(players.map { $0.name }.joined(separator: " & "))
+            Text(players.map { $0.firstName }.joined(separator: " & "))
 //            VStack {
 //            Text(players[0].name)
 //                .font(.caption)

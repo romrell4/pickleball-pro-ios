@@ -9,17 +9,16 @@ import Foundation
 
 class PlayersViewModel: ObservableObject {
     @Published var players = [Player]()
+    var repository: Repository
     
-    init() {
+    init(repository: Repository) {
+        self.repository = repository
         load()
     }
     
     func load() {
-        players = [
-            Player.eric,
-            Player.jessica,
-            Player.bryan,
-            Player.bob,
-        ]
+        repository.loadPlayers {
+            self.players = $0
+        }
     }
 }

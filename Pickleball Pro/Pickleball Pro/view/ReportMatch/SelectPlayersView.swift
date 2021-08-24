@@ -15,7 +15,7 @@ struct SelectPlayersView: View {
     @Binding var players: [EnterPlayers]
     
     var body: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 15) {
             VStack {
                 Text("Team 1:")
                     .font(.title2)
@@ -84,7 +84,7 @@ private struct EnterPlayersView: View {
                 ActionSheet(
                     title: Text("Select Player"),
                     buttons: playersViewModel.players.compactMap { selectablePlayer in
-                        .default(Text(selectablePlayer.name)) {
+                        .default(Text(selectablePlayer.fullName)) {
                             self.player = EnterPlayer(player: selectablePlayer)
                         }
                     } + [
@@ -114,7 +114,7 @@ struct EnterPlayer {
 
 private extension EnterPlayer {
     init(player: Player) {
-        self.init(id: player.id, name: player.name, imageUrl: player.imageUrl)
+        self.init(id: player.id, name: player.firstName, imageUrl: player.imageUrl)
     }
 }
 

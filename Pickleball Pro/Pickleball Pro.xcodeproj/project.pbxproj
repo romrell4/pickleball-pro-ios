@@ -16,6 +16,8 @@
 		F8A3E7DE26C7371300FD6392 /* PlayersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */; };
 		F8A3E7E326CCAC0B00FD6392 /* LiveMatchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E226CCAC0B00FD6392 /* LiveMatchTest.swift */; };
 		F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */; };
+		F8A3E7E826D4920F00FD6392 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E726D4920F00FD6392 /* Repository.swift */; };
+		F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F8A3E7EA26D4971D00FD6392 /* Alamofire */; };
 		F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80026A34486001A6655 /* RoundImageView.swift */; };
 		F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */; };
 		F8B484B626BF83F700EE3E53 /* StatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484B526BF83F700EE3E53 /* StatTracker.swift */; };
@@ -133,6 +135,7 @@
 		F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersViewModel.swift; sourceTree = "<group>"; };
 		F8A3E7E226CCAC0B00FD6392 /* LiveMatchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTest.swift; sourceTree = "<group>"; };
 		F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayersView.swift; sourceTree = "<group>"; };
+		F8A3E7E726D4920F00FD6392 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		F8A4C80026A34486001A6655 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedRoundImageViews.swift; sourceTree = "<group>"; };
 		F8B484B526BF83F700EE3E53 /* StatTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTracker.swift; sourceTree = "<group>"; };
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */,
+				F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +233,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F8A3E7E626D491F900FD6392 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				F8A3E7E726D4920F00FD6392 /* Repository.swift */,
+			);
+			path = repository;
+			sourceTree = "<group>";
+		};
 		F8B484B726BF8A8300EE3E53 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +351,7 @@
 				F8E75F4226A338F10000F93F /* view */,
 				F8E75F4526A33E8A0000F93F /* model */,
 				F8B484CE26C0ABD200EE3E53 /* viewmodel */,
+				F8A3E7E626D491F900FD6392 /* repository */,
 				F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */,
 				F8E75ED126A337570000F93F /* ContentView.swift */,
 				F8E75ED326A337580000F93F /* Assets.xcassets */,
@@ -471,6 +484,7 @@
 			name = "Pickleball Pro";
 			packageProductDependencies = (
 				F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */,
+				F8A3E7EA26D4971D00FD6392 /* Alamofire */,
 			);
 			productName = "Pickleball Pro";
 			productReference = F8E75ECC26A337570000F93F /* Pickleball Pro.app */;
@@ -629,6 +643,7 @@
 			mainGroup = F8E75EC326A337570000F93F;
 			packageReferences = (
 				F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = F8E75ECD26A337570000F93F /* Products */;
 			projectDirPath = "";
@@ -733,6 +748,7 @@
 				F8A3E7DE26C7371300FD6392 /* PlayersViewModel.swift in Sources */,
 				F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */,
 				F8B484CD26C0517300EE3E53 /* SettingsView.swift in Sources */,
+				F8A3E7E826D4920F00FD6392 /* Repository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1325,6 +1341,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.3;
+			};
+		};
 		F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1336,6 +1360,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F8A3E7EA26D4971D00FD6392 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
