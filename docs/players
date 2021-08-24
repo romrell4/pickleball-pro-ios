@@ -1,0 +1,24 @@
+[
+ {
+   "id": "player-id-1234",
+   "first_name": "Mark",
+   "last_name": "Roth",
+   "image_url": "https://ca.slack-edge.com/TGBB5RX7X-UGB0JNBRA-a5be6692d1c3-512",
+   "dominant_hand": "RIGHT",
+   "notes": "The best pickleball player",
+   "phone_number": "503-555-4000",
+   "email": "email@email.com",
+   "level": 100.00
+  },
+ {
+   "id": "player-id-5678",
+   "first_name": "Eric",
+   "last_name": "Romrell",
+   "image_url": "https://ca.slack-edge.com/TGBB5RX7X-UGB1PDC4A-a81981fd70c5-512",
+   "dominant_hand": "LEFT",
+   "notes": "Not as good as mark",
+   "phone_number": "503-555-5000",
+   "email": "gmail@gmail.com",
+   "level": 50.05
+  }
+]
