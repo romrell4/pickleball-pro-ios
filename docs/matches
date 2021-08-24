@@ -1,0 +1,61 @@
+[
+{
+ "id": "match-id-1234",
+ "date": "2021-08-17T04:21:12Z",
+ "team1_player1": {
+   "id": "player-id-1234",
+   "first_name": "Mark",
+   "last_name": "Roth",
+   "image_url": "https://ca.slack-edge.com/TGBB5RX7X-UGB0JNBRA-a5be6692d1c3-512",
+   "dominant_hand": "RIGHT",
+   "notes": "Pretty good player 1",
+   "phone_number": "503-555-4000",
+   "email": "email@email.com",
+   "level": 100.0
+ },
+ "team2_player1": {
+   "id": "player-id-5678",
+   "first_name": "Eric",
+   "last_name": "Romrell",
+   "image_url": "https://ca.slack-edge.com/TGBB5RX7X-UGB1PDC4A-a81981fd70c5-512",
+   "dominant_hand": "LEFT",
+   "notes": "Pretty good player 2",
+   "phone_number": "503-555-5000",
+   "email": "gmail@gmail.com",
+   "level": 99.9
+ },
+ "scores": [
+  {
+    "team1_score": 20,
+    "team2_score": 10
+  },
+  {
+    "team1_score": 16,
+    "team2_score": 15
+  }
+ ],
+ "stats": [
+  {
+    "player_id": "player-id-1234",
+    "game_index": 0,
+    "shot_result": "WINNER",
+    "shot_type": "DINK",
+    "shot_side": "FOREHAND"
+  },
+  {
+    "player_id": "player-id-5678",
+    "game_index": 1,
+    "shot_result": "ERROR",
+    "shot_type": "OVERHEAD",
+    "shot_side": "BACKHAND"
+  },
+  {
+    "player_id": "player-id-5678",
+    "game_index": 0,
+    "shot_result": "WINNER",
+    "shot_type": "DRIVE",
+    "shot_side": "BACKHAND"
+  }
+ ]
+}
+]
