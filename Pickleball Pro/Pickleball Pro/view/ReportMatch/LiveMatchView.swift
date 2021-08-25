@@ -15,7 +15,7 @@ struct LiveMatchView: View {
     init(players: ([Player], [Player])) {
         _match = State(initialValue: LiveMatch(
             team1: LiveMatchTeam(
-                player1: LiveMatchPlayer(player: players.0[0], servingState: .serving(isFirstServer: false)),
+                player1: LiveMatchPlayer(player: players.0[0], servingState: .serving(isFirstServer: players.0.count == 1)),
                 player2: LiveMatchPlayer(player: players.0[safe: 1])
             ),
             team2: LiveMatchTeam(

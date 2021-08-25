@@ -8,27 +8,28 @@
 import SwiftUI
 
 struct TestView: View {
-    @State private var scores = ["1", "2", "3"]
-
+    @State private var text = ""
+    @State private var shouldNavigate = false
+    
     var body: some View {
-        HStack {
-            Spacer()
-            ForEach(scores.indices, id: \.self) { index in
-                TextField("", text: .proxy($scores[index]))
+        NavigationView {
+            VStack {
+                TextField("", text: $text).border(Color.black)
+                EmbeddedView(shouldNavigate: $shouldNavigate)
+                NavigationLink(destination: Text(text), isActive: $shouldNavigate) { EmptyView() }
             }
-            Image(systemName: "minus.circle").onTapGesture {
-                scores.removeLast()
-            }
+            .navigationBarTitle("Test")
         }
     }
 }
 
-extension Binding where Value: Equatable {
-    static func proxy(_ source: Binding<Value>) -> Binding<Value> {
-        self.init(
-            get: { source.wrappedValue },
-            set: { source.wrappedValue = $0 }
-        )
+struct EmbeddedView: View {
+    @Binding var shouldNavigate: Bool
+    
+    var body: some View {
+        Button("Save") {
+            shouldNavigate = true
+        }
     }
 }
 

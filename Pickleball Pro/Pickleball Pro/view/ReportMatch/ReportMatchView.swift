@@ -32,8 +32,9 @@ struct ReportMatchView: View {
                         if let (team1, team2) = try? getPlayers() {
                             print(team1)
                             print(team2)
-                            reset()
                             shouldNavigateToLiveMatch = true
+                            // TODO: Reset after navigation is done...?
+//                            reset()
                         }
                     },
                     onSaveTapped: {
@@ -76,7 +77,7 @@ struct ReportMatchView: View {
     }
     
     private func getPlayersWithoutThrow() -> ([Player], [Player]) {
-        return ([Player.eric, Player.jessica], [Player.bryan, Player.bob])
+//        return ([Player.eric, Player.jessica], [Player.bryan, Player.bob])
         
         if let players = try? getPlayers() {
             return players
