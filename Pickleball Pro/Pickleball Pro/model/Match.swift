@@ -48,8 +48,8 @@ struct Match: Identifiable, Codable {
         
         return Stat.ShotType.allCases.flatMap { type in
             [
-                grouping(type.winnersLabel, hasChildren: type != .serve) { $0.type == type && $0.result == .winner },
-                grouping(type.errorsLabel, hasChildren: type != .serve) { $0.type == type && $0.result == .error },
+                grouping(type.winnersLabel, hasChildren: type != .serve) { $0.shotType == type && $0.shotResult == .winner },
+                grouping(type.errorsLabel, hasChildren: type != .serve) { $0.shotType == type && $0.shotResult == .error },
             ]
         }
     }
@@ -82,52 +82,52 @@ extension Match {
             // 0-0 Eric serving
             Stat.ace(playerId: Player.eric.id),
             // 1-0
-            Stat.stat(playerId: Player.eric.id, type: .drive, result: .error, side: .forehand),
+            Stat.stat(playerId: Player.eric.id, shotType: .drive, shotResult: .error, shotSide: .forehand),
             // 1-0 Bryan serving
             Stat.ace(playerId: Player.bryan.id),
             // 1-1
-            Stat.stat(playerId: Player.bob.id, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.bob.id, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 1-2
-            Stat.stat(playerId: Player.jessica.id, type: .drop, result: .error, side: .backhand),
+            Stat.stat(playerId: Player.jessica.id, shotType: .drop, shotResult: .error, shotSide: .backhand),
             // 1-3
-            Stat.stat(playerId: Player.eric.id, type: .drive, result: .error, side: .backhand),
+            Stat.stat(playerId: Player.eric.id, shotType: .drive, shotResult: .error, shotSide: .backhand),
             // 1-4
-            Stat.stat(playerId: Player.jessica.id, type: .volley, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, shotType: .volley, shotResult: .winner, shotSide: .forehand),
             // 1-4 Bob serving
-            Stat.stat(playerId: Player.bob.id, type: .volley, result: .error, side: .forehand),
+            Stat.stat(playerId: Player.bob.id, shotType: .volley, shotResult: .error, shotSide: .forehand),
             // 1-4 Jessica serving
             Stat.ace(playerId: Player.jessica.id),
             // 2-4
-            Stat.stat(playerId: Player.bob.id, type: .overhead, result: .error, side: .forehand),
+            Stat.stat(playerId: Player.bob.id, shotType: .overhead, shotResult: .error, shotSide: .forehand),
             // 3-4
-            Stat.stat(playerId: Player.jessica.id, type: .volley, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, shotType: .volley, shotResult: .winner, shotSide: .forehand),
             // 4-4
-            Stat.stat(playerId: Player.bryan.id, type: .dink, result: .error, side: .backhand),
+            Stat.stat(playerId: Player.bryan.id, shotType: .dink, shotResult: .error, shotSide: .backhand),
             // 5-4
-            Stat.stat(playerId: Player.jessica.id, type: .drive, result: .winner, side: .backhand),
+            Stat.stat(playerId: Player.jessica.id, shotType: .drive, shotResult: .winner, shotSide: .backhand),
             // 6-4
             Stat.fault(playerId: Player.jessica.id),
             // 6-4 Eric serving
-            Stat.stat(playerId: Player.jessica.id, type: .drop, result: .error, side: .backhand),
+            Stat.stat(playerId: Player.jessica.id, shotType: .drop, shotResult: .error, shotSide: .backhand),
             // 6-4 Bryan serving
-            Stat.stat(playerId: Player.eric.id, type: .dink, result: .error, side: .backhand),
+            Stat.stat(playerId: Player.eric.id, shotType: .dink, shotResult: .error, shotSide: .backhand),
             // 6-5
-            Stat.stat(playerId: Player.bob.id, type: .volley, result: .winner, side: .backhand),
+            Stat.stat(playerId: Player.bob.id, shotType: .volley, shotResult: .winner, shotSide: .backhand),
             // 6-6
-            Stat.stat(playerId: Player.bob.id, type: .drive, result: .winner, side: .backhand),
+            Stat.stat(playerId: Player.bob.id, shotType: .drive, shotResult: .winner, shotSide: .backhand),
             // 6-7
-            Stat.stat(playerId: Player.bryan.id, type: .drop, result: .winner, side: .backhand),
+            Stat.stat(playerId: Player.bryan.id, shotType: .drop, shotResult: .winner, shotSide: .backhand),
             // 6-8
             Stat.ace(playerId: Player.bryan.id),
             // 6-9
-            Stat.stat(playerId: Player.eric.id, type: .dink, result: .error, side: .backhand),
+            Stat.stat(playerId: Player.eric.id, shotType: .dink, shotResult: .error, shotSide: .backhand),
             // 6-10
             
             // GAME 2
             // 0-0 Jessica serving
-            Stat.stat(playerId: Player.bob.id, gameIndex: 1, type: .volley, result: .error, side: .forehand),
+            Stat.stat(playerId: Player.bob.id, gameIndex: 1, shotType: .volley, shotResult: .error, shotSide: .forehand),
             // 1-0
-            Stat.stat(playerId: Player.bryan.id, gameIndex: 1, type: .lob, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.bryan.id, gameIndex: 1, shotType: .lob, shotResult: .winner, shotSide: .forehand),
             // 1-0 Bryan serving
             Stat.ace(playerId: Player.bryan.id, gameIndex: 1),
             // 1-1
@@ -147,30 +147,30 @@ extension Match {
             // 1-7 Bob serving
             Stat.fault(playerId: Player.bob.id, gameIndex: 1),
             // 1-7 Jessica serving
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 2-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 3-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 4-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 5-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 6-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 7-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 8-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 9-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 1, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 10-7
             
             // GAME 3
             // 0-0 Jessica serving
-            Stat.stat(playerId: Player.bob.id, gameIndex: 2, type: .volley, result: .error, side: .forehand),
+            Stat.stat(playerId: Player.bob.id, gameIndex: 2, shotType: .volley, shotResult: .error, shotSide: .forehand),
             // 1-0
-            Stat.stat(playerId: Player.bryan.id, gameIndex: 2, type: .lob, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.bryan.id, gameIndex: 2, shotType: .lob, shotResult: .winner, shotSide: .forehand),
             // 1-0 Bryan serving
             Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
             // 1-1
@@ -190,15 +190,15 @@ extension Match {
             // 1-7 Bob serving
             Stat.fault(playerId: Player.bob.id, gameIndex: 2),
             // 1-7 Jessica serving
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 2-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 3-7
-            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, type: .dink, result: .winner, side: .forehand),
+            Stat.stat(playerId: Player.jessica.id, gameIndex: 2, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 4-7
-            Stat.stat(playerId: Player.eric.id, gameIndex: 2, type: .drive, result: .error, side: .backhand),
+            Stat.stat(playerId: Player.eric.id, gameIndex: 2, shotType: .drive, shotResult: .error, shotSide: .backhand),
             // 4-7 Eric serving
-            Stat.stat(playerId: Player.eric.id, gameIndex: 2, type: .drive, result: .error, side: .backhand),
+            Stat.stat(playerId: Player.eric.id, gameIndex: 2, shotType: .drive, shotResult: .error, shotSide: .backhand),
             // 4-7 Bryan serving
             Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
             // 4-8

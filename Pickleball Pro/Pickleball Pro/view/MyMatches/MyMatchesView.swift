@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct MyMatchesView: View {
-    // TODO: Create viewmodel
-    @ObservedObject
-    var viewModel: ViewModel
+    @EnvironmentObject var viewModel: MatchesViewModel
     
     var body: some View {
         NavigationView {
@@ -28,8 +26,9 @@ struct MyMatchesView: View {
     }
 }
 
-struct MatchHistoryListView_Previews: PreviewProvider {
+struct MyMatchesView_Previews: PreviewProvider {
     static var previews: some View {
-        MyMatchesView(viewModel: ViewModel())
+        MyMatchesView()
+            .environmentObject(MatchesViewModel(repository: TestRepository()))
     }
 }

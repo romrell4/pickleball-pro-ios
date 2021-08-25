@@ -10,11 +10,11 @@ import Foundation
 struct Stat: Hashable, Codable {
     let playerId: String
     let gameIndex: Int
-    let type: ShotType
-    let result: Result
-    var side: ShotSide? = nil
+    let shotType: ShotType
+    let shotResult: Result
+    var shotSide: ShotSide? = nil
     
-    var shot: Shot { Shot(type: type, result: result, side: side) }
+    var shot: Shot { Shot(type: shotType, result: shotResult, side: shotSide) }
     
     struct Shot {
         let type: ShotType
@@ -30,6 +30,16 @@ struct Stat: Hashable, Codable {
         case volley
         case lob
         case overhead
+        
+        init(from decoder: Decoder) throws {
+            let string = try? decoder.singleValueContainer().decode(String.self)
+            self = Self.allCases.first { $0.rawValue == string?.lowercased() } ?? .serve
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(self.rawValue.uppercased())
+        }
         
         var trackingOrder: Int {
             switch self {
@@ -61,11 +71,31 @@ struct Stat: Hashable, Codable {
     enum Result: String, CaseIterable, Codable {
         case winner
         case error
+        
+        init(from decoder: Decoder) throws {
+            let string = try? decoder.singleValueContainer().decode(String.self)
+            self = Self.allCases.first { $0.rawValue == string?.lowercased() } ?? .winner
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(self.rawValue.uppercased())
+        }
     }
     
     enum ShotSide: String, CaseIterable, Codable {
         case forehand
         case backhand
+        
+        init(from decoder: Decoder) throws {
+            let string = try? decoder.singleValueContainer().decode(String.self)
+            self = Self.allCases.first { $0.rawValue == string?.lowercased() } ?? .forehand
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            try container.encode(self.rawValue.uppercased())
+        }
     }
     
     struct Grouping: Hashable {
@@ -80,16 +110,16 @@ struct Stat: Hashable, Codable {
         var forehandGrouping: Stat.Grouping {
             Stat.Grouping(
                 label: "Forehands",
-                team1Stats: team1Stats.filter { $0.side == .forehand },
-                team2Stats: team2Stats.filter { $0.side == .forehand },
+                team1Stats: team1Stats.filter { $0.shotSide == .forehand },
+                team2Stats: team2Stats.filter { $0.shotSide == .forehand },
                 hasChildren: false
             )
         }
         var backhandGrouping: Stat.Grouping {
             Stat.Grouping(
                 label: "Backhands",
-                team1Stats: team1Stats.filter { $0.side == .backhand },
-                team2Stats: team2Stats.filter { $0.side == .backhand },
+                team1Stats: team1Stats.filter { $0.shotSide == .backhand },
+                team2Stats: team2Stats.filter { $0.shotSide == .backhand },
                 hasChildren: false
             )
         }
@@ -100,21 +130,21 @@ struct Stat: Hashable, Codable {
 
 extension Stat {
     static func ace(playerId: String = "", gameIndex: Int = 0) -> Stat {
-        return Stat(playerId: playerId, gameIndex: gameIndex, type: .serve, result: .winner)
+        return Stat(playerId: playerId, gameIndex: gameIndex, shotType: .serve, shotResult: .winner)
     }
     
     static func fault(playerId: String = "", gameIndex: Int = 0) -> Stat {
-        return Stat(playerId: playerId, gameIndex: gameIndex, type: .serve, result: .error)
+        return Stat(playerId: playerId, gameIndex: gameIndex, shotType: .serve, shotResult: .error)
     }
     
     static func stat(
         playerId: String = "",
         gameIndex: Int = 0,
-        type: ShotType = .serve,
-        result: Result = .winner,
-        side: ShotSide? = nil
+        shotType: ShotType = .serve,
+        shotResult: Result = .winner,
+        shotSide: ShotSide? = nil
     ) -> Stat {
-        return Stat(playerId: playerId, gameIndex: gameIndex, type: type, result: result, side: side)
+        return Stat(playerId: playerId, gameIndex: gameIndex, shotType: shotType, shotResult: shotResult, shotSide: shotSide)
     }
 }
 

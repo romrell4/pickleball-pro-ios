@@ -10,7 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            MyMatchesView(viewModel: ViewModel()).tabItem {
+            MyMatchesView().tabItem {
                 Label("Matches", systemImage: "list.bullet")
             }
             MyStatsView().tabItem {

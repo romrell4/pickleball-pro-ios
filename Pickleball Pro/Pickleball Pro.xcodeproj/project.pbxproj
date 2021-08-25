@@ -28,7 +28,7 @@
 		F8B484C426C04F6800EE3E53 /* ReportMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484C326C04F6800EE3E53 /* ReportMatchView.swift */; };
 		F8B484C626C04F7800EE3E53 /* PlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484C526C04F7800EE3E53 /* PlayersView.swift */; };
 		F8B484CD26C0517300EE3E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484CC26C0517300EE3E53 /* SettingsView.swift */; };
-		F8B484D026C0ABE000EE3E53 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484CF26C0ABE000EE3E53 /* ViewModel.swift */; };
+		F8B484D026C0ABE000EE3E53 /* MatchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484CF26C0ABE000EE3E53 /* MatchesViewModel.swift */; };
 		F8CC712626C42F0800D90FA3 /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */; };
 		F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */; };
 		F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */; };
@@ -146,7 +146,7 @@
 		F8B484C326C04F6800EE3E53 /* ReportMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMatchView.swift; sourceTree = "<group>"; };
 		F8B484C526C04F7800EE3E53 /* PlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersView.swift; sourceTree = "<group>"; };
 		F8B484CC26C0517300EE3E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		F8B484CF26C0ABE000EE3E53 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		F8B484CF26C0ABE000EE3E53 /* MatchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewModel.swift; sourceTree = "<group>"; };
 		F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMatchScoreView.swift; sourceTree = "<group>"; };
 		F8E75ECC26A337570000F93F /* Pickleball Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pickleball Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -310,7 +310,7 @@
 		F8B484CE26C0ABD200EE3E53 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
-				F8B484CF26C0ABE000EE3E53 /* ViewModel.swift */,
+				F8B484CF26C0ABE000EE3E53 /* MatchesViewModel.swift */,
 				F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */,
 			);
 			path = viewmodel;
@@ -725,7 +725,7 @@
 				F82DB87F26BB4E570003F7FD /* StatView.swift in Sources */,
 				F8B484C226C04F4100EE3E53 /* MyStatsView.swift in Sources */,
 				F8E75ED226A337570000F93F /* ContentView.swift in Sources */,
-				F8B484D026C0ABE000EE3E53 /* ViewModel.swift in Sources */,
+				F8B484D026C0ABE000EE3E53 /* MatchesViewModel.swift in Sources */,
 				F8B484C626C04F7800EE3E53 /* PlayersView.swift in Sources */,
 				F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */,
 				F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */,

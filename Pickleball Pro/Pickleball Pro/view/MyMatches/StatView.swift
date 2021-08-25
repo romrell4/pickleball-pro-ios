@@ -134,14 +134,12 @@ struct RoundedCornersShape: Shape {
 }
 
 struct StatView_Previews: PreviewProvider {
-    
-    
     static var previews: some View {
         ParentStatView(
             statGrouping: Stat.Grouping(
                 label: "Dropshots",
-                team1Stats: Array(repeating: Stat.stat(side: .forehand), count: 1),
-                team2Stats: Array(repeating: Stat.stat(side: .backhand), count: 9),
+                team1Stats: Array(repeating: Stat.stat(shotSide: .forehand), count: 1),
+                team2Stats: Array(repeating: Stat.stat(shotSide: .backhand), count: 9),
                 hasChildren: true
             )
         )

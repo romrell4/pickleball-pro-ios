@@ -190,7 +190,7 @@ struct LiveMatch {
     }
     
     mutating func pointFinished(with shot: Stat.Shot, by player: LiveMatchPlayer) {
-        stats.append(Stat(playerId: player.id, gameIndex: currentGameIndex, type: shot.type, result: shot.result, side: shot.side))
+        stats.append(Stat(playerId: player.id, gameIndex: currentGameIndex, shotType: shot.type, shotResult: shot.result, shotSide: shot.side))
         
         let playerTeam = team1.players.contains(player) ? team1 : team2
         

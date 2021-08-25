@@ -13,6 +13,7 @@ struct ContentView: View {
     var body: some View {
         MainTabView()
             .environmentObject(PlayersViewModel(repository: repository))
+            .environmentObject(MatchesViewModel(repository: repository))
     }
 }
 

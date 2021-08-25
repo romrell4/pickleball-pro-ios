@@ -24,23 +24,57 @@ private let DECODER: JSONDecoder = {
 
 protocol Repository {
     func loadPlayers(callback: @escaping ([Player]) -> Void)
+    func loadMatches(callback: @escaping ([Match]) -> Void)
 }
 
 class RepositoryImpl: Repository {
     func loadPlayers(callback: @escaping ([Player]) -> Void) {
+        request(path: "/players", callback: callback)
+    }
+    
+    func loadMatches(callback: @escaping ([Match]) -> Void) {
+        let newCallback: ([MatchDto]) -> Void = { matchDtos in
+            callback(
+                matchDtos.map { dto in
+                    Match(
+                        id: dto.id,
+                        date: dto.date,
+                        team1: [dto.team1Player1, dto.team1Player2].compactMap { $0 },
+                        team2: [dto.team2Player1, dto.team2Player2].compactMap { $0 },
+                        scores: dto.scores,
+                        stats: dto.stats
+                    )
+                }
+            )
+        }
+        request(path: "/matches", callback: newCallback)
+    }
+    
+    func request<T: Decodable>(path: String, callback: @escaping (T) -> Void) {
         AF.request(
-            "\(BASE_URL)/players",
+            "\(BASE_URL)\(path)",
             headers: [
                 "x-api-key": "<PUT TOKEN HERE>"
             ]
-        ).responseDecodable(of: [Player].self, decoder: DECODER) {
+        ).responseDecodable(of: T.self, decoder: DECODER) {
             switch ($0.result) {
-            case .success(let players):
-                callback(players)
+            case .success(let value):
+                callback(value)
             case .failure(let error):
                 debugPrint(error)
             }
         }
+    }
+    
+    struct MatchDto: Codable {
+        let id: String
+        let date: Date
+        let team1Player1: Player
+        let team1Player2: Player?
+        let team2Player1: Player
+        let team2Player2: Player?
+        let scores: [GameScore]
+        let stats: [Stat]
     }
 }
 
@@ -49,6 +83,10 @@ class RepositoryImpl: Repository {
 class TestRepository: Repository {
     func loadPlayers(callback: @escaping ([Player]) -> Void) {
         callback([Player.eric, Player.jessica, Player.bryan, Player.bob])
+    }
+    
+    func loadMatches(callback: @escaping ([Match]) -> Void) {
+        callback([Match.doubles, Match.singles])
     }
 }
 
