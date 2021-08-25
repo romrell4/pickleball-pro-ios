@@ -11,6 +11,7 @@ private let DISABLED_STEP_ALPHA = 0.2
 
 struct ReportMatchView: View {
     @EnvironmentObject var playersViewModel: PlayersViewModel
+    @Environment(\.currentTab) var currentTab
     
     @State private var showingAlert = false
     @State private var selectedPlayers = [EnterPlayers()]
@@ -23,29 +24,32 @@ struct ReportMatchView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError)
-                EnterScoresStepView(
-                    gameScores: $enteredGameScores,
-                    validationError: scoreValidationError,
-                    onTrackLiveMatchTapped: {
-                        if let (team1, team2) = try? validatePlayers() {
-                            print(team1)
-                            print(team2)
-                            shouldNavigateToLiveMatch = true
-                            // TODO: Reset after live match is done...?
-//                            reset()
+            ScrollView {
+                VStack {
+                    SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError)
+                    EnterScoresStepView(
+                        gameScores: $enteredGameScores,
+                        validationError: scoreValidationError,
+                        onTrackLiveMatchTapped: {
+                            if let (team1, team2) = try? validatePlayers() {
+                                print(team1)
+                                print(team2)
+                                shouldNavigateToLiveMatch = true
+                                // TODO: Reset after live match is done...?
+    //                            reset()
+                            }
+                        },
+                        onSaveTapped: {
+                            if let match = try? getMatch() {
+                                print(match)
+                                // TODO: Save it
+                                reset()
+                                currentTab.wrappedValue = .myMatches
+                            }
                         }
-                    },
-                    onSaveTapped: {
-                        if let match = try? getMatch() {
-                            print(match)
-                            // TODO: Save it
-                            reset()
-                        }
-                    }
-                )
-                NavigationLink(destination: LiveMatchView(players: getPlayers()), isActive: $shouldNavigateToLiveMatch) { EmptyView() }
+                    )
+                    NavigationLink(destination: LiveMatchView(players: getPlayers()), isActive: $shouldNavigateToLiveMatch) { EmptyView() }
+                }
             }
             .navigationBarTitle("Report Match")
             .navigationBarTitleDisplayMode(.inline)
