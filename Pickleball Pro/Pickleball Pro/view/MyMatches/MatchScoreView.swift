@@ -57,12 +57,12 @@ struct IndividualScoreView: View {
     }
 }
 
-struct ScoreNumberView: View {
+private struct ScoreNumberView: View {
     let value: Int
     
     var body: some View {
         Text("\(value)")
-            .frame(width: 20, height: 20, alignment: .trailing)
+            .frame(width: 22, height: 22, alignment: .trailing)
             .padding(5)
     }
 }
