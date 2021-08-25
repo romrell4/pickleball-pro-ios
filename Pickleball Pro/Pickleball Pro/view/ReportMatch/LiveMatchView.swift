@@ -12,7 +12,10 @@ struct LiveMatchView: View {
     @State private var match: LiveMatch
     @State private var modalState: ModalState = .gone
     
-    init(players: ([Player], [Player])) {
+    init?(players: ([Player], [Player])) {
+        guard players.0.count > 0 && players.1.count > 0 else {
+            return nil
+        }
         _match = State(initialValue: LiveMatch(
             team1: LiveMatchTeam(
                 player1: LiveMatchPlayer(player: players.0[0], servingState: .serving(isFirstServer: players.0.count == 1)),

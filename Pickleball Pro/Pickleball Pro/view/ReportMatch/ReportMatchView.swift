@@ -29,11 +29,11 @@ struct ReportMatchView: View {
                     gameScores: $enteredGameScores,
                     validationError: scoreValidationError,
                     onTrackLiveMatchTapped: {
-                        if let (team1, team2) = try? getPlayers() {
+                        if let (team1, team2) = try? validatePlayers() {
                             print(team1)
                             print(team2)
                             shouldNavigateToLiveMatch = true
-                            // TODO: Reset after navigation is done...?
+                            // TODO: Reset after live match is done...?
 //                            reset()
                         }
                     },
@@ -45,7 +45,7 @@ struct ReportMatchView: View {
                         }
                     }
                 )
-                NavigationLink(destination: LiveMatchView(players: getPlayersWithoutThrow()), isActive: $shouldNavigateToLiveMatch) { EmptyView() }
+                NavigationLink(destination: LiveMatchView(players: getPlayers()), isActive: $shouldNavigateToLiveMatch) { EmptyView() }
             }
             .navigationBarTitle("Report Match")
             .navigationBarTitleDisplayMode(.inline)
@@ -63,8 +63,8 @@ struct ReportMatchView: View {
     }
     
     private func getMatch() throws -> Match? {
-        let (team1, team2) = try getPlayers()
-        let scores = try getScores()
+        let (team1, team2) = try validatePlayers()
+        let scores = try validateScores()
         
         return Match(
             id: "",
@@ -76,19 +76,19 @@ struct ReportMatchView: View {
         )
     }
     
-    private func getPlayersWithoutThrow() -> ([Player], [Player]) {
-//        return ([Player.eric, Player.jessica], [Player.bryan, Player.bob])
-        
-        if let players = try? getPlayers() {
-            return players
-        } else {
-            return ([Player.eric], [Player.eric])
-        }
-    }
-    
-    private func getPlayers() throws -> ([Player], [Player]) {
+    private func validatePlayers() throws -> ([Player], [Player]) {
         playerValidationError = false
         
+        let (team1, team2) = getPlayers()
+        
+        guard team1.count == team2.count, team1.count > 0, team2.count > 0 else {
+            playerValidationError = true
+            throw MyError.playerValidationError
+        }
+        return (team1, team2)
+    }
+    
+    private func getPlayers() -> ([Player], [Player]) {
         let (team1, team2) = selectedPlayers.map {
             ($0.team1Player.toPlayer(players: playersViewModel.players), $0.team2Player.toPlayer(players: playersViewModel.players))
         }.reduce(([Player](), [Player]())) { soFar, next in
@@ -101,15 +101,10 @@ struct ReportMatchView: View {
             }
             return soFar
         }
-        
-        guard team1.count == team2.count, team1.count > 0, team2.count > 0 else {
-            playerValidationError = true
-            throw MyError.playerValidationError
-        }
         return (team1, team2)
     }
     
-    private func getScores() throws -> [GameScore] {
+    private func validateScores() throws -> [GameScore] {
         scoreValidationError = false
         
         let scores: [GameScore] = try enteredGameScores.map {
