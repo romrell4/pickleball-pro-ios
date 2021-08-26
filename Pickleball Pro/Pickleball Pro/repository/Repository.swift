@@ -24,13 +24,27 @@ private let DECODER: JSONDecoder = {
 
 protocol Repository {
     func loadPlayers(callback: @escaping ([Player]) -> Void)
+    func createPlayer(player: Player, callback: @escaping (Player) -> Void)
+    func updatePlayer(player: Player, callback: @escaping (Player) -> Void)
     func loadMatches(callback: @escaping ([Match]) -> Void)
 }
 
 class RepositoryImpl: Repository {
+    // Players Endpoints
+    
     func loadPlayers(callback: @escaping ([Player]) -> Void) {
         request(path: "/players", callback: callback)
     }
+    
+    func createPlayer(player: Player, callback: @escaping (Player) -> Void) {
+        request(path: "/players", method: .post, body: player, callback: callback)
+    }
+    
+    func updatePlayer(player: Player, callback: @escaping (Player) -> Void) {
+        request(path: "/players/\(player.id)", method: .put, body: player, callback: callback)
+    }
+    
+    // Matches Endpoints
     
     func loadMatches(callback: @escaping ([Match]) -> Void) {
         let newCallback: ([MatchDto]) -> Void = { matchDtos in
@@ -50,13 +64,21 @@ class RepositoryImpl: Repository {
         request(path: "/matches", callback: newCallback)
     }
     
-    func request<T: Decodable>(path: String, callback: @escaping (T) -> Void) {
+    private func request<Res: Decodable>(path: String, method: HTTPMethod = .get, callback: @escaping (Res) -> Void) {
+        let none: String? = nil
+        request(path: path, method: method, body: none, callback: callback)
+    }
+    
+    private func request<Req: Encodable, Res: Decodable>(path: String, method: HTTPMethod = .get, body: Req?, callback: @escaping (Res) -> Void) {
         AF.request(
             "\(BASE_URL)\(path)",
+            method: method,
+            parameters: body,
+            encoder: JSONParameterEncoder(encoder: ENCODER),
             headers: [
                 "x-api-key": "<PUT TOKEN HERE>"
             ]
-        ).responseDecodable(of: T.self, decoder: DECODER) {
+        ).responseDecodable(of: Res.self, decoder: DECODER) {
             switch ($0.result) {
             case .success(let value):
                 callback(value)
@@ -83,6 +105,15 @@ class RepositoryImpl: Repository {
 class TestRepository: Repository {
     func loadPlayers(callback: @escaping ([Player]) -> Void) {
         callback([Player.eric, Player.jessica, Player.bryan, Player.bob])
+    }
+    
+    func createPlayer(player: Player, callback: @escaping (Player) -> Void) {
+        let newPlayer = Player(id: UUID().uuidString, firstName: player.firstName, lastName: player.lastName, imageUrl: player.imageUrl, dominantHand: player.dominantHand, level: player.level, phoneNumber: player.phoneNumber, email: player.email, notes: player.notes)
+        callback(newPlayer)
+    }
+    
+    func updatePlayer(player: Player, callback: @escaping (Player) -> Void) {
+        callback(player)
     }
     
     func loadMatches(callback: @escaping ([Match]) -> Void) {

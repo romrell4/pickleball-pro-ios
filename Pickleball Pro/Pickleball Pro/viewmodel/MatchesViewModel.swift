@@ -13,10 +13,10 @@ class MatchesViewModel: ObservableObject {
     
     init(repository: Repository) {
         self.repository = repository
-        loadMatches()
+        load()
     }
     
-    func loadMatches() {
+    func load() {
         repository.loadMatches {
             self.matches = $0
         }

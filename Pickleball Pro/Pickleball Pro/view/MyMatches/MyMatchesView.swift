@@ -20,7 +20,7 @@ struct MyMatchesView: View {
             .navigationTitle("Match History")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                viewModel.loadMatches()
+                viewModel.load()
             }
         }
     }

@@ -11,8 +11,16 @@ struct PlayersView: View {
     @EnvironmentObject var playersViewModel: PlayersViewModel
     
     var body: some View {
-        List(playersViewModel.players) { player in
-            Text(player.fullName)
+        NavigationView {
+            List(playersViewModel.players.indices) { index in
+                let player = $playersViewModel.players[index]
+                NavigationLink(destination: PlayerDetailsView(player: player)) {
+                    PlayerSummaryView(player: player.wrappedValue)
+                }
+            }
+            .listStyle(PlainListStyle())
+            .navigationBarTitle("Players")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

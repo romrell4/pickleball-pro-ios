@@ -21,4 +21,19 @@ class PlayersViewModel: ObservableObject {
             self.players = $0
         }
     }
+    
+    func create(player: Player) {
+        repository.createPlayer(player: player) {
+            self.players.append($0)
+        }
+    }
+    
+    func update(player: Player, callback: ((Player) -> Void)? = nil) {
+        repository.updatePlayer(player: player) {
+            if let index = self.players.firstIndex(where: { $0.id == player.id }) {
+                self.players[index] = $0
+            }
+            callback?($0)
+        }
+    }
 }
