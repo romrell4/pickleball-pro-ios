@@ -12,6 +12,8 @@ struct Pickleball_ProApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .withErrorHandling()
+                .onAppear(perform: UIApplication.shared.addTapGestureRecognizer)
         }
     }
 }

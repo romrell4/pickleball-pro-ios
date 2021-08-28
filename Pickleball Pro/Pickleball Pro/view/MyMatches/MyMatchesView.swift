@@ -29,6 +29,6 @@ struct MyMatchesView: View {
 struct MyMatchesView_Previews: PreviewProvider {
     static var previews: some View {
         MyMatchesView()
-            .environmentObject(MatchesViewModel(repository: TestRepository()))
+            .environmentObject(MatchesViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
     }
 }

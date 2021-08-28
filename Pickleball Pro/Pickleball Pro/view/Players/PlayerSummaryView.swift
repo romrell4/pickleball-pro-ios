@@ -21,19 +21,19 @@ struct PlayerSummaryView: View {
                     if let level = player.level {
                         // TODO: Use stars?
                         Text("Level: \(String(format: "%.1f", level))")
-                            .font(.callout)
+                            .font(.caption)
                     }
                     if let hand = player.dominantHand {
                         // TODO: Make this a segmented view?
                         Text("Dominant Hand: \(hand.rawValue.capitalized)")
-                            .font(.callout)
+                            .font(.caption)
                     }
                 }
                 Spacer()
             }
             if !player.notes.isEmpty {
                 Text("Notes: \(player.notes)")
-                    .font(.callout)
+                    .font(.caption)
             }
         }
     }

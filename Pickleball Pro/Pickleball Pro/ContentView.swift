@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var errorHandler: ErrorHandler
     private var repository = RepositoryImpl()
     
     var body: some View {
         MainTabView()
-            .environmentObject(PlayersViewModel(repository: repository))
-            .environmentObject(MatchesViewModel(repository: repository))
+            .environmentObject(PlayersViewModel(repository: repository, errorHandler: errorHandler))
+            .environmentObject(MatchesViewModel(repository: repository, errorHandler: errorHandler))
     }
 }
 

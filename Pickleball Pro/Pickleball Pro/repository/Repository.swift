@@ -8,7 +8,9 @@
 import Foundation
 import Alamofire
 
-private let BASE_URL = "https://romrell4.github.io/pickleball-pro" //"https://5247f773-d28a-46b6-a312-5fdd5e3c2451.mock.pstmn.io"
+private let BASE_URL =
+    "https://romrell4.github.io/pickleball-pro"
+//    "https://5247f773-d28a-46b6-a312-5fdd5e3c2451.mock.pstmn.io"
 private let ENCODER: JSONEncoder = {
     let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .iso8601
@@ -23,69 +25,83 @@ private let DECODER: JSONDecoder = {
 }()
 
 protocol Repository {
-    func loadPlayers(callback: @escaping ([Player]) -> Void)
-    func createPlayer(player: Player, callback: @escaping (Player) -> Void)
-    func updatePlayer(player: Player, callback: @escaping (Player) -> Void)
-    func loadMatches(callback: @escaping ([Match]) -> Void)
+    func loadPlayers(callback: @escaping (Result<[Player], AFError>) -> Void)
+    func createPlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void)
+    func updatePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void)
+    func loadMatches(callback: @escaping (Result<[Match], AFError>) -> Void)
 }
 
 class RepositoryImpl: Repository {
     // Players Endpoints
     
-    func loadPlayers(callback: @escaping ([Player]) -> Void) {
+    func loadPlayers(callback: @escaping (Result<[Player], AFError>) -> Void) {
         request(path: "/players", callback: callback)
     }
     
-    func createPlayer(player: Player, callback: @escaping (Player) -> Void) {
+    func createPlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
         request(path: "/players", method: .post, body: player, callback: callback)
     }
     
-    func updatePlayer(player: Player, callback: @escaping (Player) -> Void) {
+    func updatePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
         request(path: "/players/\(player.id)", method: .put, body: player, callback: callback)
     }
     
     // Matches Endpoints
     
-    func loadMatches(callback: @escaping ([Match]) -> Void) {
-        let newCallback: ([MatchDto]) -> Void = { matchDtos in
-            callback(
-                matchDtos.map { dto in
-                    Match(
-                        id: dto.id,
-                        date: dto.date,
-                        team1: [dto.team1Player1, dto.team1Player2].compactMap { $0 },
-                        team2: [dto.team2Player1, dto.team2Player2].compactMap { $0 },
-                        scores: dto.scores,
-                        stats: dto.stats
+    func loadMatches(callback: @escaping (Result<[Match], AFError>) -> Void) {
+        let newCallback: (Result<[MatchDto], AFError>) -> Void = {
+            switch $0 {
+            case .success(let matchDtos):
+                callback(
+                    .success(
+                        matchDtos.map { dto in
+                            Match(
+                                id: dto.id,
+                                date: dto.date,
+                                team1: [dto.team1Player1, dto.team1Player2].compactMap { $0 },
+                                team2: [dto.team2Player1, dto.team2Player2].compactMap { $0 },
+                                scores: dto.scores,
+                                stats: dto.stats
+                            )
+                        }
                     )
-                }
-            )
+                )
+            case .failure(let error):
+                callback(.failure(error))
+            }
         }
         request(path: "/matches", callback: newCallback)
     }
     
-    private func request<Res: Decodable>(path: String, method: HTTPMethod = .get, callback: @escaping (Res) -> Void) {
+    private func request<Res: Decodable>(path: String, method: HTTPMethod = .get, callback: @escaping (Result<Res, AFError>) -> Void) {
         let none: String? = nil
         request(path: path, method: method, body: none, callback: callback)
     }
     
-    private func request<Req: Encodable, Res: Decodable>(path: String, method: HTTPMethod = .get, body: Req?, callback: @escaping (Res) -> Void) {
-        AF.request(
+    private func request<Req: Encodable, Res: Decodable>(path: String, method: HTTPMethod = .get, body: Req?, callback: @escaping (Result<Res, AFError>) -> Void) {
+        let request = AF.request(
             "\(BASE_URL)\(path)",
             method: method,
             parameters: body,
             encoder: JSONParameterEncoder(encoder: ENCODER),
             headers: [
-                "x-api-key": "<PUT TOKEN HERE>"
+                "x-api-key": postmanToken,
+                "x-mock-response-code": "200",
             ]
-        ).responseDecodable(of: Res.self, decoder: DECODER) {
+        )
+        .validate()
+        .responseDecodable(of: Res.self, decoder: DECODER) {
             switch ($0.result) {
-            case .success(let value):
-                callback(value)
+            case .success: break
             case .failure(let error):
                 debugPrint(error)
             }
+            callback($0.result)
         }
+        
+        #if DEBUG
+        request.responseJSON { debugPrint($0) }
+        #endif
     }
     
     struct MatchDto: Codable {
@@ -103,21 +119,21 @@ class RepositoryImpl: Repository {
 #if DEBUG
 
 class TestRepository: Repository {
-    func loadPlayers(callback: @escaping ([Player]) -> Void) {
-        callback([Player.eric, Player.jessica, Player.bryan, Player.bob])
+    func loadPlayers(callback: @escaping (Result<[Player], AFError>) -> Void) {
+        callback(.success([Player.eric, Player.jessica, Player.bryan, Player.bob]))
     }
     
-    func createPlayer(player: Player, callback: @escaping (Player) -> Void) {
+    func createPlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
         let newPlayer = Player(id: UUID().uuidString, firstName: player.firstName, lastName: player.lastName, imageUrl: player.imageUrl, dominantHand: player.dominantHand, level: player.level, phoneNumber: player.phoneNumber, email: player.email, notes: player.notes)
-        callback(newPlayer)
+        callback(.success(newPlayer))
     }
     
-    func updatePlayer(player: Player, callback: @escaping (Player) -> Void) {
-        callback(player)
+    func updatePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
+        callback(.success(player))
     }
     
-    func loadMatches(callback: @escaping ([Match]) -> Void) {
-        callback([Match.doubles, Match.singles])
+    func loadMatches(callback: @escaping (Result<[Match], AFError>) -> Void) {
+        callback(.success([Match.doubles, Match.singles]))
     }
 }
 
