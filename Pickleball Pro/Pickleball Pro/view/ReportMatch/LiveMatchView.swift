@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LiveMatchView: View {
+    // TODO: Fix editing last shot (score)
+    // TODO: Implement scrolling to previous game scores
     @Environment(\.presentationMode) var presentationMode
     @State private var match: LiveMatch
     @State private var modalState: ModalState = .gone

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlayersView: View {
+    // TODO: Add swipe to delete
     @EnvironmentObject var playersViewModel: PlayersViewModel
     
     var body: some View {
