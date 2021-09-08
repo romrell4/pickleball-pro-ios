@@ -29,39 +29,37 @@ struct LiveMatchView: View {
     }
     
     var body: some View {
-        GeometryReader { fullScreen in
-            ZStack {
-                Rectangle()
-                    .fill(Color.black.opacity(0.75))
-                VStack(spacing: 0) {
-                    TeamView(modalState: $modalState, team: match.team1, isBottomView: false)
-                    Image("pickleball_court")
-                        .resizable()
-                    TeamView(modalState: $modalState, team: match.team2, isBottomView: true)
-                }
-                .padding(.vertical)
-                .padding(.leading, 80)
-                
-                ScoresView(match: $match)
-                
-                switch modalState {
-                case .visible(let player, let previousShot):
-                    ZStack {
-                        Rectangle()
-                            .fill(Color.black.opacity(0.25))
-                            .onTapGesture {
-                                modalState = .gone
-                            }
-                        StatTracker(shot: previousShot) { newShot in
-                            if let shot = newShot {
-                                match.pointFinished(with: shot, by: player)
-                            }
+        ZStack {
+            Rectangle()
+                .fill(Color.black.opacity(0.75))
+            VStack(spacing: 0) {
+                TeamView(modalState: $modalState, team: match.team1, isBottomView: false)
+                Image("pickleball_court")
+                    .resizable()
+                TeamView(modalState: $modalState, team: match.team2, isBottomView: true)
+            }
+            .padding(.vertical)
+            .padding(.leading, 80)
+            
+            ScoresView(match: $match)
+            
+            switch modalState {
+            case .visible(let player, let previousShot):
+                ZStack {
+                    Rectangle()
+                        .fill(Color.black.opacity(0.25))
+                        .onTapGesture {
                             modalState = .gone
                         }
-                        .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
+                    StatTracker(shot: previousShot) { newShot in
+                        if let shot = newShot {
+                            match.pointFinished(with: shot, by: player)
+                        }
+                        modalState = .gone
                     }
-                case .gone: EmptyView()
+                    .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
                 }
+            case .gone: EmptyView()
             }
         }
         .navigationBarTitle("Live Match", displayMode: .inline)
