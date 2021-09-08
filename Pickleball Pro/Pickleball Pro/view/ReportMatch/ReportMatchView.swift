@@ -57,6 +57,9 @@ struct ReportMatchView: View {
                 Alert(title: Text("Match Saved!"))
             }
         }
+        .onAppear {
+            playersViewModel.load()
+        }
     }
     
     private func reset() {

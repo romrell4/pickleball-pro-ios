@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    // TODO: Implement scrolling to previous game scores
     @Environment(\.presentationMode) var presentationMode
     @State private var match: LiveMatch
     @State private var modalState: ModalState = .gone
@@ -34,21 +33,17 @@ struct LiveMatchView: View {
             ZStack {
                 Rectangle()
                     .fill(Color.black.opacity(0.75))
-                HStack(spacing: 4) {
-                    VStack {
-                        // TODO: Display previous games?
-                        ScoreView(score: $match.team1.scores[match.currentGameIndex])
-                            .padding(.bottom, 20)
-                        ScoreView(score: $match.team2.scores[match.currentGameIndex])
-                    }.padding(.leading, 8).padding(.bottom, 120)
-                    
-                    VStack(spacing: 0) {
-                        TeamView(modalState: $modalState, team: match.team1, isBottomView: false)
-                        Image("pickleball_court")
-                            .resizable()
-                        TeamView(modalState: $modalState, team: match.team2, isBottomView: true)
-                    }.padding(.vertical)
+                VStack(spacing: 0) {
+                    TeamView(modalState: $modalState, team: match.team1, isBottomView: false)
+                    Image("pickleball_court")
+                        .resizable()
+                    TeamView(modalState: $modalState, team: match.team2, isBottomView: true)
                 }
+                .padding(.vertical)
+                .padding(.leading, 80)
+                
+                ScoresView(match: $match)
+                
                 switch modalState {
                 case .visible(let player, let previousShot):
                     ZStack {
@@ -155,6 +150,45 @@ private struct PlayerView: View {
                 case .notServing: EmptyView()
                 }
             }
+        }
+    }
+}
+
+private struct ScoresView: View {
+    @State private var showingPreviousGames: Bool = false
+    @Binding var match: LiveMatch
+    
+    var body: some View {
+        HStack(spacing: 4) {
+            HStack(spacing: 0) {
+                ZStack(alignment: .leading) {
+                    if match.currentGameIndex > 0 {
+                        Image(systemName: "chevron.backward.circle.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(.blue)
+                            .rotationEffect(showingPreviousGames ? .degrees(180) : .zero)
+                            .onTapGesture {
+                                withAnimation(.easeInOut(duration: 1)) {
+                                    showingPreviousGames.toggle()
+                                }
+                            }
+                        Spacer()
+                    }
+                    HStack {
+                        ForEach(match.team1.scores.indices, id: \.self) { index in
+                            if showingPreviousGames || index == match.currentGameIndex {
+                                VStack {
+                                    ScoreView(score: $match.team1.scores[index])
+                                        .padding(.bottom, 15)
+                                    ScoreView(score: $match.team2.scores[index])
+                                }
+                            }
+                        }
+                    }.padding(.leading, 16)
+                }.padding(.leading, 4)
+                Spacer()
+            }.padding(.bottom, 120)
         }
     }
 }
