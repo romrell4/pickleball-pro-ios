@@ -239,7 +239,11 @@ struct LiveMatch {
         team1.scores.append(0)
         team2.scores.append(0)
         
-        // TODO: Starting new game needs to reset server
+        // TODO: Figure out why this isn't updating immediately...
+        team1.player1.servingState = .serving(isFirstServer: !isDoubles)
+        team1.player2?.servingState = .notServing
+        team2.player1.servingState = .notServing
+        team2.player2?.servingState = .notServing
     }
     
     mutating func pointFinished(with shot: Stat.Shot, by player: LiveMatchPlayer) {
