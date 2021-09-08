@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    // TODO: Fix editing last shot (score)
     // TODO: Implement scrolling to previous game scores
     @Environment(\.presentationMode) var presentationMode
     @State private var match: LiveMatch
@@ -51,15 +50,15 @@ struct LiveMatchView: View {
                     }.padding(.vertical)
                 }
                 switch modalState {
-                case .visible(let player, let savedShot):
+                case .visible(let player, let previousShot):
                     ZStack {
                         Rectangle()
                             .fill(Color.black.opacity(0.25))
                             .onTapGesture {
                                 modalState = .gone
                             }
-                        StatTracker(shot: savedShot) { savedShot in
-                            if let shot = savedShot {
+                        StatTracker(shot: previousShot) { newShot in
+                            if let shot = newShot {
                                 match.pointFinished(with: shot, by: player)
                             }
                             modalState = .gone
@@ -82,9 +81,18 @@ struct LiveMatchView: View {
                     Button("Start New Game") {
                         match.startNewGame()
                     }
-                    Button("Edit Last Shot") {
-                        if let stat = match.stats.popLast() {
-                            modalState = .visible(player: match.player(for: stat.playerId), savedShot: stat.shot)
+                    if match.canUndoLastShot() {
+                        Button("Undo Last Shot") {
+                            if let stat = match.stats.popLast() {
+                                switch stat.scoreResult {
+                                case .team1Point:
+                                    match.team1.losePoint()
+                                case .team2Point:
+                                    match.team2.losePoint()
+                                case .sideout: break
+                                }
+                                modalState = .visible(player: match.player(for: stat.stat.playerId), savedShot: stat.stat.shot)
+                            }
                         }
                     }
                 }) {
@@ -171,7 +179,7 @@ private enum ModalState {
 struct LiveMatch {
     var team1: LiveMatchTeam
     var team2: LiveMatchTeam
-    var stats: [Stat] = []
+    var stats: [LiveMatchStat] = []
     
     var allPlayers: [LiveMatchPlayer] { team1.players + team2.players }
     
@@ -189,28 +197,50 @@ struct LiveMatch {
         allPlayers.first { $0.id == id }!
     }
     
+    func canUndoLastShot() -> Bool {
+        // You can only edit a shot within the same game
+        return currentGameIndex == stats.last?.stat.gameIndex
+    }
+    
     mutating func startNewGame() {
         team1.scores.append(0)
         team2.scores.append(0)
+        
+        // TODO: Starting new game needs to reset server
     }
     
     mutating func pointFinished(with shot: Stat.Shot, by player: LiveMatchPlayer) {
-        stats.append(Stat(playerId: player.id, gameIndex: currentGameIndex, shotType: shot.type, shotResult: shot.result, shotSide: shot.side))
-        
         let playerTeam = team1.players.contains(player) ? team1 : team2
         
         // If it was a winner by the serving team or an error by the receiving team, add a point to the serving team
         // If it was an error by the serving team or a winner by the receiving team, rotate servers
+        let scoreResult: LiveMatchStat.ScoreResult
         if (shot.result == .winner && playerTeam.isServing) ||
             (shot.result == .error && !playerTeam.isServing) {
             if team1.isServing {
                 team1.earnPoint()
+                scoreResult = .team1Point
             } else {
                 team2.earnPoint()
+                scoreResult = .team2Point
             }
         } else {
             rotateServer()
+            scoreResult = .sideout
         }
+        
+        stats.append(
+            LiveMatchStat(
+                stat: Stat(
+                    playerId: player.id,
+                    gameIndex: currentGameIndex,
+                    shotType: shot.type,
+                    shotResult: shot.result,
+                    shotSide: shot.side
+                ),
+                scoreResult: scoreResult
+            )
+        )
     }
     
     mutating func rotateServer() {
@@ -281,7 +311,7 @@ struct LiveMatch {
             team2: team2.players.map { $0.player },
             scores: zip(team1.scores, team2.scores)
                 .map { GameScore(team1Score: $0.0, team2Score: $0.1) },
-            stats: stats
+            stats: stats.map { $0.stat }
         )
     }
 }
@@ -298,6 +328,17 @@ struct LiveMatchTeam {
         scores[scores.count - 1] += 1
         
         // If it's doubles, switch sides
+        switchSides()
+    }
+    
+    mutating func losePoint() {
+        scores[scores.count - 1] -= 1
+        
+        // If it's doubles, switch sides back
+        switchSides()
+    }
+    
+    mutating func switchSides() {
         if let player2 = player2 {
             let tempPlayer = player1
             self.player1 = player2
@@ -328,6 +369,17 @@ struct LiveMatchPlayer: Equatable {
     enum ServingState {
         case notServing
         case serving(isFirstServer: Bool = true)
+    }
+}
+
+struct LiveMatchStat {
+    let stat: Stat
+    let scoreResult: ScoreResult
+    
+    enum ScoreResult {
+        case team1Point
+        case team2Point
+        case sideout
     }
 }
 
