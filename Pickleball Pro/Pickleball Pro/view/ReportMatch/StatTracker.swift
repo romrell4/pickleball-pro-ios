@@ -81,6 +81,8 @@ struct StatTracker_Previews: PreviewProvider {
     static var previews: some View {
         StatTracker { _ in
             print("Done")
-        }.previewLayout(.sizeThatFits)
+        }
+        .previewLayout(.sizeThatFits)
+        .preferredColorScheme(.dark)
     }
 }

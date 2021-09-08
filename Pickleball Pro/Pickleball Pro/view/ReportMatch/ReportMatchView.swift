@@ -141,7 +141,7 @@ private struct SelectPlayersStepView: View {
                 VStack(alignment: .leading) {
                     Text("Step 1: Select Players")
                         .font(.title)
-                        .foregroundColor(validationError ? .red : .black)
+                        .foregroundColor(validationError ? .red : Color(.label))
                     SelectPlayersView(players: $selectedPlayers)
                 }
                 Spacer()
@@ -179,7 +179,7 @@ private struct EnterScoresStepView: View {
                 Text("Enter Completed Match Scores:")
                     .font(.title2)
                     .padding(.vertical)
-                    .foregroundColor(validationError ? .red : .black)
+                    .foregroundColor(validationError ? .red : Color(.label))
                 EnterMatchScoreView(scores: $gameScores)
                 Button("Save") {
                     onSaveTapped()
@@ -195,7 +195,10 @@ private struct EnterScoresStepView: View {
 
 struct ReportMatchView_Previews: PreviewProvider {
     static var previews: some View {
-        ReportMatchView()
-            .environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+        ForEach(ColorScheme.allCases, id: \.self) { colorScheme in
+            ReportMatchView()
+                .environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+                .preferredColorScheme(colorScheme)
+        }
     }
 }

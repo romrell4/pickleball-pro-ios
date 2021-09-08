@@ -31,7 +31,7 @@ struct LiveMatchView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color.black.opacity(0.75))
+                .fill(Color("liveMatchBackground"))
             VStack(spacing: 0) {
                 TeamView(modalState: $modalState, team: match.team1, isBottomView: false)
                 Image("pickleball_court")
@@ -57,7 +57,8 @@ struct LiveMatchView: View {
                         }
                         modalState = .gone
                     }
-                    .background(RoundedRectangle(cornerRadius: 20).fill(Color.white))
+                    .background(Color(.systemBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
             case .gone: EmptyView()
             }
@@ -430,6 +431,7 @@ struct LiveMatchView_Previews: PreviewProvider {
         NavigationView {
             LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob]))
                 .ignoresSafeArea(.all, edges: .bottom)
+                .preferredColorScheme(.light)
         }
     }
 }
