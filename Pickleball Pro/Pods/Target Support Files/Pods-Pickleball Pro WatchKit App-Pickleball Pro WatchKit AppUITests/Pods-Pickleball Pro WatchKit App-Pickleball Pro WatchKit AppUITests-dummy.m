@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests : NSObject
+@end
+@implementation PodsDummy_Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests
+@end

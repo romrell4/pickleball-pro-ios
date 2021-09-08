@@ -1,0 +1,6 @@
+framework module Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests {
+  umbrella header "Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

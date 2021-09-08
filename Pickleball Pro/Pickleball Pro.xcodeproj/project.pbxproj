@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19A1EB1A0F1748EF6940F51D /* Pods_Pickleball_Pro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7FD4308727AB6D9772FFBE4 /* Pods_Pickleball_Pro.framework */; };
+		55D1D54A2DF9806803A17B86 /* Pods_Pickleball_Pro_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3786E36091D689ED565951 /* Pods_Pickleball_Pro_WatchKit_App.framework */; };
+		5A81E426812AB58AD1DA9669 /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12932FB7C638BE5A162DAA3A /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework */; };
+		C88D8F819F50385F02622B88 /* Pods_Pickleball_Pro_WatchKit_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F379CE23F4BAC8E4808FF1A4 /* Pods_Pickleball_Pro_WatchKit_AppTests.framework */; };
+		E683D35DF05B9797BD243691 /* Pods_Pickleball_Pro_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 611CCB9152F67B36F60184C3 /* Pods_Pickleball_Pro_WatchKit_Extension.framework */; };
 		F82DB87B26BB48F00003F7FD /* MatchStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87A26BB48F00003F7FD /* MatchStatsView.swift */; };
 		F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */; };
 		F82DB87F26BB4E570003F7FD /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87E26BB4E570003F7FD /* StatView.swift */; };
@@ -34,6 +39,8 @@
 		F8BECE3D26D9DAE600083AC5 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE3C26D9DAE600083AC5 /* ErrorHandler.swift */; };
 		F8BECE3F26D9E39200083AC5 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE3E26D9E39200083AC5 /* Secrets.swift */; };
 		F8BECE4126D9E76D00083AC5 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4026D9E76D00083AC5 /* BaseViewModel.swift */; };
+		F8BECE4326DDCE1700083AC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */; };
+		F8BECE4D26DDDA2900083AC5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4C26DDDA2900083AC5 /* LoginView.swift */; };
 		F8CC712626C42F0800D90FA3 /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */; };
 		F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */; };
 		F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */; };
@@ -131,6 +138,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E3786E36091D689ED565951 /* Pods_Pickleball_Pro_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12932FB7C638BE5A162DAA3A /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		179283E5D2485D9832AD882D /* Pods-Pickleball Pro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro/Pods-Pickleball Pro.debug.xcconfig"; sourceTree = "<group>"; };
+		1898842E5813619CEE2DF336 /* Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests/Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		5C59D317D16CDD5D1C25E792 /* Pods-Pickleball Pro WatchKit AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit AppTests/Pods-Pickleball Pro WatchKit AppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		611CCB9152F67B36F60184C3 /* Pods_Pickleball_Pro_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		62F3EA3E414A95B961F53355 /* Pods-Pickleball Pro WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit App/Pods-Pickleball Pro WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
+		656EC3B78697C903BAD475DD /* Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests/Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		754F13484AF8AA0522E891EA /* Pods-Pickleball Pro WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit Extension/Pods-Pickleball Pro WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		8F17FE94D7C6F17B5D31BAE0 /* Pods-Pickleball Pro WatchKit AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit AppTests.release.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit AppTests/Pods-Pickleball Pro WatchKit AppTests.release.xcconfig"; sourceTree = "<group>"; };
+		914C5577D4383BA8DF03F68E /* Pods-Pickleball Pro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro.release.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro/Pods-Pickleball Pro.release.xcconfig"; sourceTree = "<group>"; };
+		956A2E23A82105E8E5E17D55 /* Pods-Pickleball Pro WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit App.release.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit App/Pods-Pickleball Pro WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
+		B7FD4308727AB6D9772FFBE4 /* Pods_Pickleball_Pro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED13A8B2A665F1B8736D0853 /* Pods-Pickleball Pro WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit Extension/Pods-Pickleball Pro WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
+		F379CE23F4BAC8E4808FF1A4 /* Pods_Pickleball_Pro_WatchKit_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro_WatchKit_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82DB87A26BB48F00003F7FD /* MatchStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchStatsView.swift; sourceTree = "<group>"; };
 		F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
 		F82DB87E26BB4E570003F7FD /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
@@ -157,6 +179,9 @@
 		F8BECE3C26D9DAE600083AC5 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		F8BECE3E26D9E39200083AC5 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		F8BECE4026D9E76D00083AC5 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F8BECE4926DDD12A00083AC5 /* Pickleball Pro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pickleball Pro.entitlements"; sourceTree = "<group>"; };
+		F8BECE4C26DDDA2900083AC5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMatchScoreView.swift; sourceTree = "<group>"; };
 		F8E75ECC26A337570000F93F /* Pickleball Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pickleball Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,12 +221,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA6164645B8377420AFE695D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55D1D54A2DF9806803A17B86 /* Pods_Pickleball_Pro_WatchKit_App.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8E75EC926A337570000F93F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */,
 				F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */,
+				19A1EB1A0F1748EF6940F51D /* Pods_Pickleball_Pro.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +257,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E683D35DF05B9797BD243691 /* Pods_Pickleball_Pro_WatchKit_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C88D8F819F50385F02622B88 /* Pods_Pickleball_Pro_WatchKit_AppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,12 +273,42 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A81E426812AB58AD1DA9669 /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7CDB522BA22539D142731F2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B7FD4308727AB6D9772FFBE4 /* Pods_Pickleball_Pro.framework */,
+				0E3786E36091D689ED565951 /* Pods_Pickleball_Pro_WatchKit_App.framework */,
+				12932FB7C638BE5A162DAA3A /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework */,
+				F379CE23F4BAC8E4808FF1A4 /* Pods_Pickleball_Pro_WatchKit_AppTests.framework */,
+				611CCB9152F67B36F60184C3 /* Pods_Pickleball_Pro_WatchKit_Extension.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4F0726FD0D18F0D3FEE268F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				179283E5D2485D9832AD882D /* Pods-Pickleball Pro.debug.xcconfig */,
+				914C5577D4383BA8DF03F68E /* Pods-Pickleball Pro.release.xcconfig */,
+				62F3EA3E414A95B961F53355 /* Pods-Pickleball Pro WatchKit App.debug.xcconfig */,
+				956A2E23A82105E8E5E17D55 /* Pods-Pickleball Pro WatchKit App.release.xcconfig */,
+				656EC3B78697C903BAD475DD /* Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.debug.xcconfig */,
+				1898842E5813619CEE2DF336 /* Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.release.xcconfig */,
+				5C59D317D16CDD5D1C25E792 /* Pods-Pickleball Pro WatchKit AppTests.debug.xcconfig */,
+				8F17FE94D7C6F17B5D31BAE0 /* Pods-Pickleball Pro WatchKit AppTests.release.xcconfig */,
+				754F13484AF8AA0522E891EA /* Pods-Pickleball Pro WatchKit Extension.debug.xcconfig */,
+				ED13A8B2A665F1B8736D0853 /* Pods-Pickleball Pro WatchKit Extension.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F8A3E7E626D491F900FD6392 /* repository */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				F8B484CC26C0517300EE3E53 /* SettingsView.swift */,
+				F8BECE4C26DDDA2900083AC5 /* LoginView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -342,6 +409,8 @@
 				F8E75F1A26A3375C0000F93F /* Pickleball Pro WatchKit AppTests */,
 				F8E75F2526A3375C0000F93F /* Pickleball Pro WatchKit AppUITests */,
 				F8E75ECD26A337570000F93F /* Products */,
+				D4F0726FD0D18F0D3FEE268F /* Pods */,
+				7CDB522BA22539D142731F2D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -362,6 +431,7 @@
 		F8E75ECE26A337570000F93F /* Pickleball Pro */ = {
 			isa = PBXGroup;
 			children = (
+				F8BECE4926DDD12A00083AC5 /* Pickleball Pro.entitlements */,
 				F8B484BA26C0407300EE3E53 /* utils */,
 				F8E75F4226A338F10000F93F /* view */,
 				F8E75F4526A33E8A0000F93F /* model */,
@@ -370,6 +440,7 @@
 				F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */,
 				F8E75ED126A337570000F93F /* ContentView.swift */,
 				F8E75ED326A337580000F93F /* Assets.xcassets */,
+				F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */,
 				F8E75ED826A337580000F93F /* Info.plist */,
 				F8E75ED526A337580000F93F /* Preview Content */,
 			);
@@ -486,10 +557,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8E75F3326A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro" */;
 			buildPhases = (
+				1257A19BDD46E47D1B247F8B /* [CP] Check Pods Manifest.lock */,
 				F8E75EC826A337570000F93F /* Sources */,
 				F8E75EC926A337570000F93F /* Frameworks */,
 				F8E75ECA26A337570000F93F /* Resources */,
 				F8E75F3226A3375C0000F93F /* Embed Watch Content */,
+				310DB346AFD42B473F2FB6BD /* [CP] Embed Pods Frameworks */,
+				3D92697E703445106E14FE8E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -545,8 +619,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8E75F2F26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit App" */;
 			buildPhases = (
+				9D0A56C8A3D544D6DE2937CC /* [CP] Check Pods Manifest.lock */,
 				F8E75EEF26A337590000F93F /* Resources */,
 				F8E75F2E26A3375C0000F93F /* Embed App Extensions */,
+				AA6164645B8377420AFE695D /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -562,6 +638,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8E75F2B26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit Extension" */;
 			buildPhases = (
+				E51A5D9D2D6860033EEAB084 /* [CP] Check Pods Manifest.lock */,
 				F8E75EF926A3375B0000F93F /* Sources */,
 				F8E75EFA26A3375B0000F93F /* Frameworks */,
 				F8E75EFB26A3375B0000F93F /* Resources */,
@@ -579,6 +656,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8E75F3C26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit AppTests" */;
 			buildPhases = (
+				F50DF6C9AFDCF1E76055E99F /* [CP] Check Pods Manifest.lock */,
 				F8E75F1326A3375C0000F93F /* Sources */,
 				F8E75F1426A3375C0000F93F /* Frameworks */,
 				F8E75F1526A3375C0000F93F /* Resources */,
@@ -597,6 +675,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8E75F3F26A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro WatchKit AppUITests" */;
 			buildPhases = (
+				9BC293E052B1D619755B9E03 /* [CP] Check Pods Manifest.lock */,
 				F8E75F1E26A3375C0000F93F /* Sources */,
 				F8E75F1F26A3375C0000F93F /* Frameworks */,
 				F8E75F2026A3375C0000F93F /* Resources */,
@@ -682,6 +761,7 @@
 			files = (
 				F8E75ED726A337580000F93F /* Preview Assets.xcassets in Resources */,
 				F8E75ED426A337580000F93F /* Assets.xcassets in Resources */,
+				F8BECE4326DDCE1700083AC5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,6 +812,153 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1257A19BDD46E47D1B247F8B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pickleball Pro-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		310DB346AFD42B473F2FB6BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro/Pods-Pickleball Pro-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro/Pods-Pickleball Pro-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro/Pods-Pickleball Pro-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3D92697E703445106E14FE8E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro/Pods-Pickleball Pro-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro/Pods-Pickleball Pro-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro/Pods-Pickleball Pro-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BC293E052B1D619755B9E03 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D0A56C8A3D544D6DE2937CC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pickleball Pro WatchKit App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E51A5D9D2D6860033EEAB084 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pickleball Pro WatchKit Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F50DF6C9AFDCF1E76055E99F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pickleball Pro WatchKit AppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F8E75EC826A337570000F93F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -767,6 +994,7 @@
 				F8A3E7DE26C7371300FD6392 /* PlayersViewModel.swift in Sources */,
 				F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */,
 				F8BECE3D26D9DAE600083AC5 /* ErrorHandler.swift in Sources */,
+				F8BECE4D26DDDA2900083AC5 /* LoginView.swift in Sources */,
 				F8B484CD26C0517300EE3E53 /* SettingsView.swift in Sources */,
 				F8A3E7E826D4920F00FD6392 /* Repository.swift in Sources */,
 			);
@@ -904,6 +1132,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -957,6 +1186,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -966,6 +1196,7 @@
 		};
 		F8E75F2C26A3375C0000F93F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 754F13484AF8AA0522E891EA /* Pods-Pickleball Pro WatchKit Extension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
@@ -990,6 +1221,7 @@
 		};
 		F8E75F2D26A3375C0000F93F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED13A8B2A665F1B8736D0853 /* Pods-Pickleball Pro WatchKit Extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
@@ -1015,6 +1247,7 @@
 		};
 		F8E75F3026A3375C0000F93F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62F3EA3E414A95B961F53355 /* Pods-Pickleball Pro WatchKit App.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1035,6 +1268,7 @@
 		};
 		F8E75F3126A3375C0000F93F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 956A2E23A82105E8E5E17D55 /* Pods-Pickleball Pro WatchKit App.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1056,9 +1290,11 @@
 		};
 		F8E75F3426A3375C0000F93F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 179283E5D2485D9832AD882D /* Pods-Pickleball Pro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
@@ -1079,9 +1315,11 @@
 		};
 		F8E75F3526A3375C0000F93F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 914C5577D4383BA8DF03F68E /* Pods-Pickleball Pro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
@@ -1195,6 +1433,7 @@
 		};
 		F8E75F3D26A3375C0000F93F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C59D317D16CDD5D1C25E792 /* Pods-Pickleball Pro WatchKit AppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1218,6 +1457,7 @@
 		};
 		F8E75F3E26A3375C0000F93F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F17FE94D7C6F17B5D31BAE0 /* Pods-Pickleball Pro WatchKit AppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1242,6 +1482,7 @@
 		};
 		F8E75F4026A3375C0000F93F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 656EC3B78697C903BAD475DD /* Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
@@ -1263,6 +1504,7 @@
 		};
 		F8E75F4126A3375C0000F93F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1898842E5813619CEE2DF336 /* Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
