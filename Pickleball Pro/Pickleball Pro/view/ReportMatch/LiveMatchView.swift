@@ -169,7 +169,7 @@ private struct ScoresView: View {
                             .foregroundColor(.blue)
                             .rotationEffect(showingPreviousGames ? .degrees(180) : .zero)
                             .onTapGesture {
-                                withAnimation(.easeInOut(duration: 1)) {
+                                withAnimation(.easeInOut(duration: 0.7)) {
                                     showingPreviousGames.toggle()
                                 }
                             }
