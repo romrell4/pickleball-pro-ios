@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct PlayersView: View {
-    // TODO: Add swipe to delete
     @EnvironmentObject var playersViewModel: PlayersViewModel
     
     var body: some View {
         NavigationView {
-            List(playersViewModel.players, id: \.id) { player in
-                NavigationLink(destination: PlayerDetailsView(player: player)) {
-                    PlayerSummaryView(player: player)
-                        .padding(.vertical, 8)
+            List {
+                ForEach(playersViewModel.players, id: \.id) { player in
+                    NavigationLink(destination: PlayerDetailsView(player: player)) {
+                        PlayerSummaryView(player: player)
+                            .padding(.vertical, 8)
+                    }
+                }
+                .onDelete {
+                    playersViewModel.delete(player: playersViewModel.players[$0[$0.startIndex]])
                 }
             }
             .listStyle(PlainListStyle())

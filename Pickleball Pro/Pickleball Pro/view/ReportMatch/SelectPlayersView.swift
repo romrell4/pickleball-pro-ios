@@ -65,7 +65,7 @@ private struct EnterPlayersView: View {
                 } else {
                     Image(systemName: "person.crop.circle.badge.plus")
                         .resizable()
-                        .foregroundColor(.gray) // TODO: Figure out colors
+                        .foregroundColor(.gray)
                         .aspectRatio(contentMode: .fill)
                         .frame(width: PLAYER_ICON_SIZE, height: PLAYER_ICON_SIZE)
                 }

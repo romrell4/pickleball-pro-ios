@@ -27,6 +27,7 @@ private let DECODER: JSONDecoder = {
 protocol Repository {
     func loadPlayers(callback: @escaping (Result<[Player], AFError>) -> Void)
     func createPlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void)
+    func deletePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void)
     func updatePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void)
     func loadMatches(callback: @escaping (Result<[Match], AFError>) -> Void)
 }
@@ -40,6 +41,10 @@ class RepositoryImpl: Repository {
     
     func createPlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
         request(path: "/players", method: .post, body: player, callback: callback)
+    }
+    
+    func deletePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
+        request(path: "/players/\(player.id)", method: .delete, callback: callback)
     }
     
     func updatePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
@@ -126,6 +131,10 @@ class TestRepository: Repository {
     func createPlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
         let newPlayer = Player(id: UUID().uuidString, firstName: player.firstName, lastName: player.lastName, imageUrl: player.imageUrl, dominantHand: player.dominantHand, level: player.level, phoneNumber: player.phoneNumber, email: player.email, notes: player.notes)
         callback(.success(newPlayer))
+    }
+    
+    func deletePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
+        callback(.success(player))
     }
     
     func updatePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {

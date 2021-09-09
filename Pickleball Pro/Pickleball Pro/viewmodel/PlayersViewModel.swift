@@ -49,4 +49,16 @@ class PlayersViewModel: BaseViewModel {
 //            }
 //        }
     }
+    
+    func delete(player: Player, callback: @escaping (ProError?) -> Void = {_ in}) {
+//        repository.deletePlayer(player: player) {
+//            switch $0 {
+//            case .success:
+                self.players.removeAll { $0.id == player.id }
+                callback(nil)
+//            case .failure(let error):
+//                callback(.deletePlayerError(afError: error))
+//            }
+//        }
+    }
 }
