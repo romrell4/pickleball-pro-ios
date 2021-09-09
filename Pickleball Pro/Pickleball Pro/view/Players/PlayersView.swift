@@ -35,6 +35,7 @@ struct PlayersView: View {
 
 struct PlayersView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayersView().environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+        PlayersView()
+            .environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
     }
 }

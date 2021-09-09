@@ -34,6 +34,7 @@ struct PlayerSummaryView: View {
             if !player.notes.isEmpty {
                 Text("Notes: \(player.notes)")
                     .font(.caption)
+                    .lineLimit(3)
             }
         }
     }
