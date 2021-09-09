@@ -223,7 +223,7 @@ struct LiveMatch {
     var currentServer: LiveMatchPlayer { allPlayers.first { $0.isServing }! }
     
     var currentServingTeam: LiveMatchTeam {
-        team1.players.contains(currentServer) ? team1 : team2
+        team1.players.contains { $0.id == currentServer.id } ? team1 : team2
     }
     
     func player(for id: String) -> LiveMatchPlayer {
@@ -239,15 +239,15 @@ struct LiveMatch {
         team1.scores.append(0)
         team2.scores.append(0)
         
-        // TODO: Figure out why this isn't updating immediately...
-        team1.player1.servingState = .serving(isFirstServer: !isDoubles)
+        // TODO: Allow user to select server again?
+        team1.player1.servingState = .notServing
         team1.player2?.servingState = .notServing
-        team2.player1.servingState = .notServing
+        team2.player1.servingState = .serving(isFirstServer: !isDoubles)
         team2.player2?.servingState = .notServing
     }
     
     mutating func pointFinished(with shot: Stat.Shot, by player: LiveMatchPlayer) {
-        let playerTeam = team1.players.contains(player) ? team1 : team2
+        let playerTeam = team1.players.contains { $0.id == player.id } ? team1 : team2
         
         // If it was a winner by the serving team or an error by the receiving team, add a point to the serving team
         // If it was an error by the serving team or a winner by the receiving team, rotate servers
@@ -384,7 +384,7 @@ struct LiveMatchTeam {
     }
 }
 
-struct LiveMatchPlayer: Equatable {
+struct LiveMatchPlayer {
     var player: Player
     
     var id: String { player.id }
@@ -397,10 +397,6 @@ struct LiveMatchPlayer: Equatable {
         case .notServing: return false
         case .serving(_): return true
         }
-    }
-    
-    static func == (lhs: LiveMatchPlayer, rhs: LiveMatchPlayer) -> Bool {
-        lhs.id == rhs.id
     }
     
     enum ServingState {
