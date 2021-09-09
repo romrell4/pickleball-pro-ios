@@ -56,6 +56,7 @@ struct PlayerDetailsView: View {
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
+                    LevelRow(level: $player.level)
                 }
                 Section(header: Text("Notes")) {
                     MultilineTextRow(value: $player.notes)
@@ -106,6 +107,20 @@ private struct TextRow: View {
     var body: some View {
         HStack {
             TextField(hint, text: $value)
+        }
+    }
+}
+
+private struct LevelRow: View {
+    @Binding var level: Double
+    
+    var body: some View {
+        VStack {
+            Slider(value: $level, in: 0...6, step: 0.1) {
+                Text("Label")
+            }
+            
+            Text(String(format: "Level: %.1f", level))
         }
     }
 }
