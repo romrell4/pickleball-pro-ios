@@ -10,15 +10,17 @@ import SwiftUI
 struct LiveMatchView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var match: LiveMatch
-    @State private var modalState: ModalState = .gone
+    @State private var statTrackerModalState: StatTrackerModalState = .gone
+    @State private var selectServerModalVisible: Bool = true
     
     init?(players: ([Player], [Player])) {
-        guard players.0.count > 0 && players.1.count > 0 else {
-            return nil
-        }
+        guard players.0.count > 0 && players.1.count > 0 else { return nil }
         _match = State(initialValue: LiveMatch(
             team1: LiveMatchTeam(
-                player1: LiveMatchPlayer(player: players.0[0], servingState: .serving(isFirstServer: players.0.count == 1)),
+                player1: LiveMatchPlayer(
+                    player: players.0[0]
+//                    ,servingState: .serving(isFirstServer: players.0.count == 1)
+                ),
                 player2: LiveMatchPlayer(player: players.0[safe: 1])
             ),
             team2: LiveMatchTeam(
@@ -33,34 +35,46 @@ struct LiveMatchView: View {
             Rectangle()
                 .fill(Color("liveMatchBackground"))
             VStack(spacing: 0) {
-                TeamView(modalState: $modalState, team: match.team1, isBottomView: false)
+                TeamView(statTrackerModalState: $statTrackerModalState, team: match.team1, isBottomView: false)
                 Image("pickleball_court")
                     .resizable()
-                TeamView(modalState: $modalState, team: match.team2, isBottomView: true)
+                TeamView(statTrackerModalState: $statTrackerModalState, team: match.team2, isBottomView: true)
             }
             .padding(.vertical)
             .padding(.leading, 80)
             
             ScoresView(match: $match)
             
-            switch modalState {
+            switch statTrackerModalState {
             case .visible(let player, let previousShot):
-                ZStack {
-                    Rectangle()
-                        .fill(Color.black.opacity(0.25))
-                        .onTapGesture {
-                            modalState = .gone
-                        }
+                ModalView(onDismiss: { statTrackerModalState = .gone }) {
                     StatTracker(shot: previousShot) { newShot in
                         if let shot = newShot {
                             match.pointFinished(with: shot, by: player)
                         }
-                        modalState = .gone
+                        statTrackerModalState = .gone
                     }
-                    .background(Color(.systemBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
             case .gone: EmptyView()
+            }
+            if selectServerModalVisible {
+                ModalView(onDismiss: {}) {
+                    SelectServerModal(
+                        team1: $match.team1,
+                        team2: $match.team2
+                    ) { player in
+                        selectServerModalVisible = false
+                        
+                        // If they selected a "player2", switch sides
+                        switch player.id {
+                        case match.team1.player2?.id:
+                            match.team1.switchSides()
+                        case match.team2.player2?.id:
+                            match.team2.switchSides()
+                        default: break
+                        }
+                    }
+                }
             }
         }
         .navigationBarTitle("Live Match", displayMode: .inline)
@@ -74,6 +88,8 @@ struct LiveMatchView: View {
                     }
                     Button("Start New Game") {
                         match.startNewGame()
+                        
+                        selectServerModalVisible = true
                     }
                     if match.canUndoLastShot() {
                         Button("Undo Last Shot") {
@@ -85,7 +101,7 @@ struct LiveMatchView: View {
                                     match.team2.losePoint()
                                 case .sideout: break
                                 }
-                                modalState = .visible(player: match.player(for: stat.stat.playerId), savedShot: stat.stat.shot)
+                                statTrackerModalState = .visible(player: match.player(for: stat.stat.playerId), savedShot: stat.stat.shot)
                             }
                         }
                     }
@@ -99,7 +115,7 @@ struct LiveMatchView: View {
 }
 
 private struct TeamView: View {
-    @Binding var modalState: ModalState
+    @Binding var statTrackerModalState: StatTrackerModalState
     var team: LiveMatchTeam
     var isBottomView: Bool
     
@@ -108,16 +124,16 @@ private struct TeamView: View {
             Spacer()
             if isBottomView {
                 if let player2 = team.player2 {
-                    PlayerView(modalState: $modalState, player: player2)
+                    PlayerView(statTrackerModalState: $statTrackerModalState, player: player2)
                     Spacer()
                     Spacer()
                 }
-                PlayerView(modalState: $modalState, player: team.player1)
+                PlayerView(statTrackerModalState: $statTrackerModalState, player: team.player1)
             } else {
-                PlayerView(modalState: $modalState, player: team.player1)
+                PlayerView(statTrackerModalState: $statTrackerModalState, player: team.player1)
                 if let player2 = team.player2 {
                     Spacer()
-                    PlayerView(modalState: $modalState, player: player2)
+                    PlayerView(statTrackerModalState: $statTrackerModalState, player: player2)
                 }
             }
             Spacer()
@@ -126,7 +142,7 @@ private struct TeamView: View {
 }
 
 private struct PlayerView: View {
-    @Binding var modalState: ModalState
+    @Binding var statTrackerModalState: StatTrackerModalState
     var player: LiveMatchPlayer
     
     private let pickleballImage: some View =
@@ -137,7 +153,7 @@ private struct PlayerView: View {
             RoundImageView(url: player.imageUrl)
                 .frame(width: 50, height: 50)
                 .onTapGesture {
-                    modalState = .visible(player: player)
+                    statTrackerModalState = .visible(player: player)
                 }
             VStack(spacing: 4) {
                 switch player.servingState {
@@ -204,7 +220,7 @@ private struct ScoreView: View {
     }
 }
 
-private enum ModalState {
+private enum StatTrackerModalState {
     case visible(player: LiveMatchPlayer, savedShot: Stat.Shot? = nil)
     case gone
 }
@@ -216,7 +232,7 @@ struct LiveMatch {
     
     var allPlayers: [LiveMatchPlayer] { team1.players + team2.players }
     
-    var isDoubles: Bool { team1.player2 != nil && team2.player2 != nil }
+    var isDoubles: Bool { team1.isDoubles && team2.isDoubles }
     
     var currentGameIndex: Int { team1.scores.count - 1 }
     
@@ -239,10 +255,9 @@ struct LiveMatch {
         team1.scores.append(0)
         team2.scores.append(0)
         
-        // TODO: Allow user to select server again?
         team1.player1.servingState = .notServing
         team1.player2?.servingState = .notServing
-        team2.player1.servingState = .serving(isFirstServer: !isDoubles)
+        team2.player1.servingState = .notServing
         team2.player2?.servingState = .notServing
     }
     
@@ -360,6 +375,7 @@ struct LiveMatchTeam {
     
     var players: [LiveMatchPlayer] { [player1, player2].compactMap { $0 } }
     var isServing: Bool { players.contains { $0.isServing } }
+    var isDoubles: Bool { player2 != nil }
     
     mutating func earnPoint() {
         scores[scores.count - 1] += 1
@@ -388,6 +404,7 @@ struct LiveMatchPlayer {
     var player: Player
     
     var id: String { player.id }
+    var firstName: String { player.firstName }
     var imageUrl: String { player.imageUrl }
     
     var servingState: ServingState = .notServing
@@ -431,7 +448,7 @@ struct LiveMatchView_Previews: PreviewProvider {
         NavigationView {
             LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob]))
                 .ignoresSafeArea(.all, edges: .bottom)
-                .preferredColorScheme(.light)
+                .preferredColorScheme(.dark)
         }
     }
 }

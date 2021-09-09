@@ -64,16 +64,16 @@ struct StatTracker: View {
             HStack {
                 Button("Save") {
                     onButtonTap(Stat.Shot(type: selectedType, result: selectedResult, side: selectedSide))
-                }.padding()
+                }
+                .padding(.horizontal)
                 Button("Cancel") {
                     onButtonTap(nil)
                 }
                 .foregroundColor(.red)
-                .padding()
-            }
+                .padding(.horizontal)
+            }.padding(.top)
         }
         .frame(width: 200)
-        .padding(.horizontal)
     }
 }
 
