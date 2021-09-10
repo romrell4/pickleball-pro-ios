@@ -41,8 +41,6 @@ struct ReportMatchView: View {
                                     print(team1)
                                     print(team2)
                                     shouldNavigateToLiveMatch = true
-                                    // TODO: Reset after live match is done...?
-//                                    reset()
                                 } catch {
                                     scrollView.scrollTo(SELECT_PLAYERS_ID)
                                 }
