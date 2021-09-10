@@ -8,9 +8,12 @@
 import SwiftUI
 
 private let DISABLED_STEP_ALPHA = 0.2
+private let SELECT_PLAYERS_ID = 0
+private let ENTER_SCORES_ID = 1
 
 struct ReportMatchView: View {
     @EnvironmentObject var playersViewModel: PlayersViewModel
+    @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.currentTab) var currentTab
     
     @State private var showingAlert = false
@@ -24,31 +27,50 @@ struct ReportMatchView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack {
-                    SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError)
-                    EnterScoresStepView(
-                        gameScores: $enteredGameScores,
-                        validationError: scoreValidationError,
-                        onTrackLiveMatchTapped: {
-                            if let (team1, team2) = try? validatePlayers() {
-                                print(team1)
-                                print(team2)
-                                shouldNavigateToLiveMatch = true
-                                // TODO: Reset after live match is done...?
-    //                            reset()
+            ScrollViewReader { scrollView in
+                ScrollView {
+                    VStack {
+                        SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError)
+                            .id(SELECT_PLAYERS_ID)
+                        EnterScoresStepView(
+                            gameScores: $enteredGameScores,
+                            validationError: scoreValidationError,
+                            onTrackLiveMatchTapped: {
+                                do {
+                                    let (team1, team2) = try validatePlayers()
+                                    print(team1)
+                                    print(team2)
+                                    shouldNavigateToLiveMatch = true
+                                    // TODO: Reset after live match is done...?
+//                                    reset()
+                                } catch {
+                                    scrollView.scrollTo(SELECT_PLAYERS_ID)
+                                }
+                            },
+                            onSaveTapped: {
+                                do {
+                                    let match = try validateMatch()
+                                    matchesViewModel.create(match: match) {
+                                        reset()
+                                        currentTab.wrappedValue = .myMatches
+                                    }
+                                } catch MyError.playerValidationError {
+                                    scrollView.scrollTo(SELECT_PLAYERS_ID)
+                                } catch MyError.scoreValidationError {
+                                    scrollView.scrollTo(ENTER_SCORES_ID)
+                                } catch {}
                             }
-                        },
-                        onSaveTapped: {
-                            if let match = try? getMatch() {
-                                print(match)
-                                // TODO: Save it
+                        ).id(ENTER_SCORES_ID)
+                        NavigationLink(
+                            destination: LiveMatchView(
+                                players: getPlayers()
+                            ) {
                                 reset()
                                 currentTab.wrappedValue = .myMatches
-                            }
-                        }
-                    )
-                    NavigationLink(destination: LiveMatchView(players: getPlayers()), isActive: $shouldNavigateToLiveMatch) { EmptyView() }
+                            },
+                            isActive: $shouldNavigateToLiveMatch
+                        ) { EmptyView() }
+                    }
                 }
             }
             .navigationBarTitle("Report Match")
@@ -69,7 +91,7 @@ struct ReportMatchView: View {
         scoreValidationError = false
     }
     
-    private func getMatch() throws -> Match? {
+    private func validateMatch() throws -> Match {
         let (team1, team2) = try validatePlayers()
         let scores = try validateScores()
         
@@ -198,6 +220,7 @@ struct ReportMatchView_Previews: PreviewProvider {
         ForEach(ColorScheme.allCases, id: \.self) { colorScheme in
             ReportMatchView()
                 .environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+                .environmentObject(MatchesViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
                 .preferredColorScheme(colorScheme)
         }
     }

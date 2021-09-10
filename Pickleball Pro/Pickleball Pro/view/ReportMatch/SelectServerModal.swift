@@ -29,8 +29,8 @@ private struct TeamView: View {
     var body: some View {
         HStack {
             PlayerView(player: $team.player1, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
-            if let player2 = $team.player2 {
-                PlayerView(player: Binding(player2)!, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
+            if team.isDoubles {
+                PlayerView(player: Binding($team.player2)!, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
             }
         }
     }

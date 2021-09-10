@@ -19,12 +19,10 @@ struct PlayerSummaryView: View {
                     Text(player.fullName)
                         .font(.title3)
                     if let level = player.level {
-                        // TODO: Use stars?
                         Text("Level: \(String(format: "%.1f", level))")
                             .font(.caption)
                     }
                     if let hand = player.dominantHand {
-                        // TODO: Make this a segmented view?
                         Text("Dominant Hand: \(hand.rawValue.capitalized)")
                             .font(.caption)
                     }

@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct LiveMatchView: View {
+    @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var match: LiveMatch
     @State private var statTrackerModalState: StatTrackerModalState = .gone
     @State private var selectServerModalVisible: Bool = true
     
-    init?(players: ([Player], [Player])) {
+    var onMatchSaved: () -> Void
+    
+    init?(players: ([Player], [Player]), onMatchSaved: @escaping () -> Void) {
         guard players.0.count > 0 && players.1.count > 0 else { return nil }
         _match = State(initialValue: LiveMatch(
             team1: LiveMatchTeam(
@@ -28,6 +31,7 @@ struct LiveMatchView: View {
                 player2: LiveMatchPlayer(player: players.1[safe: 1])
             )
         ))
+        self.onMatchSaved = onMatchSaved
     }
     
     var body: some View {
@@ -82,9 +86,10 @@ struct LiveMatchView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button("Finish Match") {
-                        // TODO: Save the match?
-                        print(match)
-                        presentationMode.wrappedValue.dismiss()
+                        matchesViewModel.create(match: match.toMatch()) {
+                            presentationMode.wrappedValue.dismiss()
+                            onMatchSaved()
+                        }
                     }
                     Button("Start New Game") {
                         match.startNewGame()
@@ -446,9 +451,12 @@ extension LiveMatchPlayer {
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob]))
+            LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob])) {
+                print("Saved")
+            }
                 .ignoresSafeArea(.all, edges: .bottom)
                 .preferredColorScheme(.dark)
         }
+        .environmentObject(MatchesViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
     }
 }
