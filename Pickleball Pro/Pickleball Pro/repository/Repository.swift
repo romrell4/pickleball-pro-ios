@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 private let BASE_URL =
-    "https://romrell4.github.io/pickleball-pro"
+    "https://romrell4.github.io/pickleball-pro-ios"
 //    "https://5247f773-d28a-46b6-a312-5fdd5e3c2451.mock.pstmn.io"
 private let ENCODER: JSONEncoder = {
     let encoder = JSONEncoder()
