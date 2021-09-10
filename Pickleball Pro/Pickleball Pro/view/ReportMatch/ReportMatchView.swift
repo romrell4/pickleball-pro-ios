@@ -75,6 +75,7 @@ struct ReportMatchView: View {
             }
             .navigationBarTitle("Report Match")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarHidden(true)
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Match Saved!"))
             }
@@ -217,11 +218,9 @@ private struct EnterScoresStepView: View {
 
 struct ReportMatchView_Previews: PreviewProvider {
     static var previews: some View {
-        ForEach(ColorScheme.allCases, id: \.self) { colorScheme in
-            ReportMatchView()
-                .environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
-                .environmentObject(MatchesViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
-                .preferredColorScheme(colorScheme)
-        }
+        ReportMatchView()
+            .environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+            .environmentObject(MatchesViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+            .preferredColorScheme(.dark)
     }
 }

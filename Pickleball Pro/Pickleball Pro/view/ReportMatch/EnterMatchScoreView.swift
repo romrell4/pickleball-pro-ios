@@ -47,12 +47,7 @@ struct EnterMatchScoreView: View {
     }
 }
 
-struct EnterGameScore {
-    var team1: String = ""
-    var team2: String = ""
-}
-
-struct GameScoreView: View {
+private struct GameScoreView: View {
     @Binding var score: EnterGameScore
     
     var body: some View {
@@ -69,12 +64,17 @@ struct GameScoreView: View {
             TextField("", text: $textBinding)
                 .keyboardType(.numberPad)
                 .multilineTextAlignment(.center)
-                .frame(width: 20, height: 20)
+                .frame(width: 30, height: 30)
                 .padding(8)
-                .font(.caption)
+                .font(.body)
                 .overlay(RoundedRectangle(cornerRadius: 8).strokeBorder(Color.gray))
         }
     }
+}
+
+struct EnterGameScore {
+    var team1: String = ""
+    var team2: String = ""
 }
 
 struct EnterMatchScoreView_Previews: PreviewProvider {

@@ -13,6 +13,7 @@ struct LiveMatchView: View {
     @State private var match: LiveMatch
     @State private var statTrackerModalState: StatTrackerModalState = .gone
     @State private var selectServerModalVisible: Bool = true
+    @State private var cancelWarningVisible: Bool = false
     
     var onMatchSaved: () -> Void
     
@@ -82,6 +83,17 @@ struct LiveMatchView: View {
             }
         }
         .navigationBarTitle("Live Match", displayMode: .inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button("Cancel") {
+            cancelWarningVisible = true
+        }.alert(isPresented: $cancelWarningVisible, content: {
+            Alert(
+                title: Text("Are you sure?"),
+                message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
+                primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss() },
+                secondaryButton: .cancel(Text("No"))
+            )
+        }))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
