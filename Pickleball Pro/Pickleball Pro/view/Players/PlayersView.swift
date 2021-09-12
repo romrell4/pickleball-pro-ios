@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlayersView: View {
+    // TODO: Search / Sort
     @EnvironmentObject var playersViewModel: PlayersViewModel
     
     var body: some View {

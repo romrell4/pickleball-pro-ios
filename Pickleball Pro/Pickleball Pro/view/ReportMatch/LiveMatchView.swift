@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LiveMatchView: View {
+    // TODO: Track singles sides as well
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var match: LiveMatch
@@ -108,6 +109,9 @@ struct LiveMatchView: View {
                         
                         selectServerModalVisible = true
                     }
+                    Button("Switch Sides") {
+                        match.switchSides()
+                    }
                     if match.canUndoLastShot() {
                         Button("Undo Last Shot") {
                             if let stat = match.stats.popLast() {
@@ -122,6 +126,7 @@ struct LiveMatchView: View {
                             }
                         }
                     }
+                    // TODO: View match stats
                 }) {
                     Image(systemName: "ellipsis.circle")
                         .font(.system(size: 21))
@@ -372,6 +377,12 @@ struct LiveMatch {
         }
     }
     
+    mutating func switchSides() {
+        let tempTeam = team1
+        self.team1 = team2
+        self.team2 = tempTeam
+    }
+    
     func toMatch() -> Match {
         Match(
             id: "",
@@ -406,6 +417,8 @@ struct LiveMatchTeam {
         
         // If it's doubles, switch sides back
         switchSides()
+        
+        // TODO: Determine if you need to switch server as well
     }
     
     mutating func switchSides() {
