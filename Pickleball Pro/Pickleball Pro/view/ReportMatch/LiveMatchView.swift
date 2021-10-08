@@ -15,6 +15,7 @@ struct LiveMatchView: View {
     @State private var statTrackerModalState: StatTrackerModalState = .gone
     @State private var selectServerModalVisible: Bool = true
     @State private var cancelWarningVisible: Bool = false
+    @State private var matchStatsModalVisible: Bool = false
     
     var onMatchSaved: () -> Void
     
@@ -54,7 +55,7 @@ struct LiveMatchView: View {
             switch statTrackerModalState {
             case .visible(let player, let previousShot):
                 ModalView(onDismiss: { statTrackerModalState = .gone }) {
-                    StatTracker(shot: previousShot) { newShot in
+                    StatTracker(player: player.player, shot: previousShot) { newShot in
                         if let shot = newShot {
                             match.pointFinished(with: shot, by: player)
                         }
@@ -85,16 +86,21 @@ struct LiveMatchView: View {
         }
         .navigationBarTitle("Live Match", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button("Cancel") {
-            cancelWarningVisible = true
-        }.alert(isPresented: $cancelWarningVisible, content: {
-            Alert(
-                title: Text("Are you sure?"),
-                message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
-                primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss() },
-                secondaryButton: .cancel(Text("No"))
-            )
-        }))
+        .navigationBarItems(
+            leading: Button("Cancel") {
+                cancelWarningVisible = true
+            }.alert(isPresented: $cancelWarningVisible, content: {
+                Alert(
+                    title: Text("Are you sure?"),
+                    message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
+                    primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss() },
+                    secondaryButton: .cancel(Text("No"))
+                )
+            })
+        )
+        .sheet(isPresented: $matchStatsModalVisible) {
+            MatchDetailView(match: match.toMatch())
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
@@ -120,13 +126,16 @@ struct LiveMatchView: View {
                                     match.team1.losePoint()
                                 case .team2Point:
                                     match.team2.losePoint()
-                                case .sideout: break
+                                case .sideout(let previousServerId, let wasFirstServer):
+                                    match.unrotateServer(previousServerId: previousServerId, wasFirstServer: wasFirstServer)
                                 }
                                 statTrackerModalState = .visible(player: match.player(for: stat.stat.playerId), savedShot: stat.stat.shot)
                             }
                         }
                     }
-                    // TODO: View match stats
+                    Button("View Match Stats") {
+                        matchStatsModalVisible = true
+                    }
                 }) {
                     Image(systemName: "ellipsis.circle")
                         .font(.system(size: 21))
@@ -143,6 +152,7 @@ private struct TeamView: View {
     
     var body: some View {
         HStack {
+            // TODO: Switch singles sides
             Spacer()
             if isBottomView {
                 if let player2 = team.player2 {
@@ -299,8 +309,9 @@ struct LiveMatch {
                 scoreResult = .team2Point
             }
         } else {
+            guard case .serving(let isFirstServer) = currentServer.servingState else { return }
+            scoreResult = .sideout(previousServerId: currentServer.id, wasFirstServer: isFirstServer)
             rotateServer()
-            scoreResult = .sideout
         }
         
         stats.append(
@@ -374,6 +385,26 @@ struct LiveMatch {
                 team1.player1.servingState = .serving()
                 team2.player1.servingState = .notServing
             }
+        }
+    }
+    
+    mutating func unrotateServer(previousServerId: String, wasFirstServer: Bool) {
+        team1.player1.servingState = .notServing
+        team1.player2?.servingState = .notServing
+        team2.player1.servingState = .notServing
+        team2.player2?.servingState = .notServing
+        
+        switch previousServerId {
+        case team1.player1.id:
+            team1.player1.servingState = .serving(isFirstServer: wasFirstServer)
+        case team1.player2?.id:
+            team1.player2?.servingState = .serving(isFirstServer: wasFirstServer)
+        case team2.player1.id:
+            team2.player1.servingState = .serving(isFirstServer: wasFirstServer)
+        case team2.player2?.id:
+            team2.player2?.servingState = .serving(isFirstServer: wasFirstServer)
+        default:
+            break
         }
     }
     
@@ -459,7 +490,7 @@ struct LiveMatchStat {
     enum ScoreResult {
         case team1Point
         case team2Point
-        case sideout
+        case sideout(previousServerId: String, wasFirstServer: Bool)
     }
 }
 

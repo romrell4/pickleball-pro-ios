@@ -9,6 +9,10 @@ target 'Pickleball Pro' do
   # Pods for Pickleball Pro
   pod 'Firebase'
   pod 'FirebaseUI'
+  
+  target 'Pickleball ProTests' do
+    inherit! :search_paths
+  end
 end
 
 target 'Pickleball Pro WatchKit App' do

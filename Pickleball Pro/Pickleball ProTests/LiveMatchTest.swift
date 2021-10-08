@@ -88,6 +88,85 @@ class LiveMatchTest: XCTestCase {
         XCTAssertFalse(match.team2.player2!.isServing)
     }
     
+    func testSinglesServerUnrotation() throws {
+        var match = LiveMatch(
+            team1: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving())),
+            team2: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: "")))
+        )
+        match.unrotateServer(previousServerId: "1", wasFirstServer: true)
+        XCTAssertTrue(match.team1.isServing)
+        XCTAssertTrue(match.team1.player1.isServing)
+        XCTAssertFalse(match.team2.isServing)
+        XCTAssertFalse(match.team2.player1.isServing)
+        
+        match.unrotateServer(previousServerId: "2", wasFirstServer: true)
+        XCTAssertFalse(match.team1.isServing)
+        XCTAssertFalse(match.team1.player1.isServing)
+        XCTAssertTrue(match.team2.isServing)
+        XCTAssertTrue(match.team2.player1.isServing)
+    }
+    
+    func testDoublesServerUnrotation() throws {
+        var match = LiveMatch(
+            team1: LiveMatchTeam(
+                player1: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving(isFirstServer: false)),
+                player2: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: ""))
+            ),
+            team2: LiveMatchTeam(
+                player1: LiveMatchPlayer(player: Player(id: "3", firstName: "", lastName: "", imageUrl: "")),
+                player2: LiveMatchPlayer(player: Player(id: "4", firstName: "", lastName: "", imageUrl: ""))
+            )
+        )
+        
+        match.unrotateServer(previousServerId: "3", wasFirstServer: true)
+        
+        switch match.team2.player1.servingState {
+        case .serving(let isFirstServer):
+            XCTAssertTrue(isFirstServer)
+        default:
+            XCTFail()
+        }
+        XCTAssertFalse(match.team1.player1.isServing)
+        XCTAssertFalse(match.team1.player2!.isServing)
+        XCTAssertFalse(match.team2.player2!.isServing)
+        
+        match.unrotateServer(previousServerId: "4", wasFirstServer: false)
+        
+        switch match.team2.player2!.servingState {
+        case .serving(let isFirstServer):
+            XCTAssertFalse(isFirstServer)
+        default:
+            XCTFail()
+        }
+        XCTAssertFalse(match.team1.player1.isServing)
+        XCTAssertFalse(match.team1.player2!.isServing)
+        XCTAssertFalse(match.team2.player1.isServing)
+        
+        match.unrotateServer(previousServerId: "1", wasFirstServer: true)
+        
+        switch match.team1.player1.servingState {
+        case .serving(let isFirstServer):
+            XCTAssertTrue(isFirstServer)
+        default:
+            XCTFail()
+        }
+        XCTAssertFalse(match.team1.player2!.isServing)
+        XCTAssertFalse(match.team2.player1.isServing)
+        XCTAssertFalse(match.team2.player2!.isServing)
+        
+        match.unrotateServer(previousServerId: "2", wasFirstServer: false)
+        
+        switch match.team1.player2!.servingState {
+        case .serving(let isFirstServer):
+            XCTAssertFalse(isFirstServer)
+        default:
+            XCTFail()
+        }
+        XCTAssertFalse(match.team1.player1.isServing)
+        XCTAssertFalse(match.team2.player1.isServing)
+        XCTAssertFalse(match.team2.player2!.isServing)
+    }
+    
     func testSinglesPointFinished() {
         var match = LiveMatch(
             team1: LiveMatchTeam(player1: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving())),

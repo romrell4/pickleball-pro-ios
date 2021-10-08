@@ -41,6 +41,11 @@ class LoginViewDelegate: ObservableObject {
                     print("User: \(user)")
                     print("Email: \(user.email ?? "no email")")
                     print("Name: \(user.displayName ?? "no name")")
+                    user.getIDToken { token, error in
+                        if let token = token {
+                            print(token)
+                        }
+                    }
                 } else {
                     print("Nil user")
                 }

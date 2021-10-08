@@ -1,0 +1,6 @@
+framework module Pods_Pickleball_ProTests {
+  umbrella header "Pods-Pickleball ProTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

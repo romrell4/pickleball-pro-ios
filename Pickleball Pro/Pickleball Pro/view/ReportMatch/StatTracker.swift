@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct StatTracker: View {
-    let onButtonTap: (Stat.Shot?) -> Void
+    private let player: Player
+    private let onButtonTap: (Stat.Shot?) -> Void
     
-    init(shot: Stat.Shot? = nil, onButtonTap: @escaping (Stat.Shot?) -> Void) {
+    init(player: Player, shot: Stat.Shot? = nil, onButtonTap: @escaping (Stat.Shot?) -> Void) {
+        self.player = player
+        
         if let shot = shot {
             self.typeIndex = types.firstIndex(of: shot.type) ?? 0
             self.resultIndex = results.firstIndex(of: shot.result) ?? 0
@@ -39,6 +42,9 @@ struct StatTracker: View {
     
     var body: some View {
         VStack {
+            RoundImageView(url: player.imageUrl)
+                .frame(width: 40, height: 40)
+            
             Picker("Shot Type", selection: $typeIndex) {
                 ForEach(types.indices, id: \.self) { index in
                     Text(types[index].rawValue.capitalized).tag(index)
@@ -79,7 +85,7 @@ struct StatTracker: View {
 
 struct StatTracker_Previews: PreviewProvider {
     static var previews: some View {
-        StatTracker { _ in
+        StatTracker(player: Player.eric) { _ in
             print("Done")
         }
         .previewLayout(.sizeThatFits)
