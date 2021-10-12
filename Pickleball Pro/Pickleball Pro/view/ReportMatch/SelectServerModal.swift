@@ -28,31 +28,37 @@ private struct TeamView: View {
     
     var body: some View {
         HStack {
-            PlayerView(player: $team.player1, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
-            if team.isDoubles {
-                PlayerView(player: Binding($team.player2)!, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
+            if team.deucePlayer != nil {
+                PlayerView(player: $team.deucePlayer, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
+            }
+            if team.adPlayer != nil {
+                PlayerView(player: $team.adPlayer, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
             }
         }
     }
 }
 
 private struct PlayerView: View {
-    @Binding var player: LiveMatchPlayer
+    @Binding var player: LiveMatchPlayer?
     let isDoubles: Bool
     let onServerTapped: (LiveMatchPlayer) -> Void
     
     var body: some View {
-        VStack {
-            RoundImageView(url: player.imageUrl)
-                .frame(width: 50, height: 50)
-            Text(player.firstName)
-                .font(.caption)
-                .frame(width: 70)
-        }
-        .padding(8)
-        .onTapGesture {
-            player.servingState = .serving(isFirstServer: !isDoubles)
-            onServerTapped(player)
+        if let player = player {
+            VStack {
+                RoundImageView(url: player.imageUrl)
+                    .frame(width: 50, height: 50)
+                Text(player.firstName)
+                    .font(.caption)
+                    .frame(width: 70)
+            }
+            .padding(8)
+            .onTapGesture {
+                self.player?.servingState = .serving(isFirstServer: !isDoubles)
+                onServerTapped(player)
+            }
+        } else {
+            EmptyView()
         }
     }
 }
@@ -60,12 +66,12 @@ private struct PlayerView: View {
 struct SelectServerModal_Previews: PreviewProvider {
     private struct Test: View {
         @State var team1 = LiveMatchTeam(
-            player1: LiveMatchPlayer(player: Player.eric),
-            player2: LiveMatchPlayer(player: Player.jessica)
+            deucePlayer: LiveMatchPlayer(player: Player.eric),
+            adPlayer: LiveMatchPlayer(player: Player.jessica)
         )
         @State var team2 = LiveMatchTeam(
-            player1: LiveMatchPlayer(player: Player.bryan),
-            player2: LiveMatchPlayer(player: Player.bob)
+            deucePlayer: LiveMatchPlayer(player: Player.bryan),
+            adPlayer: LiveMatchPlayer(player: Player.bob)
         )
         
         var body: some View {
