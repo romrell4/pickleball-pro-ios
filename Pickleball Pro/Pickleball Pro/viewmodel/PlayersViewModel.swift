@@ -25,15 +25,16 @@ class PlayersViewModel: BaseViewModel {
     }
     
     func create(player: Player, callback: @escaping (Result<Player, ProError>) -> Void) {
-        repository.createPlayer(player: player) {
-            switch $0 {
-            case .success(let newPlayer):
+//        repository.createPlayer(player: player) {
+//            switch $0 {
+//            case .success(let newPlayer):
+                let newPlayer = Player(id: UUID().uuidString, firstName: player.firstName, lastName: player.lastName, imageUrl: player.imageUrl, dominantHand: player.dominantHand, level: player.level, phoneNumber: player.phoneNumber, email: player.email, notes: player.notes)
                 self.players.append(newPlayer)
                 callback(.success(newPlayer))
-            case .failure(let error):
-                callback(.failure(.createPlayerError(afError: error)))
-            }
-        }
+//            case .failure(let error):
+//                callback(.failure(.createPlayerError(afError: error)))
+//            }
+//        }
     }
     
     func update(player: Player, callback: (Result<Player, ProError>) -> Void = {_ in}) {

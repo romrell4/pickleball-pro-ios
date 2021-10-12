@@ -30,6 +30,7 @@ struct PlayersView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Image(systemName: "plus.circle")
+                    .font(.system(size: 21))
                     .foregroundColor(.blue)
                     .onTapGesture {
                         showingAddPlayerSheet = true
