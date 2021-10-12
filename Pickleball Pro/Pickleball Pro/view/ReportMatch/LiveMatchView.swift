@@ -85,22 +85,22 @@ struct LiveMatchView: View {
         }
         .navigationBarTitle("Live Match", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(
-            leading: Button("Cancel") {
-                cancelWarningVisible = true
-            }.alert(isPresented: $cancelWarningVisible, content: {
-                Alert(
-                    title: Text("Are you sure?"),
-                    message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
-                    primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss() },
-                    secondaryButton: .cancel(Text("No"))
-                )
-            })
-        )
         .sheet(isPresented: $matchStatsModalVisible) {
             MatchDetailView(match: match.toMatch())
         }
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel") {
+                    cancelWarningVisible = true
+                }.alert(isPresented: $cancelWarningVisible, content: {
+                    Alert(
+                        title: Text("Are you sure?"),
+                        message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
+                        primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss() },
+                        secondaryButton: .cancel(Text("No"))
+                    )
+                })
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button("Finish Match") {

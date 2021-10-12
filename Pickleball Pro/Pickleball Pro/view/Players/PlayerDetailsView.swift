@@ -10,39 +10,48 @@ import SwiftUI
 struct PlayerDetailsView: View {
     @EnvironmentObject var playersViewModel: PlayersViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    private let originalPlayer: Player
+    private let originalPlayer: Player?
     @State private var player: PlayerDetails
+    @State private var firstNameValidationError = false
     
-    init(player: Player) {
+    init(player: Player?) {
         self.originalPlayer = player
         _player = State(initialValue: PlayerDetails(player: player))
     }
     
     var body: some View {
         VStack {
-            RoundImageView(url: player.imageUrl)
-                .frame(width: 150, height: 150)
-                .padding(.vertical, 10)
-                .onTapGesture {
-                    // TODO: Allow edit
-                }
-            HStack(spacing: 20) {
-                ImageButton(data: player.email, systemImageName: "envelope") { email in
-                    guard let url = URL(string: "mailto:\(email)") else { return }
-                    UIApplication.shared.open(url)
-                }
-                ImageButton(data: player.phoneNumber, systemImageName: "phone") { phoneNumber in
-                    guard let url = URL(string: "tel://\(phoneNumber)") else { return }
-                    UIApplication.shared.open(url)
-                }
-                ImageButton(data: player.phoneNumber, systemImageName: "message") { phoneNumber in
-                    guard let url = URL(string: "sms://\(phoneNumber)") else { return }
-                    UIApplication.shared.open(url)
+            if player.imageUrl != "" {
+                RoundImageView(url: player.imageUrl)
+                    .frame(width: 150, height: 150)
+                    .padding(.vertical, 10)
+                    .onTapGesture {
+                        // TODO: Allow edit
+                    }
+            } else {
+                Button("TODO: Add image") {
+                    // TODO: Allow add?
+                }.padding(.top, 10)
+            }
+            if originalPlayer != nil {
+                HStack(spacing: 20) {
+                    ImageButton(data: player.email, systemImageName: "envelope") { email in
+                        guard let url = URL(string: "mailto:\(email)") else { return }
+                        UIApplication.shared.open(url)
+                    }
+                    ImageButton(data: player.phoneNumber, systemImageName: "phone") { phoneNumber in
+                        guard let url = URL(string: "tel://\(phoneNumber)") else { return }
+                        UIApplication.shared.open(url)
+                    }
+                    ImageButton(data: player.phoneNumber, systemImageName: "message") { phoneNumber in
+                        guard let url = URL(string: "sms://\(phoneNumber)") else { return }
+                        UIApplication.shared.open(url)
+                    }
                 }
             }
             List {
                 Section(header: Text("Name")) {
-                    TextRow(hint: "First Name", value: $player.firstName)
+                    TextRow(hint: "First Name (Required)", value: $player.firstName, hasValidationError: firstNameValidationError)
                     TextRow(hint: "Last Name", value: $player.lastName)
                 }
                 Section(header: Text("Contact Info")) {
@@ -70,15 +79,28 @@ struct PlayerDetailsView: View {
                 presentationMode.wrappedValue.dismiss()
             },
             trailing: Button("Save") {
-                playersViewModel.update(player: player.toPlayer(originalPlayer: originalPlayer)) {
-                    if case .success = $0 {
-                        presentationMode.wrappedValue.dismiss()
+                do {
+                    let newPlayer = try player.toPlayer(originalId: originalPlayer?.id)
+                    if originalPlayer != nil {
+                        playersViewModel.update(player: newPlayer) {
+                            if case .success = $0 {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        }
+                    } else {
+                        playersViewModel.create(player: newPlayer) {
+                            if case .success = $0 {
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        }
                     }
-                }
+                } catch SavePlayerError.noFirstName {
+                    firstNameValidationError = true
+                } catch {}
             }
         )
         .background(Color(.systemGroupedBackground))
-        .navigationBarTitle(originalPlayer.fullName)
+        .navigationBarTitle(originalPlayer?.fullName ?? "New Player")
     }
 }
 
@@ -101,13 +123,15 @@ private struct ImageButton: View {
 }
 
 private struct TextRow: View {
-    var hint: String
+    let hint: String
     @Binding var value: String
+    var hasValidationError: Bool = false
     
     var body: some View {
-        HStack {
-            TextField(hint, text: $value)
-        }
+        TextField("", text: $value)
+            .placeholder(when: value.isEmpty) {
+                Text(hint).foregroundColor(hasValidationError ? .red : .gray)
+            }
     }
 }
 
@@ -173,20 +197,34 @@ private struct PlayerDetails {
         }
     }
     
-    init(player: Player) {
-        self.firstName = player.firstName
-        self.lastName = player.lastName
-        self.imageUrl = player.imageUrl
-        self.dominantHand = Hand(hand: player.dominantHand)
-        self.level = player.level ?? 0
-        self.phoneNumber = player.phoneNumber ?? ""
-        self.email = player.email ?? ""
-        self.notes = player.notes
+    init(player: Player?) {
+        if let player = player {
+            self.firstName = player.firstName
+            self.lastName = player.lastName
+            self.imageUrl = player.imageUrl
+            self.dominantHand = Hand(hand: player.dominantHand)
+            self.level = player.level ?? 0
+            self.phoneNumber = player.phoneNumber ?? ""
+            self.email = player.email ?? ""
+            self.notes = player.notes
+        } else {
+            self.firstName = ""
+            self.lastName = ""
+            self.imageUrl = ""
+            self.dominantHand = Hand.unknown
+            self.level = 0
+            self.phoneNumber = ""
+            self.email = ""
+            self.notes = ""
+        }
     }
     
-    func toPlayer(originalPlayer: Player) -> Player {
-        Player(
-            id: originalPlayer.id,
+    func toPlayer(originalId: String?) throws -> Player {
+        if firstName == "" {
+            throw SavePlayerError.noFirstName
+        }
+        return Player(
+            id: originalId ?? "",
             firstName: firstName,
             lastName: lastName,
             imageUrl: imageUrl,
@@ -196,6 +234,23 @@ private struct PlayerDetails {
             email: email == "" ? nil : email,
             notes: notes
         )
+    }
+}
+
+private enum SavePlayerError: Error {
+    case noFirstName
+}
+
+private extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
     }
 }
 

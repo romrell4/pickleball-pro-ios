@@ -10,6 +10,7 @@ import SwiftUI
 struct PlayersView: View {
     // TODO: Search / Sort
     @EnvironmentObject var playersViewModel: PlayersViewModel
+    @State private var showingAddPlayerSheet = false
     
     var body: some View {
         NavigationView {
@@ -27,6 +28,19 @@ struct PlayersView: View {
             .listStyle(PlainListStyle())
             .navigationBarTitle("Players")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Image(systemName: "plus.circle")
+                    .foregroundColor(.blue)
+                    .onTapGesture {
+                        showingAddPlayerSheet = true
+                    }
+            }
+            .sheet(isPresented: $showingAddPlayerSheet) {
+                NavigationView {
+                    PlayerDetailsView(player: nil)
+                        .navigationBarTitleDisplayMode(.inline)
+                }
+            }
             .onAppear {
                 playersViewModel.load()
             }

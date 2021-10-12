@@ -22,7 +22,7 @@
 		F8A3E7E326CCAC0B00FD6392 /* LiveMatchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E226CCAC0B00FD6392 /* LiveMatchTest.swift */; };
 		F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */; };
 		F8A3E7E826D4920F00FD6392 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E726D4920F00FD6392 /* Repository.swift */; };
-		F8A3E7EB26D4971D00FD6392 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = F8A3E7EA26D4971D00FD6392 /* SwiftPackageProductDependency */; };
+		F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F8A3E7EA26D4971D00FD6392 /* Alamofire */; };
 		F8A3E7EF26D705C500FD6392 /* PlayerSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7EE26D705C500FD6392 /* PlayerSummaryView.swift */; };
 		F8A3E7F126D70CD900FD6392 /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7F026D70CD900FD6392 /* PlayerDetailsView.swift */; };
 		F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80026A34486001A6655 /* RoundImageView.swift */; };
@@ -45,7 +45,7 @@
 		F8BECE4D26DDDA2900083AC5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4C26DDDA2900083AC5 /* LoginView.swift */; };
 		F8CC712626C42F0800D90FA3 /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */; };
 		F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */; };
-		F8CC712B26C4D69D00D90FA3 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = F8CC712A26C4D69D00D90FA3 /* SwiftPackageProductDependency */; };
+		F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */; };
 		F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */; };
 		F8E75ED226A337570000F93F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ED126A337570000F93F /* ContentView.swift */; };
 		F8E75ED426A337580000F93F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75ED326A337580000F93F /* Assets.xcassets */; };
@@ -241,8 +241,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8CC712B26C4D69D00D90FA3 /* BuildFile in Frameworks */,
-				F8A3E7EB26D4971D00FD6392 /* BuildFile in Frameworks */,
+				F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */,
+				F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */,
 				CDC85FF341E7F0A49BEFBC9F /* Pods_Pickleball_Pro.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -586,8 +586,8 @@
 			);
 			name = "Pickleball Pro";
 			packageProductDependencies = (
-				F8CC712A26C4D69D00D90FA3 /* SwiftPackageProductDependency */,
-				F8A3E7EA26D4971D00FD6392 /* SwiftPackageProductDependency */,
+				F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */,
+				F8A3E7EA26D4971D00FD6392 /* Alamofire */,
 			);
 			productName = "Pickleball Pro";
 			productReference = F8E75ECC26A337570000F93F /* Pickleball Pro.app */;
@@ -751,8 +751,8 @@
 			);
 			mainGroup = F8E75EC326A337570000F93F;
 			packageReferences = (
-				F8CC712926C4D69D00D90FA3 /* RemoteSwiftPackageReference */,
-				F8A3E7E926D4971D00FD6392 /* RemoteSwiftPackageReference */,
+				F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = F8E75ECD26A337570000F93F /* Products */;
 			projectDirPath = "";
@@ -1646,7 +1646,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F8A3E7E926D4971D00FD6392 /* RemoteSwiftPackageReference */ = {
+		F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -1654,7 +1654,7 @@
 				minimumVersion = 5.4.3;
 			};
 		};
-		F8CC712926C4D69D00D90FA3 /* RemoteSwiftPackageReference */ = {
+		F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
 			requirement = {
@@ -1665,14 +1665,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F8A3E7EA26D4971D00FD6392 /* SwiftPackageProductDependency */ = {
+		F8A3E7EA26D4971D00FD6392 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F8A3E7E926D4971D00FD6392 /* RemoteSwiftPackageReference */;
+			package = F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		F8CC712A26C4D69D00D90FA3 /* SwiftPackageProductDependency */ = {
+		F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F8CC712926C4D69D00D90FA3 /* RemoteSwiftPackageReference */;
+			package = F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
