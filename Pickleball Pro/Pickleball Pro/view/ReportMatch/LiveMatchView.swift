@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    // TODO: Track singles sides as well
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var match: LiveMatch
@@ -154,7 +153,6 @@ private struct TeamView: View {
     
     var body: some View {
         HStack {
-            // TODO: Switch singles sides
             Spacer()
             if isBottomView {
                 PlayerView(statTrackerModalState: $statTrackerModalState, player: team.adPlayer)
