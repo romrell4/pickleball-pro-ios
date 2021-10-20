@@ -55,6 +55,7 @@ struct PlayerDetailsView: View {
                     TextRow(hint: "Last Name", value: $player.lastName)
                 }
                 Section(header: Text("Contact Info")) {
+                    // TODO: input type
                     TextRow(hint: "Phone Number", value: $player.phoneNumber)
                     TextRow(hint: "Email Address", value: $player.email)
                 }
@@ -82,16 +83,12 @@ struct PlayerDetailsView: View {
                 do {
                     let newPlayer = try player.toPlayer(originalId: originalPlayer?.id)
                     if originalPlayer != nil {
-                        playersViewModel.update(player: newPlayer) {
-                            if case .success = $0 {
-                                presentationMode.wrappedValue.dismiss()
-                            }
+                        playersViewModel.update(player: newPlayer) { _ in
+                            presentationMode.wrappedValue.dismiss()
                         }
                     } else {
-                        playersViewModel.create(player: newPlayer) {
-                            if case .success = $0 {
-                                presentationMode.wrappedValue.dismiss()
-                            }
+                        playersViewModel.create(player: newPlayer) { _ in
+                            presentationMode.wrappedValue.dismiss()
                         }
                     }
                 } catch SavePlayerError.noFirstName {

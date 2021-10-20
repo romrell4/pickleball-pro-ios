@@ -15,6 +15,7 @@ class MatchesViewModel: BaseViewModel {
         if !force && !matches.isEmpty {
             return
         }
+        // TODO: Why is this loading twice on startup?
         repository.loadMatches {
             switch $0 {
             case .success(let matches):

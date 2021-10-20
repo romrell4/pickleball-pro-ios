@@ -141,7 +141,6 @@ struct LiveMatchView: View {
                     }
                 }) {
                     Image(systemName: "ellipsis.circle")
-                        .font(.system(size: 21))
                 }
             }
         }

@@ -25,12 +25,12 @@ struct PlayersView: View {
                     playersViewModel.delete(player: playersViewModel.players[$0[$0.startIndex]])
                 }
             }
+            // TODO: No players view?
             .listStyle(PlainListStyle())
             .navigationBarTitle("Players")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Image(systemName: "plus.circle")
-                    .font(.system(size: 21))
                     .foregroundColor(.blue)
                     .onTapGesture {
                         showingAddPlayerSheet = true

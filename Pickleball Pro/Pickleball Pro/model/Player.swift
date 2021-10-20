@@ -18,6 +18,18 @@ struct Player: Identifiable, Codable {
     var email: String? = nil
     var notes: String = ""
     
+    enum CodingKeys: String, CodingKey {
+        case id = "playerId"
+        case firstName
+        case lastName
+        case imageUrl
+        case dominantHand
+        case level
+        case phoneNumber
+        case email
+        case notes
+    }
+    
     enum Hand: String, CaseIterable, Codable {
         case right
         case left

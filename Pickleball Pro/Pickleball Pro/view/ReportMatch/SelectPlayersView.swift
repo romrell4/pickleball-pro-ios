@@ -88,6 +88,7 @@ private struct EnterPlayersView: View {
                             self.player = EnterPlayer(player: selectablePlayer)
                         }
                     } + [
+                        // TODO: Only show if a player is already selected
                         .destructive(Text("Remove")) { player = EnterPlayer() },
                         .cancel()
                     ]

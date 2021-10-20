@@ -7,9 +7,11 @@
 
 import Foundation
 import Alamofire
+import FirebaseAuth
 
 private let BASE_URL =
-    "https://romrell4.github.io/pickleball-pro-ios"
+    "https://bmsq3uf3uc.execute-api.us-west-2.amazonaws.com/prod"
+//    "https://romrell4.github.io/pickleball-pro-ios"
 //    "https://5247f773-d28a-46b6-a312-5fdd5e3c2451.mock.pstmn.io"
 private let ENCODER: JSONEncoder = {
     let encoder = JSONEncoder()
@@ -27,7 +29,7 @@ private let DECODER: JSONDecoder = {
 protocol Repository {
     func loadPlayers(callback: @escaping (Result<[Player], AFError>) -> Void)
     func createPlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void)
-    func deletePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void)
+    func deletePlayer(player: Player, callback: @escaping (Result<Dictionary<String, String>, AFError>) -> Void)
     func updatePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void)
     
     func loadMatches(callback: @escaping (Result<[Match], AFError>) -> Void)
@@ -45,7 +47,7 @@ class RepositoryImpl: Repository {
         request(path: "/players", method: .post, body: player, callback: callback)
     }
     
-    func deletePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
+    func deletePlayer(player: Player, callback: @escaping (Result<Dictionary<String, String>, AFError>) -> Void) {
         request(path: "/players/\(player.id)", method: .delete, callback: callback)
     }
     
@@ -90,29 +92,47 @@ class RepositoryImpl: Repository {
     }
     
     private func request<Req: Encodable, Res: Decodable>(path: String, method: HTTPMethod = .get, body: Req?, callback: @escaping (Result<Res, AFError>) -> Void) {
-        let request = AF.request(
-            "\(BASE_URL)\(path)",
-            method: method,
-            parameters: body,
-            encoder: JSONParameterEncoder(encoder: ENCODER),
-            headers: [
+        func makeRequest(token: String?) {
+            var headers: HTTPHeaders = [
                 "x-api-key": postmanToken,
                 "x-mock-response-code": "200",
             ]
-        )
-        .validate()
-        .responseDecodable(of: Res.self, decoder: DECODER) {
-            switch ($0.result) {
-            case .success: break
-            case .failure(let error):
-                debugPrint(error)
+            if let token = token {
+                headers["x-firebase-token"] = token
             }
-            callback($0.result)
+            let request = AF.request(
+                "\(BASE_URL)\(path)",
+                method: method,
+                parameters: body,
+                encoder: JSONParameterEncoder(encoder: ENCODER),
+                headers: headers
+            )
+            .validate()
+            .responseDecodable(of: Res.self, decoder: DECODER) {
+                switch ($0.result) {
+                case .success: break
+                case .failure(let error):
+                    debugPrint(error)
+                }
+                callback($0.result)
+            }
+            
+            #if DEBUG
+            request.responseJSON { debugPrint($0) }
+            #endif
         }
         
-        #if DEBUG
-        request.responseJSON { debugPrint($0) }
-        #endif
+        if let user = Auth.auth().currentUser {
+            user.getIDToken { token, error in
+                if let token = token {
+                    makeRequest(token: token)
+                } else {
+                    print("Error getting ID Token: \(String(describing: error))")
+                }
+            }
+        } else {
+            makeRequest(token: nil)
+        }
     }
     
     struct MatchDto: Codable {
@@ -139,8 +159,8 @@ class TestRepository: Repository {
         callback(.success(newPlayer))
     }
     
-    func deletePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {
-        callback(.success(player))
+    func deletePlayer(player: Player, callback: @escaping (Result<Dictionary<String, String>, AFError>) -> Void) {
+        callback(.success([:]))
     }
     
     func updatePlayer(player: Player, callback: @escaping (Result<Player, AFError>) -> Void) {

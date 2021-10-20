@@ -17,6 +17,7 @@ struct MyMatchesView: View {
                     MatchSummaryView(match: match)
                 }
             }
+            // TODO: No matches view?
             .navigationTitle("Match History")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
