@@ -79,7 +79,7 @@ struct MatchStatsView: View {
             HStack {
                 Spacer()
                 UnderlinedImage(
-                    url: match.team1[0].imageUrl,
+                    player: match.team1[0],
                     selectionBinding: $team1Player1Selection
                 ) {
                     if match.isDoubles {
@@ -88,7 +88,7 @@ struct MatchStatsView: View {
                 }
                 if match.isDoubles {
                     UnderlinedImage(
-                        url: match.team1[1].imageUrl,
+                        player: match.team1[1],
                         selectionBinding: $team1Player2Selection
                     ) {
                         playerTapped($0)
@@ -97,7 +97,7 @@ struct MatchStatsView: View {
                 Spacer()
                 Spacer()
                 UnderlinedImage(
-                    url: match.team2[0].imageUrl,
+                    player: match.team2[0],
                     selectionBinding: $team2Player1Selection
                 ) {
                     if match.isDoubles {
@@ -106,7 +106,7 @@ struct MatchStatsView: View {
                 }
                 if match.isDoubles {
                     UnderlinedImage(
-                        url: match.team2[1].imageUrl,
+                        player: match.team2[1],
                         selectionBinding: $team2Player2Selection
                     ) {
                         playerTapped($0)
@@ -166,13 +166,13 @@ struct MatchStatsView: View {
 }
 
 struct UnderlinedImage: View {
-    let url: String
+    let player: Player
     let selectionBinding: Binding<Selection>
     let onTap: (Binding<Selection>) -> Void
     
     var body: some View {
         VStack(spacing: 4) {
-            RoundImageView(url: url)
+            player.image()
                 .frame(width: 30, height: 30)
                 .opacity(selectionBinding.wrappedValue.isSelected ? 1 : 0.5)
             Rectangle()

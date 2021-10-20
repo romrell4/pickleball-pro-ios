@@ -46,7 +46,7 @@ private struct PlayerView: View {
     var body: some View {
         if let player = player {
             VStack {
-                RoundImageView(url: player.imageUrl)
+                player.player.image()
                     .frame(width: 50, height: 50)
                 Text(player.firstName)
                     .font(.caption)

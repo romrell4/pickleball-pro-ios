@@ -13,7 +13,7 @@ struct PlayerSummaryView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                RoundImageView(url: player.imageUrl)
+                player.image()
                     .frame(width: 60, height: 60)
                 VStack(alignment: .leading) {
                     Text(player.fullName)
@@ -29,8 +29,8 @@ struct PlayerSummaryView: View {
                 }
                 Spacer()
             }
-            if !player.notes.isEmpty {
-                Text("Notes: \(player.notes)")
+            if let notes = player.notes, !notes.isEmpty {
+                Text("Notes: \(notes)")
                     .font(.caption)
                     .lineLimit(3)
             }

@@ -31,24 +31,18 @@ struct IndividualScoreView: View {
     var body: some View {
         HStack {
             if (players.count == 1) {
-                RoundImageView(url: players[0].imageUrl)
+                players[0].image()
                     .frame(width: 40, height: 40)
             } else {
                 StackedRoundImageViews(
                     size: 30,
-                    url1: players[0].imageUrl,
-                    url2: players[1].imageUrl
+                    player1: players[0],
+                    player2: players[1]
                 )
                 .frame(width: 40, height: 40)
             }
                 
             Text(players.map { $0.firstName }.joined(separator: " & "))
-//            VStack {
-//            Text(players[0].name)
-//                .font(.caption)
-//            Text(players[1].name)
-//                .font(.caption)
-//            }
             Spacer()
             ForEach(scores, id: \.self) { score in
                 ScoreNumberView(value: score)

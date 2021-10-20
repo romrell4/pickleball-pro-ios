@@ -42,7 +42,7 @@ struct StatTracker: View {
     
     var body: some View {
         VStack {
-            RoundImageView(url: player.imageUrl)
+            player.image()
                 .frame(width: 40, height: 40)
             
             Picker("Shot Type", selection: $typeIndex) {

@@ -24,6 +24,32 @@ extension Collection {
     }
 }
 
+extension Color {    
+    var luminoscity: CGFloat {
+        guard let comps = UIColor(self).cgColor.components else { return 0 }
+        let red = comps[0] * 0.299
+        let green = comps[1] * 0.587
+        let blue = comps[2] * 0.114
+        return (red + green + blue) * 256
+    }
+}
+
+protocol PlayerImagable {
+    var imageUrl: String? { get }
+    var _firstName: String? { get }
+    var _lastName: String? { get }
+}
+
+extension PlayerImagable {
+    func image() -> some View {
+        if let imageUrl = imageUrl, !imageUrl.isEmpty {
+            return AnyView(RoundImageView(url: imageUrl))
+        } else {
+            return AnyView(InitialsImageView(firstName: _firstName ?? "", lastName: _lastName ?? ""))
+        }
+    }
+}
+
 extension UIApplication {
     func addTapGestureRecognizer() {
         guard let window = windows.first else { return }

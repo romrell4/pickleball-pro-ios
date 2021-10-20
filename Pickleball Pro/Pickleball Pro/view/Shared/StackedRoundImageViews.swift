@@ -9,17 +9,17 @@ import SwiftUI
 
 struct StackedRoundImageViews: View {
     let size: CGFloat
-    let url1: String
-    let url2: String
+    let player1: Player
+    let player2: Player
     
     var offset: CGFloat { size / 5 }
     
     var body: some View {
         ZStack {
-            RoundImageView(url: url1)
+            player1.image()
                 .offset(x: -offset, y: -offset)
                 .frame(width: size, height: size)
-            RoundImageView(url: url2)
+            player2.image()
                 .offset(x: offset, y: offset)
                 .frame(width: size, height: size)
         }
@@ -30,8 +30,8 @@ struct StackedRoundImageViews_Previews: PreviewProvider {
     static var previews: some View {
         StackedRoundImageViews(
             size: 80,
-            url1: Player.eric.imageUrl,
-            url2: Player.jessica.imageUrl
+            player1: Player.eric,
+            player2: Player.jessica
         )
     }
 }

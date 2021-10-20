@@ -59,8 +59,8 @@ private struct EnterPlayersView: View {
         
         var body: some View {
             VStack(spacing: 0) {
-                if let url = player.imageUrl {
-                    RoundImageView(url: url)
+                if player.id != nil {
+                    player.image()
                         .frame(width: PLAYER_ICON_SIZE, height: PLAYER_ICON_SIZE)
                 } else {
                     Image(systemName: "person.crop.circle.badge.plus")
@@ -69,7 +69,7 @@ private struct EnterPlayersView: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: PLAYER_ICON_SIZE, height: PLAYER_ICON_SIZE)
                 }
-                if let name = player.name {
+                if let name = player.firstName {
                     Text(name)
                         .font(.caption2)
                         .multilineTextAlignment(.center)
@@ -105,7 +105,8 @@ struct EnterPlayers {
 
 struct EnterPlayer {
     var id: String? = nil
-    var name: String? = nil
+    var firstName: String? = nil
+    var lastName: String? = nil
     var imageUrl: String? = nil
     
     func toPlayer(players: [Player]) -> Player? {
@@ -113,9 +114,14 @@ struct EnterPlayer {
     }
 }
 
+extension EnterPlayer: PlayerImagable {
+    var _firstName: String? { firstName }
+    var _lastName: String? { lastName }
+}
+
 private extension EnterPlayer {
     init(player: Player) {
-        self.init(id: player.id, name: player.firstName, imageUrl: player.imageUrl)
+        self.init(id: player.id, firstName: player.firstName, lastName: player.lastName, imageUrl: player.imageUrl)
     }
 }
 

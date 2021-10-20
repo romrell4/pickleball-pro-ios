@@ -180,7 +180,7 @@ private struct PlayerView: View {
     var body: some View {
         if let player = player {
             HStack(spacing: 4) {
-                RoundImageView(url: player.imageUrl)
+                player.player.image()
                     .frame(width: 50, height: 50)
                     .onTapGesture {
                         statTrackerModalState = .visible(player: player)
@@ -480,7 +480,6 @@ struct LiveMatchPlayer {
     
     var id: String { player.id }
     var firstName: String { player.firstName }
-    var imageUrl: String { player.imageUrl }
     
     var servingState: ServingState = .notServing
     

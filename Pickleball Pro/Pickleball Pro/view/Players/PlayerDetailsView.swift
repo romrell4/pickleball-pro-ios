@@ -21,19 +21,13 @@ struct PlayerDetailsView: View {
     
     var body: some View {
         VStack {
-            if player.imageUrl != "" {
-                RoundImageView(url: player.imageUrl)
+            if let originalPlayer = originalPlayer {
+                originalPlayer.image()
                     .frame(width: 150, height: 150)
                     .padding(.vertical, 10)
                     .onTapGesture {
                         // TODO: Allow edit
                     }
-            } else {
-                Button("TODO: Add image") {
-                    // TODO: Allow add?
-                }.padding(.top, 10)
-            }
-            if originalPlayer != nil {
                 HStack(spacing: 20) {
                     ImageButton(data: player.email, systemImageName: "envelope") { email in
                         guard let url = URL(string: "mailto:\(email)") else { return }
@@ -159,7 +153,7 @@ private struct MultilineTextRow: View {
 private struct PlayerDetails {
     var firstName: String
     var lastName: String
-    var imageUrl: String
+    var imageUrl: String?
     var dominantHand: Hand
     var level: Double
     var phoneNumber: String
@@ -203,11 +197,11 @@ private struct PlayerDetails {
             self.level = player.level ?? 0
             self.phoneNumber = player.phoneNumber ?? ""
             self.email = player.email ?? ""
-            self.notes = player.notes
+            self.notes = player.notes ?? ""
         } else {
             self.firstName = ""
             self.lastName = ""
-            self.imageUrl = ""
+            self.imageUrl = nil
             self.dominantHand = Hand.unknown
             self.level = 0
             self.phoneNumber = ""
@@ -229,9 +223,14 @@ private struct PlayerDetails {
             level: level == 0 ? nil : level,
             phoneNumber: phoneNumber == "" ? nil : phoneNumber,
             email: email == "" ? nil : email,
-            notes: notes
+            notes: notes == "" ? nil : notes
         )
     }
+}
+
+extension PlayerDetails: PlayerImagable {
+    var _firstName: String? { firstName }
+    var _lastName: String? { lastName }
 }
 
 private enum SavePlayerError: Error {
@@ -254,7 +253,7 @@ private extension View {
 struct PlayerDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PlayerDetailsView(player: Player.eric)
+            PlayerDetailsView(player: Player.jessica)
                 .navigationBarTitleDisplayMode(.inline)
         }
     }
