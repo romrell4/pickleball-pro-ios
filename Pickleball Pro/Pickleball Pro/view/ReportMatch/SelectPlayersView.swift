@@ -54,6 +54,7 @@ private struct EnterPlayersView: View {
     
     struct SinglePlayerView: View {
         @State private var showingActionSheet = false
+        @State private var showingNewPlayerSheet = false
         @Binding var player: EnterPlayer
         @EnvironmentObject var playersViewModel: PlayersViewModel
         
@@ -83,16 +84,28 @@ private struct EnterPlayersView: View {
             .actionSheet(isPresented: $showingActionSheet) {
                 ActionSheet(
                     title: Text("Select Player"),
-                    buttons: playersViewModel.players.compactMap { selectablePlayer in
+                    buttons: playersViewModel.players.sorted { lhs, rhs in
+                        lhs.fullName < rhs.fullName
+                    }.compactMap { selectablePlayer in
                         .default(Text(selectablePlayer.fullName)) {
                             self.player = EnterPlayer(player: selectablePlayer)
                         }
                     } + [
-                        // TODO: Only show if a player is already selected
-                        .destructive(Text("Remove")) { player = EnterPlayer() },
+                        player.id != nil ? .destructive(Text("Remove")) { player = EnterPlayer() } : nil,
+                        .destructive(Text("Create New Player")) {
+                            showingNewPlayerSheet = true
+                        },
                         .cancel()
-                    ]
+                    ].compactMap { $0 }
                 )
+            }
+            .sheet(isPresented: $showingNewPlayerSheet) {
+                NavigationView {
+                    PlayerDetailsView(player: nil) {
+                        self.player = EnterPlayer(player: $0)
+                    }
+                        .navigationBarTitleDisplayMode(.inline)
+                }
             }
         }
     }

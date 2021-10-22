@@ -11,63 +11,72 @@ struct PlayerDetailsView: View {
     @EnvironmentObject var playersViewModel: PlayersViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     private let originalPlayer: Player?
+    private let onPlayerSaved: (Player) -> Void
     @State private var player: PlayerDetails
     @State private var firstNameValidationError = false
     
-    init(player: Player?) {
+    init(player: Player?, onPlayerSaved: @escaping (Player) -> Void = {_ in}) {
         self.originalPlayer = player
+        self.onPlayerSaved = onPlayerSaved
         _player = State(initialValue: PlayerDetails(player: player))
     }
     
     var body: some View {
-        VStack {
+        List {
             if let originalPlayer = originalPlayer {
-                originalPlayer.image()
-                    .frame(width: 150, height: 150)
-                    .padding(.vertical, 10)
-                    .onTapGesture {
-                        // TODO: Allow edit
+                // Put it in a header to get rid of the background color
+                Section(header: VStack {
+                    HStack {
+                        Spacer()
+                        originalPlayer.image()
+                            .frame(width: 100, height: 100)
+                            .padding(.vertical, 10)
+                            // POST-MVP: Allow photo upload
+                            //.onTapGesture {}
+                        Spacer()
                     }
-                HStack(spacing: 20) {
-                    ImageButton(data: player.email, systemImageName: "envelope") { email in
-                        guard let url = URL(string: "mailto:\(email)") else { return }
-                        UIApplication.shared.open(url)
-                    }
-                    ImageButton(data: player.phoneNumber, systemImageName: "phone") { phoneNumber in
-                        guard let url = URL(string: "tel://\(phoneNumber)") else { return }
-                        UIApplication.shared.open(url)
-                    }
-                    ImageButton(data: player.phoneNumber, systemImageName: "message") { phoneNumber in
-                        guard let url = URL(string: "sms://\(phoneNumber)") else { return }
-                        UIApplication.shared.open(url)
-                    }
-                }
-            }
-            List {
-                Section(header: Text("Name")) {
-                    TextRow(hint: "First Name (Required)", value: $player.firstName, hasValidationError: firstNameValidationError)
-                    TextRow(hint: "Last Name", value: $player.lastName)
-                }
-                Section(header: Text("Contact Info")) {
-                    // TODO: input type
-                    TextRow(hint: "Phone Number", value: $player.phoneNumber)
-                    TextRow(hint: "Email Address", value: $player.email)
-                }
-                Section {
-                    Picker("Dominant Hand", selection: $player.dominantHand) {
-                        ForEach(PlayerDetails.Hand.allCases, id: \.self) {
-                            Text($0.rawValue.capitalized).tag($0)
+                    HStack(spacing: 20) {
+                        Spacer()
+                        ImageButton(data: player.email, systemImageName: "envelope") { email in
+                            guard let url = URL(string: "mailto:\(email)") else { return }
+                            UIApplication.shared.open(url)
                         }
+                        ImageButton(data: player.phoneNumber, systemImageName: "phone") { phoneNumber in
+                            guard let url = URL(string: "tel://\(phoneNumber)") else { return }
+                            UIApplication.shared.open(url)
+                        }
+                        ImageButton(data: player.phoneNumber, systemImageName: "message") { phoneNumber in
+                            guard let url = URL(string: "sms://\(phoneNumber)") else { return }
+                            UIApplication.shared.open(url)
+                        }
+                        Spacer()
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    LevelRow(level: $player.level)
-                }
-                Section(header: Text("Notes")) {
-                    MultilineTextRow(value: $player.notes)
-                }
+                }) {}
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             }
-            .listStyle(InsetGroupedListStyle())
+            Section(header: Text("Name")) {
+                TextRow(hint: "First Name (Required)", value: $player.firstName, hasValidationError: firstNameValidationError)
+                TextRow(hint: "Last Name", value: $player.lastName)
+            }
+            Section(header: Text("Contact Info")) {
+                // TODO: input type
+                TextRow(hint: "Phone Number", value: $player.phoneNumber)
+                TextRow(hint: "Email Address", value: $player.email)
+            }
+            Section {
+                Picker("Dominant Hand", selection: $player.dominantHand) {
+                    ForEach(PlayerDetails.Hand.allCases, id: \.self) {
+                        Text($0.rawValue.capitalized).tag($0)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                LevelRow(level: $player.level)
+            }
+            Section(header: Text("Notes")) {
+                MultilineTextRow(value: $player.notes)
+            }
         }
+        .listStyle(InsetGroupedListStyle())
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(
             leading: Button("Cancel") {
@@ -76,14 +85,14 @@ struct PlayerDetailsView: View {
             trailing: Button("Save") {
                 do {
                     let newPlayer = try player.toPlayer(originalId: originalPlayer?.id)
+                    let onSave: (Player) -> Void = {
+                        self.onPlayerSaved($0)
+                        presentationMode.wrappedValue.dismiss()
+                    }
                     if originalPlayer != nil {
-                        playersViewModel.update(player: newPlayer) { _ in
-                            presentationMode.wrappedValue.dismiss()
-                        }
+                        playersViewModel.update(player: newPlayer, callback: onSave)
                     } else {
-                        playersViewModel.create(player: newPlayer) { _ in
-                            presentationMode.wrappedValue.dismiss()
-                        }
+                        playersViewModel.create(player: newPlayer, callback: onSave)
                     }
                 } catch SavePlayerError.noFirstName {
                     firstNameValidationError = true
@@ -253,7 +262,7 @@ private extension View {
 struct PlayerDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PlayerDetailsView(player: Player.jessica)
+            PlayerDetailsView(player: Player.bob)
                 .navigationBarTitleDisplayMode(.inline)
         }
     }
