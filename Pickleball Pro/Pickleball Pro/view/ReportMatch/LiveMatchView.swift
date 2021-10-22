@@ -10,6 +10,7 @@ import SwiftUI
 struct LiveMatchView: View {
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
+    @AppStorage(PreferenceKeys.autoSwitchSides) var autoSwitchSides = false
     @State private var match: LiveMatch
     @State private var statTrackerModalState: StatTrackerModalState = .gone
     @State private var selectServerModalVisible: Bool = true
@@ -113,6 +114,10 @@ struct LiveMatchView: View {
                     }
                     Button("Start New Game") {
                         match.startNewGame()
+                        
+                        if autoSwitchSides {
+                            match.switchCourtSides()
+                        }
                         
                         selectServerModalVisible = true
                     }

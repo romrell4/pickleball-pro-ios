@@ -19,6 +19,7 @@
 		F82DB88326BCF6710003F7FD /* MyMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88226BCF6710003F7FD /* MyMatchesView.swift */; };
 		F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */; };
 		F897347027209409004B440E /* InitialsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F897346F27209409004B440E /* InitialsImageView.swift */; };
+		F8973474272107BE004B440E /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8973473272107BE004B440E /* Preferences.swift */; };
 		F8A3E7DE26C7371300FD6392 /* PlayersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */; };
 		F8A3E7E326CCAC0B00FD6392 /* LiveMatchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E226CCAC0B00FD6392 /* LiveMatchTest.swift */; };
 		F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */; };
@@ -166,6 +167,7 @@
 		F82DB88226BCF6710003F7FD /* MyMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchesView.swift; sourceTree = "<group>"; };
 		F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSummaryView.swift; sourceTree = "<group>"; };
 		F897346F27209409004B440E /* InitialsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsImageView.swift; sourceTree = "<group>"; };
+		F8973473272107BE004B440E /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersViewModel.swift; sourceTree = "<group>"; };
 		F8A3E7E226CCAC0B00FD6392 /* LiveMatchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTest.swift; sourceTree = "<group>"; };
 		F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayersView.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				F8B484BB26C0408000EE3E53 /* Extensions.swift */,
 				F8BECE3C26D9DAE600083AC5 /* ErrorHandler.swift */,
 				F8BECE3E26D9E39200083AC5 /* Secrets.swift */,
+				F8973473272107BE004B440E /* Preferences.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -1034,6 +1037,7 @@
 				F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */,
 				F8A3E7EF26D705C500FD6392 /* PlayerSummaryView.swift in Sources */,
 				F897347027209409004B440E /* InitialsImageView.swift in Sources */,
+				F8973474272107BE004B440E /* Preferences.swift in Sources */,
 				F8A3E7DE26C7371300FD6392 /* PlayersViewModel.swift in Sources */,
 				F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */,
 				F8BECE3D26D9DAE600083AC5 /* ErrorHandler.swift in Sources */,

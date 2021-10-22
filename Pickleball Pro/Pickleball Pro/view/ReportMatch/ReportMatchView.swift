@@ -37,10 +37,7 @@ struct ReportMatchView: View {
                             validationError: scoreValidationError,
                             onTrackLiveMatchTapped: {
                                 do {
-                                    let (team1, team2) = try validatePlayers()
-                                    print(team1)
-                                    print(team2)
-                                    shouldNavigateToLiveMatch = true
+                                    let _ = try validatePlayers()
                                 } catch {
                                     scrollView.scrollTo(SELECT_PLAYERS_ID)
                                 }
