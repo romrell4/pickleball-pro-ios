@@ -59,9 +59,8 @@ struct PlayerDetailsView: View {
                 TextRow(hint: "Last Name", value: $player.lastName)
             }
             Section(header: Text("Contact Info")) {
-                // TODO: input type
-                TextRow(hint: "Phone Number", value: $player.phoneNumber)
-                TextRow(hint: "Email Address", value: $player.email)
+                TextRow(hint: "Phone Number", value: $player.phoneNumber, keyboardType: .phonePad)
+                TextRow(hint: "Email Address", value: $player.email, keyboardType: .emailAddress, capitalization: .none)
             }
             Section {
                 Picker("Dominant Hand", selection: $player.dominantHand) {
@@ -126,12 +125,16 @@ private struct TextRow: View {
     let hint: String
     @Binding var value: String
     var hasValidationError: Bool = false
+    var keyboardType: UIKeyboardType = .default
+    var capitalization: UITextAutocapitalizationType = .sentences
     
     var body: some View {
         TextField("", text: $value)
             .placeholder(when: value.isEmpty) {
                 Text(hint).foregroundColor(hasValidationError ? .red : .gray)
             }
+            .keyboardType(keyboardType)
+            .autocapitalization(capitalization)
     }
 }
 
