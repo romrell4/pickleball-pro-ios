@@ -9,23 +9,27 @@ import SwiftUI
 
 struct PlayersView: View {
     // TODO: Search / Sort
-    @EnvironmentObject var playersViewModel: PlayersViewModel
+    @EnvironmentObject var viewModel: PlayersViewModel
     @State private var showingAddPlayerSheet = false
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(playersViewModel.players, id: \.id) { player in
-                    NavigationLink(destination: PlayerDetailsView(player: player)) {
-                        PlayerSummaryView(player: player)
-                            .padding(.vertical, 8)
+            DefaultStateView(state: viewModel.state) { players in
+                List {
+                    ForEach(players, id: \.id) { player in
+                        NavigationLink(destination: PlayerDetailsView(player: player)) {
+                            PlayerSummaryView(player: player)
+                                .padding(.vertical, 8)
+                        }.deleteDisabled(player.isOwner)
+                    }
+                    .onDelete {
+                        let player = players[$0[$0.startIndex]]
+                        if !player.isOwner {
+                            viewModel.delete(player: player)
+                        }
                     }
                 }
-                .onDelete {
-                    playersViewModel.delete(player: playersViewModel.players[$0[$0.startIndex]])
-                }
             }
-            // TODO: No players view?
             .listStyle(PlainListStyle())
             .navigationBarTitle("Players")
             .navigationBarTitleDisplayMode(.inline)
@@ -43,7 +47,7 @@ struct PlayersView: View {
                 }
             }
             .onAppear {
-                playersViewModel.load()
+                viewModel.load()
             }
         }
     }
@@ -52,6 +56,6 @@ struct PlayersView: View {
 struct PlayersView_Previews: PreviewProvider {
     static var previews: some View {
         PlayersView()
-            .environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+            .environmentObject(PlayersViewModel(repository: TestRepository()))
     }
 }

@@ -25,12 +25,20 @@ struct ReportMatchView: View {
     
     @State private var shouldNavigateToLiveMatch = false
     
+    private var players: [Player] {
+        if case let .success(players) = playersViewModel.state {
+            return players
+        } else {
+            return []
+        }
+    }
+    
     var body: some View {
         NavigationView {
             ScrollViewReader { scrollView in
                 ScrollView {
                     VStack {
-                        SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError)
+                        SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError, allPlayers: players)
                             .id(SELECT_PLAYERS_ID)
                         EnterScoresStepView(
                             gameScores: $enteredGameScores,
@@ -38,6 +46,7 @@ struct ReportMatchView: View {
                             onTrackLiveMatchTapped: {
                                 do {
                                     let _ = try validatePlayers()
+                                    shouldNavigateToLiveMatch = true
                                 } catch {
                                     scrollView.scrollTo(SELECT_PLAYERS_ID)
                                 }
@@ -115,7 +124,7 @@ struct ReportMatchView: View {
     
     private func getPlayers() -> ([Player], [Player]) {
         let (team1, team2) = selectedPlayers.map {
-            ($0.team1Player.toPlayer(players: playersViewModel.players), $0.team2Player.toPlayer(players: playersViewModel.players))
+            ($0.team1Player.toPlayer(players: players), $0.team2Player.toPlayer(players: players))
         }.reduce(([Player](), [Player]())) { soFar, next in
             var soFar = soFar
             if let team1Player = next.0 {
@@ -152,6 +161,7 @@ private struct SelectPlayersStepView: View {
     @EnvironmentObject var playersViewModel: PlayersViewModel
     @Binding var selectedPlayers: [EnterPlayers]
     var validationError: Bool
+    let allPlayers: [Player]
     
     var body: some View {
         GroupBox {
@@ -160,7 +170,7 @@ private struct SelectPlayersStepView: View {
                     Text("Step 1: Select Players")
                         .font(.title)
                         .foregroundColor(validationError ? .red : Color(.label))
-                    SelectPlayersView(players: $selectedPlayers)
+                    SelectPlayersView(players: $selectedPlayers, allPlayers: allPlayers)
                 }
                 Spacer()
             }
@@ -214,8 +224,8 @@ private struct EnterScoresStepView: View {
 struct ReportMatchView_Previews: PreviewProvider {
     static var previews: some View {
         ReportMatchView()
-            .environmentObject(PlayersViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
-            .environmentObject(MatchesViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+            .environmentObject(PlayersViewModel(repository: TestRepository()))
+            .environmentObject(MatchesViewModel(repository: TestRepository()))
             .preferredColorScheme(.dark)
     }
 }

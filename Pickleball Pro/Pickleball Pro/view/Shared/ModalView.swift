@@ -22,6 +22,7 @@ struct ModalView<Content: View>: View {
                 .padding()
                 .background(Color(.secondarySystemGroupedBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 20))
+                .padding()
         }
     }
 }
@@ -29,7 +30,7 @@ struct ModalView<Content: View>: View {
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
         ModalView(onDismiss: { print("dismiss") }) {
-            Text("Hello world")
+            Text("Hello world this is a long test that will helpfull wrap before")
         }
     }
 }

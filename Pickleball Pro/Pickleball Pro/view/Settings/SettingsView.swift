@@ -36,6 +36,13 @@ struct SettingsView: View {
                     }
                 }
             }
+            
+            // TODO: Subscription (Required after 5 matches)
+            // 1 month ($10)
+            // 3 month ($20)
+            // 6 month ($35)
+            // 12 month ($60)
+            
             Section(header: Text("Appearance")) {
                 Picker("", selection: $colorScheme) {
                     ForEach(ColorSchemePreference.allCases, id: \.self) {

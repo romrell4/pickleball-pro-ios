@@ -9,10 +9,16 @@ import Combine
 
 class BaseViewModel: ObservableObject {
     var repository: Repository
-    var errorHandler: ErrorHandler
     
-    init(repository: Repository, errorHandler: ErrorHandler) {
+    init(repository: Repository) {
         self.repository = repository
-        self.errorHandler = errorHandler
     }
+    
+    func clear() {}
+}
+
+enum LoadingState<Value> {
+    case loading
+    case failed(ProError)
+    case success(Value)
 }

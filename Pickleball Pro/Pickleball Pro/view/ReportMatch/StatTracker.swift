@@ -49,7 +49,7 @@ struct StatTracker: View {
                 ForEach(types.indices, id: \.self) { index in
                     Text(types[index].rawValue.capitalized).tag(index)
                 }
-            }
+            }.pickerStyle(WheelPickerStyle())
             
             Picker("Result", selection: $resultIndex) {
                 ForEach(results.indices, id: \.self) { index in

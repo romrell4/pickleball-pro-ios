@@ -107,12 +107,16 @@ struct LiveMatchView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button("Finish Match") {
+                        // TODO: Add confirmation
+                        // TODO: Allow for sharing
                         matchesViewModel.create(match: match.toMatch()) {
                             presentationMode.wrappedValue.dismiss()
                             onMatchSaved()
                         }
                     }
                     Button("Start New Game") {
+                        // TODO: Add confirmation
+                        // TODO: Add preference to turn off confirmation dialogs
                         match.startNewGame()
                         
                         if autoSwitchSides {
@@ -531,6 +535,6 @@ struct LiveMatchView_Previews: PreviewProvider {
                 .ignoresSafeArea(.all, edges: .bottom)
                 .preferredColorScheme(.dark)
         }
-        .environmentObject(MatchesViewModel(repository: TestRepository(), errorHandler: ErrorHandler()))
+        .environmentObject(MatchesViewModel(repository: TestRepository()))
     }
 }

@@ -13,6 +13,7 @@ private let ADD_BUTTON_SIZE: CGFloat = 30
 
 struct SelectPlayersView: View {
     @Binding var players: [EnterPlayers]
+    let allPlayers: [Player]
     
     var body: some View {
         HStack(spacing: 15) {
@@ -24,7 +25,7 @@ struct SelectPlayersView: View {
                     .font(.title2)
             }
             ForEach(players.indices, id: \.self) { index in
-                EnterPlayersView(players: .proxy($players[index]))
+                EnterPlayersView(players: .proxy($players[index]), allPlayers: allPlayers)
             }
             let canAdd = players.count < MAX_PLAYER_PAIRS
             Image(systemName: canAdd ? "plus.circle.fill" : "minus.circle.fill")
@@ -44,11 +45,12 @@ struct SelectPlayersView: View {
 
 private struct EnterPlayersView: View {
     @Binding var players: EnterPlayers
+    let allPlayers: [Player]
     
     var body: some View {
         VStack {
-            SinglePlayerView(player: $players.team1Player)
-            SinglePlayerView(player: $players.team2Player)
+            SinglePlayerView(player: $players.team1Player, allPlayers: allPlayers)
+            SinglePlayerView(player: $players.team2Player, allPlayers: allPlayers)
         }
     }
     
@@ -56,7 +58,7 @@ private struct EnterPlayersView: View {
         @State private var showingActionSheet = false
         @State private var showingNewPlayerSheet = false
         @Binding var player: EnterPlayer
-        @EnvironmentObject var playersViewModel: PlayersViewModel
+        let allPlayers: [Player]
         
         var body: some View {
             VStack(spacing: 0) {
@@ -84,7 +86,7 @@ private struct EnterPlayersView: View {
             .actionSheet(isPresented: $showingActionSheet) {
                 ActionSheet(
                     title: Text("Select Player"),
-                    buttons: playersViewModel.players.sorted { lhs, rhs in
+                    buttons: allPlayers.sorted { lhs, rhs in
                         lhs.fullName < rhs.fullName
                     }.compactMap { selectablePlayer in
                         .default(Text(selectablePlayer.fullName)) {
@@ -147,7 +149,7 @@ struct SelectPlayersView_Previews: PreviewProvider {
         @State var players = [EnterPlayers()]
         
         var body: some View {
-            SelectPlayersView(players: $players)
+            SelectPlayersView(players: $players, allPlayers: [Player.eric, Player.jessica, Player.bryan, Player.bob])
         }
     }
 }

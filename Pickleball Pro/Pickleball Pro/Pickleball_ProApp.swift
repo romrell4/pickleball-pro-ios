@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 import FBSDKCoreKit
 
-let DEBUG_MODE = false
+let DEBUG_MODE = true
 
 @main
 struct Pickleball_ProApp: App {
@@ -18,7 +18,6 @@ struct Pickleball_ProApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .withErrorHandling()
                 .onAppear(perform: UIApplication.shared.addTapGestureRecognizer)
         }
     }

@@ -45,6 +45,8 @@
 		F8BECE4126D9E76D00083AC5 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4026D9E76D00083AC5 /* BaseViewModel.swift */; };
 		F8BECE4326DDCE1700083AC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */; };
 		F8BECE4D26DDDA2900083AC5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4C26DDDA2900083AC5 /* LoginView.swift */; };
+		F8C9187F2725C7980042A14C /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C9187E2725C7980042A14C /* ErrorView.swift */; };
+		F8C918812725CD820042A14C /* DefaultStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C918802725CD820042A14C /* DefaultStateView.swift */; };
 		F8CC712626C42F0800D90FA3 /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */; };
 		F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */; };
 		F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */; };
@@ -193,6 +195,8 @@
 		F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F8BECE4926DDD12A00083AC5 /* Pickleball Pro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pickleball Pro.entitlements"; sourceTree = "<group>"; };
 		F8BECE4C26DDDA2900083AC5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F8C9187E2725C7980042A14C /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		F8C918802725CD820042A14C /* DefaultStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStateView.swift; sourceTree = "<group>"; };
 		F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
 		F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMatchScoreView.swift; sourceTree = "<group>"; };
 		F8E75ECC26A337570000F93F /* Pickleball Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pickleball Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -340,6 +344,8 @@
 				F8A4C80026A34486001A6655 /* RoundImageView.swift */,
 				F8B42A6126EA999C008BD63C /* ModalView.swift */,
 				F897346F27209409004B440E /* InitialsImageView.swift */,
+				F8C9187E2725C7980042A14C /* ErrorView.swift */,
+				F8C918802725CD820042A14C /* DefaultStateView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1028,6 +1034,7 @@
 				F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */,
 				F8A3E7F126D70CD900FD6392 /* PlayerDetailsView.swift in Sources */,
 				F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */,
+				F8C9187F2725C7980042A14C /* ErrorView.swift in Sources */,
 				F8B484C026C04D3600EE3E53 /* MainTabView.swift in Sources */,
 				F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */,
 				F8BECE4126D9E76D00083AC5 /* BaseViewModel.swift in Sources */,
@@ -1036,6 +1043,7 @@
 				F8B484BC26C0408000EE3E53 /* Extensions.swift in Sources */,
 				F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */,
 				F8A3E7EF26D705C500FD6392 /* PlayerSummaryView.swift in Sources */,
+				F8C918812725CD820042A14C /* DefaultStateView.swift in Sources */,
 				F897347027209409004B440E /* InitialsImageView.swift in Sources */,
 				F8973474272107BE004B440E /* Preferences.swift in Sources */,
 				F8A3E7DE26C7371300FD6392 /* PlayersViewModel.swift in Sources */,

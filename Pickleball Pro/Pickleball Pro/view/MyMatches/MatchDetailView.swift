@@ -19,7 +19,17 @@ struct MatchDetailView: View {
     var body: some View {
         VStack(spacing: 0) {
             MatchScoreView(match: match).padding()
-            MatchStatsView(match: match)
+            
+            if match.stats.isEmpty {
+                // TODO: Add some extra padding
+                Spacer()
+                Text("No stats were tracked for this match")
+                Text("Want to see all your stats? Try using the \"Live Match\" tracking next time you play!")
+                    .font(.caption)
+                Spacer()
+            } else {
+                MatchStatsView(match: match)
+            }
             Spacer()
         }
         .navigationTitle(DATE_FORMAT.string(from: match.date))

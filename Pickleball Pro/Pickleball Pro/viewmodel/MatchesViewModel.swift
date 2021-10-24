@@ -9,19 +9,29 @@ import Foundation
 import Combine
 
 class MatchesViewModel: BaseViewModel {
-    @Published var matches = [Match]()
+    @Published var state: LoadingState<[Match]> = .success([])
+    
+    override func clear() {
+        state = .success([])
+    }
     
     func load(force: Bool = false) {
-        if !force && !matches.isEmpty {
-            return
+        if !force {
+            if case let .success(matches) = state, !matches.isEmpty {
+                // If we have matches already, no need to reload
+                return
+            } else if case .loading = state {
+                // If we are already loading, don't load again
+                return
+            }
         }
-        // TODO: Why is this loading twice on startup?
+        state = .loading
         repository.loadMatches {
             switch $0 {
             case .success(let matches):
-                self.matches = matches
+                self.state = .success(matches)
             case .failure(let error):
-                self.errorHandler.handle(error: .loadMatchesError(afError: error))
+                self.state = .failed(.loadMatchesError(afError: error))
             }
         }
     }
@@ -31,7 +41,9 @@ class MatchesViewModel: BaseViewModel {
 //            switch $0 {
 //            case .success(let newMatch):
                 let newMatch = Match(id: UUID().uuidString, date: match.date, team1: match.team1, team2: match.team2, scores: match.scores, stats: match.stats)
-                self.matches.append(newMatch)
+                if case let .success(matches) = state {
+                    state = .success(matches + [newMatch])
+                }
                 callback()
 //            case .failure(let error):
 //                self.errorHandler.handle(error: .createMatchError(afError: error))

@@ -47,10 +47,13 @@ class LoginViewDelegate: ObservableObject {
                         }
                     }
                 } else {
-                    print("Nil user")
+                    print("No user. Logged out")
                 }
             }
             self.user = user
+            if user == nil {
+                // TODO: Clear caches
+            }
         }
     }
 }
