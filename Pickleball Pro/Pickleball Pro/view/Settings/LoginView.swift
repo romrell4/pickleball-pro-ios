@@ -14,6 +14,9 @@ import FirebaseOAuthUI
 import AuthenticationServices
 
 struct LoginView: UIViewControllerRepresentable {
+    @EnvironmentObject var matchesViewModel: MatchesViewModel
+    @EnvironmentObject var playersViewModel: PlayersViewModel
+    
     func makeUIViewController(context: Context) -> UIViewController {
         guard let authUI = FUIAuth.defaultAuthUI() else { fatalError("Couldn't load auth UI") }
         authUI.providers = [
@@ -36,24 +39,21 @@ class LoginViewDelegate: ObservableObject {
     
     private init() {
         Auth.auth().addStateDidChangeListener { (_, user) in
-            if DEBUG_MODE {
-                if let user = user {
-                    print("User: \(user)")
-                    print("Email: \(user.email ?? "no email")")
-                    print("Name: \(user.displayName ?? "no name")")
-                    user.getIDToken { token, error in
-                        if let token = token {
-                            print(token)
-                        }
+#if DEBUG
+            if let user = user {
+                print("User: \(user)")
+                print("Email: \(user.email ?? "no email")")
+                print("Name: \(user.displayName ?? "no name")")
+                user.getIDToken { token, error in
+                    if let token = token {
+                        print(token)
                     }
-                } else {
-                    print("No user. Logged out")
                 }
-            }
+            } else {
+                print("No user. Logged out")
+            }            
+#endif
             self.user = user
-            if user == nil {
-                // TODO: Clear caches
-            }
         }
     }
 }

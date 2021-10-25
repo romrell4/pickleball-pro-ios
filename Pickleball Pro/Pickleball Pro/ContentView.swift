@@ -6,16 +6,28 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+
+private let repository = RepositoryImpl()
+private let matchesViewModel = MatchesViewModel(repository: repository)
+private let playersViewModel = PlayersViewModel(repository: repository)
 
 struct ContentView: View {
-    private var repository = RepositoryImpl()
     @AppStorage(PreferenceKeys.colorScheme) private var colorScheme: ColorSchemePreference = .matchOs
     
     var body: some View {
         MainTabView()
-            .environmentObject(PlayersViewModel(repository: repository))
-            .environmentObject(MatchesViewModel(repository: repository))
+            .environmentObject(matchesViewModel)
+            .environmentObject(playersViewModel)
             .preferredColorScheme(colorScheme.colorScheme)
+            .onAppear {
+                Auth.auth().addStateDidChangeListener { _, user in
+                    if user == nil {
+                        matchesViewModel.clear()
+                        playersViewModel.clear()
+                    }
+                }
+            }
     }
 }
 

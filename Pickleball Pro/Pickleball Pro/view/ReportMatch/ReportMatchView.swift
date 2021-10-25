@@ -16,7 +16,10 @@ struct ReportMatchView: View {
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.currentTab) var currentTab
     
+    @ObservedObject private var loginDelegate = LoginViewDelegate.instance
+    
     @State private var showingAlert = false
+    @State private var showingLoginSheet = false
     @State private var selectedPlayers = [EnterPlayers()]
     @State private var enteredGameScores = [EnterGameScore()]
     
@@ -44,14 +47,21 @@ struct ReportMatchView: View {
                             gameScores: $enteredGameScores,
                             validationError: scoreValidationError,
                             onTrackLiveMatchTapped: {
-                                do {
-                                    let _ = try validatePlayers()
-                                    shouldNavigateToLiveMatch = true
-                                } catch {
-                                    scrollView.scrollTo(SELECT_PLAYERS_ID)
+                                guard loginDelegate.user != nil else {
+                                    showingLoginSheet = true
+                                    return
                                 }
+                                guard let _ = try? validatePlayers() else {
+                                    scrollView.scrollTo(SELECT_PLAYERS_ID)
+                                    return
+                                }
+                                shouldNavigateToLiveMatch = true
                             },
                             onSaveTapped: {
+                                guard loginDelegate.user != nil else {
+                                    showingLoginSheet = true
+                                    return
+                                }
                                 do {
                                     let match = try validateMatch()
                                     matchesViewModel.create(match: match) {
@@ -83,9 +93,16 @@ struct ReportMatchView: View {
             .alert(isPresented: $showingAlert) {
                 Alert(title: Text("Match Saved!"))
             }
+            .sheet(isPresented: $showingLoginSheet) {
+                LoginView()
+            }
         }
         .onAppear {
-            playersViewModel.load()
+            if loginDelegate.user != nil {
+                playersViewModel.load()
+            } else {
+                showingLoginSheet = true
+            }
         }
     }
     

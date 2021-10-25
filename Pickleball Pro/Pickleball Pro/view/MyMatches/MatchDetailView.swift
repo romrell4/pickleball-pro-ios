@@ -21,11 +21,14 @@ struct MatchDetailView: View {
             MatchScoreView(match: match).padding()
             
             if match.stats.isEmpty {
-                // TODO: Add some extra padding
                 Spacer()
+                Text("💡").font(.system(size: 80))
                 Text("No stats were tracked for this match")
+                    .multilineTextAlignment(.center)
                 Text("Want to see all your stats? Try using the \"Live Match\" tracking next time you play!")
                     .font(.caption)
+                    .multilineTextAlignment(.center)
+                    .padding()
                 Spacer()
             } else {
                 MatchStatsView(match: match)
@@ -38,6 +41,6 @@ struct MatchDetailView: View {
 
 struct MatchDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MatchDetailView(match: Match.doubles)
+        MatchDetailView(match: Match.singles)
     }
 }

@@ -9,8 +9,6 @@ import SwiftUI
 import Firebase
 import FBSDKCoreKit
 
-let DEBUG_MODE = true
-
 @main
 struct Pickleball_ProApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
