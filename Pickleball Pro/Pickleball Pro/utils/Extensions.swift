@@ -8,6 +8,12 @@
 import Foundation
 import SwiftUI
 
+extension Alert {
+    func toProAlert() -> ProAlert {
+        return ProAlert(alert: self)
+    }
+}
+
 extension Binding {
     static func proxy(_ source: Binding<Value>) -> Binding<Value> {
         self.init(

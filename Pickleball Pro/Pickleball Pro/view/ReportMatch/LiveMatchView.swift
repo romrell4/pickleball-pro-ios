@@ -11,10 +11,11 @@ struct LiveMatchView: View {
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @AppStorage(PreferenceKeys.autoSwitchSides) var autoSwitchSides = false
+    @AppStorage(PreferenceKeys.liveMatchConfirmations) var requireConfirmations = true
     @State private var match: LiveMatch
     @State private var statTrackerModalState: StatTrackerModalState = .gone
     @State private var selectServerModalVisible: Bool = true
-    @State private var cancelWarningVisible: Bool = false
+    @State private var alert: ProAlert? = nil
     @State private var matchStatsModalVisible: Bool = false
     
     var onMatchSaved: () -> Void
@@ -25,7 +26,7 @@ struct LiveMatchView: View {
             team1: LiveMatchTeam(
                 deucePlayer: LiveMatchPlayer(
                     player: players.0[0]
-//                    ,servingState: .serving(isFirstServer: players.0.count == 1)
+                    //,servingState: .serving(isFirstServer: players.0.count == 1)
                 ),
                 adPlayer: LiveMatchPlayer(player: players.0[safe: 1])
             ),
@@ -89,41 +90,48 @@ struct LiveMatchView: View {
         .sheet(isPresented: $matchStatsModalVisible) {
             MatchDetailView(match: match.toMatch())
         }
-        .alert(isPresented: $cancelWarningVisible, content: {
-            Alert(
-                title: Text("Are you sure?"),
-                message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
-                primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss() },
-                secondaryButton: .cancel(Text("No"))
-            )
-        })
+        .alert(item: $alert, content: { $0.alert })
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") {
-                    print("Cancel tapped")
-                    cancelWarningVisible = true
+                    alert = Alert(
+                        title: Text("Are you sure?"),
+                        message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
+                        primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss()
+                        },
+                        secondaryButton: .cancel(Text("No"))
+                    ).toProAlert()
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button("Finish Match") {
-                        // TODO: Add confirmation
-                        // TODO: Allow for sharing
-                        matchesViewModel.create(match: match.toMatch()) {
-                            presentationMode.wrappedValue.dismiss()
-                            onMatchSaved()
+                        if requireConfirmations {
+                            alert = Alert(
+                                title: Text("Are you sure?"),
+                                message: Text("You will not be able to come back to edit this match after finishing it."),
+                                primaryButton: .default(Text("Yes")) {
+                                    finishMatch()
+                                },
+                                secondaryButton: .cancel(Text("No"))
+                            ).toProAlert()
+                        } else {
+                            finishMatch()
                         }
                     }
                     Button("Start New Game") {
-                        // TODO: Add confirmation
-                        // TODO: Add preference to turn off confirmation dialogs
-                        match.startNewGame()
-                        
-                        if autoSwitchSides {
-                            match.switchCourtSides()
+                        if requireConfirmations {
+                            alert = Alert(
+                                title: Text("Are you sure?"),
+                                message: Text("You will not be able to come back to edit this game after starting a new one."),
+                                primaryButton: .default(Text("Yes")) {
+                                    startNewGame()
+                                },
+                                secondaryButton: .cancel(Text("No"))
+                            ).toProAlert()
+                        } else {
+                            startNewGame()
                         }
-                        
-                        selectServerModalVisible = true
                     }
                     Button("Switch Court Sides") {
                         match.switchCourtSides()
@@ -152,6 +160,24 @@ struct LiveMatchView: View {
                     Image(systemName: "ellipsis.circle")
                 }
             }
+        }
+    }
+    
+    private func startNewGame() {
+        match.startNewGame()
+        
+        if autoSwitchSides {
+            match.switchCourtSides()
+        }
+        
+        selectServerModalVisible = true
+    }
+    
+    private func finishMatch() {
+        // TODO: Allow for sharing
+        matchesViewModel.create(match: match.toMatch()) {
+            presentationMode.wrappedValue.dismiss()
+            onMatchSaved()
         }
     }
 }
@@ -183,8 +209,9 @@ private struct PlayerView: View {
     @Binding var statTrackerModalState: StatTrackerModalState
     var player: LiveMatchPlayer?
     
-    private let pickleballImage: some View =
-        Image("pickleball").resizable().frame(width: 20, height: 20)
+    private let pickleballImage: some View = Image("pickleball")
+        .resizable()
+        .frame(width: 20, height: 20)
     
     var body: some View {
         if let player = player {
@@ -399,7 +426,7 @@ struct LiveMatch {
             } else if team2.adPlayer?.isServing == true {
                 team1.adPlayer?.servingState = .serving()
                 team2.adPlayer?.servingState = .notServing
-           }
+            }
         }
     }
     
@@ -532,8 +559,8 @@ struct LiveMatchView_Previews: PreviewProvider {
             LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob])) {
                 print("Saved")
             }
-                .ignoresSafeArea(.all, edges: .bottom)
-                .preferredColorScheme(.dark)
+            .ignoresSafeArea(.all, edges: .bottom)
+            .preferredColorScheme(.dark)
         }
         .environmentObject(MatchesViewModel(repository: TestRepository()))
     }

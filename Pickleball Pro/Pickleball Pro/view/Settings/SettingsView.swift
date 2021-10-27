@@ -13,6 +13,7 @@ struct SettingsView: View {
     @State private var sheetPresented = false
     @AppStorage(PreferenceKeys.colorScheme) private var colorScheme: ColorSchemePreference = .matchOs
     @AppStorage(PreferenceKeys.autoSwitchSides) private var autoSwitchSides = false
+    @AppStorage(PreferenceKeys.liveMatchConfirmations) private var liveMatchConfirmations = true
     
     var body: some View {
         List {
@@ -50,14 +51,32 @@ struct SettingsView: View {
                     }
                 }.pickerStyle(SegmentedPickerStyle())
             }
-            Section(
-                footer: Text("When ending a game during a live match, automatically have teams switch sides.").font(.caption2)
-            ) {
-                Toggle(isOn: $autoSwitchSides) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Switch sides each game")
-                        
-                    }
+            ToggleSection(
+                isOn: $liveMatchConfirmations,
+                title: "Live match confirmations",
+                description: "Require confirmation for irreversable actions during a live match, including finishing the match and starting a new game."
+            )
+            ToggleSection(
+                isOn: $autoSwitchSides,
+                title: "Switch sides each game",
+                description: "When ending a game during a live match, automatically have teams switch sides."
+            )
+        }
+    }
+}
+
+private struct ToggleSection: View {
+    @Binding var isOn: Bool
+    let title: String
+    let description: String
+    
+    var body: some View {
+        Section(
+            footer: Text(description).font(.caption2)
+        ) {
+            Toggle(isOn: $isOn) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
                 }
             }
         }

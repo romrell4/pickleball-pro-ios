@@ -11,7 +11,7 @@ struct TestView: View {
     @State private var user: String? = nil
     private lazy var showingLogin: Binding<Bool> = Binding.init(
         get: {
-            user == nil
+            self.user == nil
         },
         set: {_ in}
     )

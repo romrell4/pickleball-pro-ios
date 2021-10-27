@@ -32,6 +32,7 @@ struct MyMatchesView: View {
                     }
                 }
             }
+            .navigationBarHidden(true)
             .onAppear {
                 viewModel.load()
             }

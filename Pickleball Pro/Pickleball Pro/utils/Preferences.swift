@@ -11,6 +11,7 @@ import SwiftUI
 struct PreferenceKeys {
     static var colorScheme = "colorScheme"
     static var autoSwitchSides = "autoSwitchSides"
+    static var liveMatchConfirmations = "liveMatchConfirmations"
 }
 
 enum ColorSchemePreference: String, CaseIterable {
