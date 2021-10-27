@@ -32,7 +32,8 @@ struct MyMatchesView: View {
                     }
                 }
             }
-            .navigationBarHidden(true)
+            .navigationTitle("Match History")
+            .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 viewModel.load()
             }
