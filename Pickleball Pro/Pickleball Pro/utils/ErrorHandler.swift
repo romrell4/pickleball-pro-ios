@@ -22,11 +22,11 @@ enum ProError: LocalizedError {
     var errorDescription: String {
         switch self {
         case .loadPlayersError: return "Unable to load players. Please try again later."
-        case .createPlayerError: return "Unable to create player. Please try again later."
+        case .createPlayerError: return "Unable to save player. Please try again later."
         case .deletePlayerError: return "Unable to delete player. Please try again later."
         case .updatePlayerError: return "Unable to update player. Please try again later."
         case .loadMatchesError: return "Unable to load matches. Please try again later."
-        case .createMatchError: return "Unable to create match. Please try again later."
+        case .createMatchError: return "Unable to save match. Please try again later."
         case .genericError: return "Uh oh. Something went wrong. Please try again later."
         }
     }

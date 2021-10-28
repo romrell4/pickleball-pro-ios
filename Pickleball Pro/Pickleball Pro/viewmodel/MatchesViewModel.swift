@@ -36,16 +36,15 @@ class MatchesViewModel: BaseViewModel {
         }
     }
     
-    func create(match: Match, callback: @escaping () -> Void) {
-//        repository.createMatch(match: match) {
-//            switch $0 {
-//            case .success(let newMatch):
-                let newMatch = Match(id: UUID().uuidString, date: match.date, team1: match.team1, team2: match.team2, scores: match.scores, stats: match.stats)
-                state.add(newMatch)
-                callback()
-//            case .failure(let error):
-//                self.errorHandler.handle(error: .createMatchError(afError: error))
-//            }
-//        }
+    func create(match: Match, callback: @escaping (ProError?) -> Void) {
+        repository.createMatch(match: match) {
+            switch $0 {
+            case .success(let newMatch):
+                self.state.add(newMatch)
+                callback(nil)
+            case .failure(let error):
+                callback(.createMatchError(afError: error))
+            }
+        }
     }
 }

@@ -64,9 +64,13 @@ struct ReportMatchView: View {
                                 }
                                 do {
                                     let match = try validateMatch()
-                                    matchesViewModel.create(match: match) {
-                                        reset()
-                                        currentTab.wrappedValue = .myMatches
+                                    matchesViewModel.create(match: match) { error in
+                                        if let error = error {
+                                            // TODO: Show alert
+                                        } else {
+                                            reset()
+                                            currentTab.wrappedValue = .myMatches
+                                        }
                                     }
                                 } catch MyError.playerValidationError {
                                     scrollView.scrollTo(SELECT_PLAYERS_ID)

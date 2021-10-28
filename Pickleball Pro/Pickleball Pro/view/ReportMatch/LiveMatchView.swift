@@ -175,9 +175,13 @@ struct LiveMatchView: View {
     
     private func finishMatch() {
         // TODO: Allow for sharing
-        matchesViewModel.create(match: match.toMatch()) {
-            presentationMode.wrappedValue.dismiss()
-            onMatchSaved()
+        matchesViewModel.create(match: match.toMatch()) { error in
+            if let error = error {
+                alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
+            } else {
+                presentationMode.wrappedValue.dismiss()
+                onMatchSaved()
+            }
         }
     }
 }
