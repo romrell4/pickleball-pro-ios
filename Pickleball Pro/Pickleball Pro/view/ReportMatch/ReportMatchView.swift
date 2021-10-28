@@ -18,7 +18,7 @@ struct ReportMatchView: View {
     
     @ObservedObject private var loginDelegate = LoginViewDelegate.instance
     
-    @State private var showingAlert = false
+    @State private var alert: ProAlert? = nil
     @State private var showingLoginSheet = false
     @State private var selectedPlayers = [EnterPlayers()]
     @State private var enteredGameScores = [EnterGameScore()]
@@ -66,7 +66,7 @@ struct ReportMatchView: View {
                                     let match = try validateMatch()
                                     matchesViewModel.create(match: match) { error in
                                         if let error = error {
-                                            // TODO: Show alert
+                                            alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
                                         } else {
                                             reset()
                                             currentTab.wrappedValue = .myMatches
@@ -94,9 +94,7 @@ struct ReportMatchView: View {
             .navigationBarTitle("Report Match")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
-            .alert(isPresented: $showingAlert) {
-                Alert(title: Text("Match Saved!"))
-            }
+            .alert(item: $alert) { $0.alert }
             .sheet(isPresented: $showingLoginSheet) {
                 LoginView()
             }

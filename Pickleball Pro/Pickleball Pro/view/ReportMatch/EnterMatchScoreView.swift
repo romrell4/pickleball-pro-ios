@@ -10,6 +10,7 @@ import SwiftUI
 private let MAX_GAMES = 5
 
 struct EnterMatchScoreView: View {
+    // TODO: Put players' icons before scores
     @Binding var scores: [EnterGameScore]
     
     @State private var scoreValidationError = false
