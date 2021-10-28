@@ -8,37 +8,60 @@
 import SwiftUI
 
 struct PlayersView: View {
-    // TODO: Search / Sort
     @EnvironmentObject var viewModel: PlayersViewModel
     @State private var showingAddPlayerSheet = false
+    @State private var sortDirectionAsc: Bool = true
+    @State private var selectedSort: PlayerSortOption = .firstName
+    @State private var searchFilter = ""
     
     var body: some View {
         NavigationView {
-            DefaultStateView(state: viewModel.state) { players in
-                List {
+            DefaultStateView(state: viewModel.state) {
+                let players = $0
+                    .filter { $0.matches(filter: searchFilter) }
+                    .sorted(by: playerSorter)
+                let list = List {
                     ForEach(players, id: \.id) { player in
                         NavigationLink(destination: PlayerDetailsView(player: player)) {
                             PlayerSummaryView(player: player)
                                 .padding(.vertical, 8)
-                        }.deleteDisabled(player.isOwner)
+                        }//.deleteDisabled(player.isOwner)
                     }
                     .onDelete {
                         let player = players[$0[$0.startIndex]]
-                        if !player.isOwner {
-                            viewModel.delete(player: player)
-                        }
+                        viewModel.delete(player: player)
                     }
+                }
+                if #available(iOS 15.0, *) {
+                    list.searchable(text: $searchFilter)
+                } else {
+                    list
                 }
             }
             .listStyle(PlainListStyle())
             .navigationBarTitle("Players")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                Image(systemName: "plus.circle")
-                    .foregroundColor(.blue)
-                    .onTapGesture {
-                        showingAddPlayerSheet = true
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Image(systemName: sortDirectionAsc ? "arrow.down" : "arrow.up")
+                        .foregroundColor(.blue)
+                        .onTapGesture {
+                            sortDirectionAsc.toggle()
+                        }
+                    Picker("Select a sort option", selection: $selectedSort) {
+                        ForEach(PlayerSortOption.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
                     }
+                    .pickerStyle(.menu)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "plus.circle")
+                        .foregroundColor(.blue)
+                        .onTapGesture {
+                            showingAddPlayerSheet = true
+                        }
+                }
             }
             .sheet(isPresented: $showingAddPlayerSheet) {
                 NavigationView {
@@ -50,6 +73,50 @@ struct PlayersView: View {
                 viewModel.load()
             }
         }
+    }
+    
+    private var playerSorter: (Player, Player) -> Bool {
+        { lhs, rhs in
+            switch selectedSort {
+            case .firstName:
+                if lhs.firstName.isEmpty {
+                    return false
+                } else if rhs.firstName.isEmpty {
+                    return true
+                }
+                return sortDirectionAsc ? lhs.firstName < rhs.firstName : lhs.firstName > rhs.firstName
+            case .lastName:
+                if lhs.lastName.isEmpty {
+                    return false
+                } else if rhs.lastName.isEmpty {
+                    return true
+                }
+                return sortDirectionAsc ? lhs.lastName < rhs.lastName : lhs.lastName > rhs.lastName
+            case .level:
+                let bottom = sortDirectionAsc ? Double.greatestFiniteMagnitude : 0
+                let leftLevel = lhs.level ?? bottom
+                let rightLevel = rhs.level ?? bottom
+                return sortDirectionAsc ? leftLevel < rightLevel : leftLevel > rightLevel
+            }
+        }
+    }
+}
+
+private enum SortDirection {
+    case asc
+    case desc
+}
+
+private enum PlayerSortOption: String, CaseIterable {
+    case firstName = "First Name"
+    case lastName = "Last Name"
+    case level = "Level"
+}
+
+private extension Player {
+    func matches(filter: String) -> Bool {
+        let searchableFields = [firstName, lastName, notes].compactMap { $0 }
+        return filter.isEmpty || searchableFields.contains { $0.range(of: filter, options: .caseInsensitive) != nil }
     }
 }
 

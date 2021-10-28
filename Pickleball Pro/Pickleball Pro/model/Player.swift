@@ -17,7 +17,7 @@ struct Player: Identifiable, Codable {
     var phoneNumber: String? = nil
     var email: String? = nil
     var notes: String? = nil
-    let isOwner: Bool = false
+    var isOwner: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case id = "playerId"
@@ -29,6 +29,7 @@ struct Player: Identifiable, Codable {
         case phoneNumber
         case email
         case notes
+        case isOwner
     }
     
     enum Hand: String, CaseIterable, Codable {
@@ -57,7 +58,7 @@ extension Player: PlayerImagable {
 #if DEBUG
 
 extension Player {
-    static let eric = Player(id: "1", firstName: "Eric", lastName: "Romrell", imageUrl: "https://lh3.googleusercontent.com/a-/AOh14GgV7KZOgQ3v3H5SeRnbzCTIAc9N2qM9THqjXrC-IHk=s192-c-rg-br100", dominantHand: .left, level: 4.0, phoneNumber: "503-679-0157", email: "emromrell14@gmail.com", notes: "These are some test notes. He's not THAT great, but he's better than you might expect. I'm going to keep blabbing until this thing wraps, which... it still hasn't... come on!! Wrap!!!")
+    static let eric = Player(id: "1", firstName: "Eric", lastName: "Romrell", imageUrl: "https://lh3.googleusercontent.com/a-/AOh14GgV7KZOgQ3v3H5SeRnbzCTIAc9N2qM9THqjXrC-IHk=s192-c-rg-br100", dominantHand: .left, level: 4.0, phoneNumber: "503-679-0157", email: "emromrell14@gmail.com", notes: "These are some test notes. He's not THAT great, but he's better than you might expect. I'm going to keep blabbing until this thing wraps, which... it still hasn't... come on!! Wrap!!!", isOwner: true)
     static let jessica = Player(id: "2", firstName: "Jessica", lastName: "Romrell")
     static let bryan = Player(id: "3", firstName: "Bryan", lastName: "Lundberg")
     static let bob = Player(id: "4", firstName: "Bob", lastName: "Crane")

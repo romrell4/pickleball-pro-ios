@@ -13,10 +13,26 @@ struct DefaultStateView<SuccessType, Content: View>: View {
     
     var body: some View {
         switch state {
-        case .loading:
-            ProgressView()
-        case .failed(let error):
-            ErrorModalView(error: error)
+        case .idle:
+            VStack {}
+        case .loading(let data):
+            ZStack {
+                if let data = data {
+                    content(data)
+                    ModalView(onDismiss: {}) {
+                        ProgressView()
+                    }
+                } else {
+                    ProgressView()
+                }
+            }
+        case .failed(let error, let data):
+            ZStack {
+                if let data = data {
+                    content(data)
+                }
+                ErrorModalView(error: error)
+            }
         case .success(let data):
             content(data)
         }
@@ -24,11 +40,19 @@ struct DefaultStateView<SuccessType, Content: View>: View {
 }
 
 struct DefaultStateView_Previews: PreviewProvider {
-    static let state: LoadingState<String> = .failed(.loadPlayersError(afError: nil))
+    static let state: LoadingState<String> =
+//        .idle
+//        .failed(.loadPlayersError(afError: nil))
+//        .failed(.loadPlayersError(afError: nil), "Test")
+//        .loading(nil)
+        .loading("Test")
+//        .success("Test")
     static var previews: some View {
         NavigationView {
             DefaultStateView(state: state) { data in
-                Text(data)
+                List(0..<10) {
+                    Text("\(data) \($0)")
+                }
             }
             .navigationTitle("Test")
         }

@@ -9,15 +9,15 @@ import Foundation
 import Combine
 
 class MatchesViewModel: BaseViewModel {
-    @Published var state: LoadingState<[Match]> = .success([])
+    @Published var state: LoadingState<[Match]> = .idle
     
     override func clear() {
-        state = .success([])
+        state = .idle
     }
     
     func load(force: Bool = false) {
         if !force {
-            if case let .success(matches) = state, !matches.isEmpty {
+            if state.dataOrEmpty().isEmpty {
                 // If we have matches already, no need to reload
                 return
             } else if case .loading = state {
@@ -25,13 +25,13 @@ class MatchesViewModel: BaseViewModel {
                 return
             }
         }
-        state = .loading
+        state.startLoad()
         repository.loadMatches {
             switch $0 {
             case .success(let matches):
                 self.state = .success(matches)
             case .failure(let error):
-                self.state = .failed(.loadMatchesError(afError: error))
+                self.state.receivedFailure(.loadMatchesError(afError: error))
             }
         }
     }
@@ -41,9 +41,7 @@ class MatchesViewModel: BaseViewModel {
 //            switch $0 {
 //            case .success(let newMatch):
                 let newMatch = Match(id: UUID().uuidString, date: match.date, team1: match.team1, team2: match.team2, scores: match.scores, stats: match.stats)
-                if case let .success(matches) = state {
-                    state = .success(matches + [newMatch])
-                }
+                state.add(newMatch)
                 callback()
 //            case .failure(let error):
 //                self.errorHandler.handle(error: .createMatchError(afError: error))

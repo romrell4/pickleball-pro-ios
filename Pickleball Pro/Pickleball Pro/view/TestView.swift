@@ -7,22 +7,21 @@
 
 import SwiftUI
 
-struct TestView: View {
-    @State private var user: String? = nil
-    private lazy var showingLogin: Binding<Bool> = Binding.init(
-        get: {
-            self.user == nil
-        },
-        set: {_ in}
-    )
-    
+struct TestView: View {    
     var body: some View {
-        Text("You can only use this if you log in")
-//            .sheet(isPresented: self.showingLogin) {
-//                Button("Login") {
-//                    user = "Test"
-//                }
-//            }
+        NavigationView {
+            List {
+                ForEach(0..<10, id: \.self) { num in
+                    NavigationLink(destination: Text("Hello")) {
+                        Text("\(num)")
+                    }
+                    .deleteDisabled(true)
+                }
+                .onDelete {
+                    print($0)
+                }
+            }
+        }
     }
 }
 

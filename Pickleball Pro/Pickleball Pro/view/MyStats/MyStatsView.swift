@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyStatsView: View {
     var body: some View {
+        // TODO: Implement (record, charts, etc)
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
