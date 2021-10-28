@@ -17,7 +17,7 @@ class MatchesViewModel: BaseViewModel {
     
     func load(force: Bool = false) {
         if !force {
-            if state.dataOrEmpty().isEmpty {
+            if !state.dataOrEmpty().isEmpty {
                 // If we have matches already, no need to reload
                 return
             } else if case .loading = state {
