@@ -58,28 +58,7 @@ class RepositoryImpl: Repository {
     // Matches Endpoints
     
     func loadMatches(callback: @escaping (Result<[Match], AFError>) -> Void) {
-        let newCallback: (Result<[MatchDto], AFError>) -> Void = {
-            switch $0 {
-            case .success(let matchDtos):
-                callback(
-                    .success(
-                        matchDtos.map { dto in
-                            Match(
-                                id: dto.id,
-                                date: dto.date,
-                                team1: [dto.team1Player1, dto.team1Player2].compactMap { $0 },
-                                team2: [dto.team2Player1, dto.team2Player2].compactMap { $0 },
-                                scores: dto.scores,
-                                stats: dto.stats
-                            )
-                        }
-                    )
-                )
-            case .failure(let error):
-                callback(.failure(error))
-            }
-        }
-        request(path: "/matches", callback: newCallback)
+        request(path: "/matches", callback: callback)
     }
     
     func createMatch(match: Match, callback: @escaping (Result<Match, AFError>) -> Void) {
@@ -133,17 +112,6 @@ class RepositoryImpl: Repository {
         } else {
             makeRequest(token: nil)
         }
-    }
-    
-    struct MatchDto: Codable {
-        let id: String
-        let date: Date
-        let team1Player1: Player
-        let team1Player2: Player?
-        let team2Player1: Player
-        let team2Player2: Player?
-        let scores: [GameScore]
-        let stats: [Stat]
     }
 }
 

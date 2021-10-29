@@ -25,10 +25,17 @@ struct MyMatchesView: View {
                     }
                     .multilineTextAlignment(.center)
                 } else {
-                    List(matches, id: \.self.id) { match in
+                    let list = List(matches, id: \.self.id) { match in
                         NavigationLink(destination: MatchDetailView(match: match)) {
                             MatchSummaryView(match: match)
                         }
+                    }
+                    if #available(iOS 15.0, *) {
+                        list.refreshable {
+                            viewModel.load(force: true)
+                        }
+                    } else {
+                        list
                     }
                 }
             }

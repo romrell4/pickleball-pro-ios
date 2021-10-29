@@ -15,6 +15,15 @@ struct Match: Identifiable, Codable {
     var scores: [GameScore]
     var stats: [Stat]
     
+    enum CodingKeys: String, CodingKey {
+        case id = "matchId"
+        case date
+        case team1
+        case team2
+        case scores
+        case stats
+    }
+    
     var team1Scores: [Int] {
         scores.map { $0.team1Score }
     }

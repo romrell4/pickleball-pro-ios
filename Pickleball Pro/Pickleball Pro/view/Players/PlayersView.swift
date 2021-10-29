@@ -33,7 +33,9 @@ struct PlayersView: View {
                     }
                 }
                 if #available(iOS 15.0, *) {
-                    list.searchable(text: $searchFilter)
+                    list.searchable(text: $searchFilter).refreshable {
+                        viewModel.load(force: true)
+                    }
                 } else {
                     list
                 }
