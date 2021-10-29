@@ -28,6 +28,7 @@ struct MyMatchesView: View {
                     let list = List(matches, id: \.self.id) { match in
                         NavigationLink(destination: MatchDetailView(match: match)) {
                             MatchSummaryView(match: match)
+                                .padding(.vertical, 4)
                         }
                     }
                     if #available(iOS 15.0, *) {

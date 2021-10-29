@@ -11,6 +11,7 @@ private let MAX_GAMES = 5
 
 struct EnterMatchScoreView: View {
     // TODO: Put players' icons before scores
+    // TODO: Figure out scrolling and next buttons between text fields
     @Binding var scores: [EnterGameScore]
     
     @State private var scoreValidationError = false

@@ -24,10 +24,10 @@ class MatchTest: XCTestCase {
             ],
             scores: [],
             stats: [
-                Stat(playerId: "p1", gameIndex: 0, shotType: .serve, shotResult: .winner),
-                Stat(playerId: "p1", gameIndex: 1, shotType: .serve, shotResult: .winner),
-                Stat(playerId: "p2", gameIndex: 0, shotType: .serve, shotResult: .winner),
-                Stat(playerId: "p3", gameIndex: 0, shotType: .serve, shotResult: .winner),
+                Stat(matchId: "m1", playerId: "p1", gameIndex: 0, shotType: .serve, shotResult: .winner),
+                Stat(matchId: "m1", playerId: "p1", gameIndex: 1, shotType: .serve, shotResult: .winner),
+                Stat(matchId: "m1", playerId: "p2", gameIndex: 0, shotType: .serve, shotResult: .winner),
+                Stat(matchId: "m1", playerId: "p3", gameIndex: 0, shotType: .serve, shotResult: .winner),
             ]
         )
         XCTAssertEqual(match.statGroupings().first { $0.label == "Aces" }?.team1Amount, 3)

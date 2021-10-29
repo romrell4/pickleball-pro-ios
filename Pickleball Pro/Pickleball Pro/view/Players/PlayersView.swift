@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlayersView: View {
+    // TODO: Save sort in shared prefs
     @EnvironmentObject var viewModel: PlayersViewModel
     @State private var showingAddPlayerSheet = false
     @State private var sortDirectionAsc: Bool = true
@@ -25,7 +26,7 @@ struct PlayersView: View {
                         NavigationLink(destination: PlayerDetailsView(player: player)) {
                             PlayerSummaryView(player: player)
                                 .padding(.vertical, 8)
-                        }//.deleteDisabled(player.isOwner)
+                        }.deleteDisabled(player.isOwner)
                     }
                     .onDelete {
                         let player = players[$0[$0.startIndex]]

@@ -37,6 +37,7 @@ class MatchesViewModel: BaseViewModel {
     }
     
     func create(match: Match, callback: @escaping (ProError?) -> Void) {
+        state.startLoad()
         repository.createMatch(match: match) {
             switch $0 {
             case .success(let newMatch):

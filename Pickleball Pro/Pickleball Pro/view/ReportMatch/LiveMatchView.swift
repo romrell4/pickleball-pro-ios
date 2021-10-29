@@ -357,6 +357,7 @@ struct LiveMatch {
         stats.append(
             LiveMatchStat(
                 stat: Stat(
+                    matchId: "",
                     playerId: player.id,
                     gameIndex: currentGameIndex,
                     shotType: shot.type,
