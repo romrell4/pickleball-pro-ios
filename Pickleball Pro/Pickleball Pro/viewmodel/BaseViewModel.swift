@@ -31,6 +31,13 @@ enum LoadingState<Value> {
         }
     }
     
+    var isLoading: Bool {
+        switch self {
+        case .loading: return true
+        default: return false
+        }
+    }
+    
     mutating func startLoad() {
         self = .loading(data)
     }

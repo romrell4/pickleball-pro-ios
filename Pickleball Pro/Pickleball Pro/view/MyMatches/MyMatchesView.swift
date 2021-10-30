@@ -25,7 +25,7 @@ struct MyMatchesView: View {
                     }
                     .multilineTextAlignment(.center)
                 } else {
-                    let list = List(matches, id: \.self.id) { match in
+                    let list = List(matches.sorted(), id: \.self.id) { match in
                         NavigationLink(destination: MatchDetailView(match: match)) {
                             MatchSummaryView(match: match)
                                 .padding(.vertical, 4)

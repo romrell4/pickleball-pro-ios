@@ -44,7 +44,9 @@ class MatchesViewModel: BaseViewModel {
                 self.state.add(newMatch)
                 callback(nil)
             case .failure(let error):
-                callback(.createMatchError(afError: error))
+                let proError = ProError.createMatchError(afError: error)
+                self.state.receivedFailure(proError)
+                callback(proError)
             }
         }
     }

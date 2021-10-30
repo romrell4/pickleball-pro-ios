@@ -39,55 +39,60 @@ struct ReportMatchView: View {
     var body: some View {
         NavigationView {
             ScrollViewReader { scrollView in
-                ScrollView {
-                    VStack {
-                        SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError, allPlayers: players)
-                            .id(SELECT_PLAYERS_ID)
-                        EnterScoresStepView(
-                            gameScores: $enteredGameScores,
-                            validationError: scoreValidationError,
-                            onTrackLiveMatchTapped: {
-                                guard loginDelegate.user != nil else {
-                                    showingLoginSheet = true
-                                    return
-                                }
-                                guard let _ = try? validatePlayers() else {
-                                    scrollView.scrollTo(SELECT_PLAYERS_ID)
-                                    return
-                                }
-                                shouldNavigateToLiveMatch = true
-                            },
-                            onSaveTapped: {
-                                guard loginDelegate.user != nil else {
-                                    showingLoginSheet = true
-                                    return
-                                }
-                                do {
-                                    let match = try validateMatch()
-                                    matchesViewModel.create(match: match) { error in
-                                        if let error = error {
-                                            alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
-                                        } else {
-                                            reset()
-                                            currentTab.wrappedValue = .myMatches
-                                        }
+                ZStack {
+                    ScrollView {
+                        VStack {
+                            SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError, allPlayers: players)
+                                .id(SELECT_PLAYERS_ID)
+                            EnterScoresStepView(
+                                gameScores: $enteredGameScores,
+                                validationError: scoreValidationError,
+                                onTrackLiveMatchTapped: {
+                                    guard loginDelegate.user != nil else {
+                                        showingLoginSheet = true
+                                        return
                                     }
-                                } catch MyError.playerValidationError {
-                                    scrollView.scrollTo(SELECT_PLAYERS_ID)
-                                } catch MyError.scoreValidationError {
-                                    scrollView.scrollTo(ENTER_SCORES_ID)
-                                } catch {}
-                            }
-                        ).id(ENTER_SCORES_ID)
-                        NavigationLink(
-                            destination: LiveMatchView(
-                                players: getPlayers()
-                            ) {
-                                reset()
-                                currentTab.wrappedValue = .myMatches
-                            },
-                            isActive: $shouldNavigateToLiveMatch
-                        ) { EmptyView() }
+                                    guard let _ = try? validatePlayers() else {
+                                        scrollView.scrollTo(SELECT_PLAYERS_ID)
+                                        return
+                                    }
+                                    shouldNavigateToLiveMatch = true
+                                },
+                                onSaveTapped: {
+                                    guard loginDelegate.user != nil else {
+                                        showingLoginSheet = true
+                                        return
+                                    }
+                                    do {
+                                        let match = try validateMatch()
+                                        matchesViewModel.create(match: match) { error in
+                                            if let error = error {
+                                                alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
+                                            } else {
+                                                reset()
+                                                currentTab.wrappedValue = .myMatches
+                                            }
+                                        }
+                                    } catch MyError.playerValidationError {
+                                        scrollView.scrollTo(SELECT_PLAYERS_ID)
+                                    } catch MyError.scoreValidationError {
+                                        scrollView.scrollTo(ENTER_SCORES_ID)
+                                    } catch {}
+                                }
+                            ).id(ENTER_SCORES_ID)
+                            NavigationLink(
+                                destination: LiveMatchView(
+                                    players: getPlayers()
+                                ) {
+                                    reset()
+                                    currentTab.wrappedValue = .myMatches
+                                },
+                                isActive: $shouldNavigateToLiveMatch
+                            ) { EmptyView() }
+                        }
+                    }
+                    if playersViewModel.state.isLoading || matchesViewModel.state.isLoading {
+                        LoadingModalView()
                     }
                 }
             }
@@ -245,6 +250,5 @@ struct ReportMatchView_Previews: PreviewProvider {
         ReportMatchView()
             .environmentObject(PlayersViewModel(repository: TestRepository()))
             .environmentObject(MatchesViewModel(repository: TestRepository()))
-            .preferredColorScheme(.dark)
     }
 }

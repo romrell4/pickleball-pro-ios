@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Match: Identifiable, Codable {
+struct Match: Identifiable, Codable, Comparable {
     let id: String
     let date: Date
     var team1: [Player]
@@ -22,6 +22,10 @@ struct Match: Identifiable, Codable {
         case team2
         case scores
         case stats
+    }
+    
+    static func < (lhs: Match, rhs: Match) -> Bool {
+        lhs.date > rhs.date
     }
     
     var team1Scores: [Int] {
