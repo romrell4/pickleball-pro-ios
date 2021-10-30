@@ -27,6 +27,14 @@ struct ModalView<Content: View>: View {
     }
 }
 
+struct LoadingModalView: View {
+    var body: some View {
+        ModalView(onDismiss: {}) {
+            ProgressView()
+        }
+    }
+}
+
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
         ModalView(onDismiss: { print("dismiss") }) {

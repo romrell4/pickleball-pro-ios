@@ -19,9 +19,7 @@ struct DefaultStateView<SuccessType, Content: View>: View {
             ZStack {
                 if let data = data {
                     content(data)
-                    ModalView(onDismiss: {}) {
-                        ProgressView()
-                    }
+                    LoadingModalView()
                 } else {
                     ProgressView()
                 }

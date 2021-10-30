@@ -180,25 +180,25 @@ extension Match {
             Stat.stat(playerId: Player.bob.id, gameIndex: 2, shotType: .volley, shotResult: .error, shotSide: .forehand),
             // 1-0
             Stat.stat(playerId: Player.bryan.id, gameIndex: 2, shotType: .lob, shotResult: .winner, shotSide: .forehand),
-            // 1-0 Bryan serving
-            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-0 Bob serving
+            Stat.ace(playerId: Player.bob.id, gameIndex: 2),
             // 1-1
-            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            Stat.ace(playerId: Player.bob.id, gameIndex: 2),
             // 1-2
-            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            Stat.ace(playerId: Player.bob.id, gameIndex: 2),
             // 1-3
-            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            Stat.ace(playerId: Player.bob.id, gameIndex: 2),
             // 1-4
-            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            Stat.ace(playerId: Player.bob.id, gameIndex: 2),
             // 1-5
-            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            Stat.ace(playerId: Player.bob.id, gameIndex: 2),
             // 1-6
-            Stat.ace(playerId: Player.bryan.id, gameIndex: 2),
+            Stat.ace(playerId: Player.bob.id, gameIndex: 2),
             // 1-7
-            Stat.fault(playerId: Player.bryan.id, gameIndex: 2),
-            // 1-7 Bob serving
             Stat.fault(playerId: Player.bob.id, gameIndex: 2),
-            // 1-7 Jessica serving
+            // 1-7 Bryan serving
+            Stat.fault(playerId: Player.bryan.id, gameIndex: 2),
+            // 1-7 Eric serving
             Stat.stat(playerId: Player.jessica.id, gameIndex: 2, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 2-7
             Stat.stat(playerId: Player.jessica.id, gameIndex: 2, shotType: .dink, shotResult: .winner, shotSide: .forehand),
@@ -206,7 +206,7 @@ extension Match {
             Stat.stat(playerId: Player.jessica.id, gameIndex: 2, shotType: .dink, shotResult: .winner, shotSide: .forehand),
             // 4-7
             Stat.stat(playerId: Player.eric.id, gameIndex: 2, shotType: .drive, shotResult: .error, shotSide: .backhand),
-            // 4-7 Eric serving
+            // 4-7 Jessica serving
             Stat.stat(playerId: Player.eric.id, gameIndex: 2, shotType: .drive, shotResult: .error, shotSide: .backhand),
             // 4-7 Bryan serving
             Stat.ace(playerId: Player.bryan.id, gameIndex: 2),

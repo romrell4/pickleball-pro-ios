@@ -17,6 +17,7 @@ struct LiveMatchView: View {
     @State private var selectServerModalVisible: Bool = true
     @State private var alert: ProAlert? = nil
     @State private var matchStatsModalVisible: Bool = false
+    @State private var loadingModalVisible: Bool = false
     
     var onMatchSaved: () -> Void
     
@@ -83,6 +84,10 @@ struct LiveMatchView: View {
                         }
                     }
                 }
+            }
+            
+            if loadingModalVisible {
+                LoadingModalView()
             }
         }
         .navigationBarTitle("Live Match", displayMode: .inline)
@@ -175,7 +180,9 @@ struct LiveMatchView: View {
     
     private func finishMatch() {
         // TODO: Allow for sharing
+        loadingModalVisible = true
         matchesViewModel.create(match: match.toMatch()) { error in
+            loadingModalVisible = false
             if let error = error {
                 alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
             } else {
