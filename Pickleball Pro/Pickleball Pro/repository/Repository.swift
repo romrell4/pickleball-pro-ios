@@ -34,6 +34,7 @@ protocol Repository {
     
     func loadMatches(callback: @escaping (Result<[Match], AFError>) -> Void)
     func createMatch(match: Match, callback: @escaping (Result<Match, AFError>) -> Void)
+    func deleteMatch(match: Match, callback: @escaping (Result<Dictionary<String, String>, AFError>) -> Void)
 }
 
 class RepositoryImpl: Repository {
@@ -63,6 +64,10 @@ class RepositoryImpl: Repository {
     
     func createMatch(match: Match, callback: @escaping (Result<Match, AFError>) -> Void) {
         request(path: "/matches", method: .post, body: match, callback: callback)
+    }
+    
+    func deleteMatch(match: Match, callback: @escaping (Result<Dictionary<String, String>, AFError>) -> Void) {
+        request(path: "/matches/\(match.id)", method: .delete, callback: callback)
     }
     
     private func request<Res: Decodable>(path: String, method: HTTPMethod = .get, callback: @escaping (Result<Res, AFError>) -> Void) {
@@ -142,6 +147,10 @@ class TestRepository: Repository {
     func createMatch(match: Match, callback: @escaping (Result<Match, AFError>) -> Void) {
         let newMatch = Match(id: UUID().uuidString, date: match.date, team1: match.team1, team2: match.team2, scores: match.scores, stats: match.stats)
         callback(.success(newMatch))
+    }
+    
+    func deleteMatch(match: Match, callback: @escaping (Result<Dictionary<String, String>, AFError>) -> Void) {
+        callback(.success([:]))
     }
 }
 

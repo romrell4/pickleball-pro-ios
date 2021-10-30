@@ -25,10 +25,16 @@ struct MyMatchesView: View {
                     }
                     .multilineTextAlignment(.center)
                 } else {
-                    let list = List(matches.sorted(), id: \.self.id) { match in
-                        NavigationLink(destination: MatchDetailView(match: match)) {
-                            MatchSummaryView(match: match)
-                                .padding(.vertical, 4)
+                    let list = List {
+                        let matches = matches.sorted()
+                        ForEach(matches, id: \.self.id) { match in
+                            NavigationLink(destination: MatchDetailView(match: match)) {
+                                MatchSummaryView(match: match)
+                                    .padding(.vertical, 4)
+                            }
+                        }.onDelete {
+                            let match = matches[$0[$0.startIndex]]
+                            viewModel.delete(match: match)
                         }
                     }
                     if #available(iOS 15.0, *) {

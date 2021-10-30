@@ -50,4 +50,17 @@ class MatchesViewModel: BaseViewModel {
             }
         }
     }
+    
+    func delete(match: Match, callback: @escaping (ProError?) -> Void = {_ in}) {
+        state.startLoad()
+        repository.deleteMatch(match: match) {
+            switch $0 {
+            case .success:
+                self.state = .success(self.state.data?.filter { $0.id != match.id } ?? [])
+                callback(nil)
+            case .failure(let error):
+                self.state.receivedFailure(.deleteMatchError(afError: error))
+            }
+        }
+    }
 }

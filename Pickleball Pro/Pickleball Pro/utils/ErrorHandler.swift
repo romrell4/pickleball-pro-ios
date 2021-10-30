@@ -16,6 +16,7 @@ enum ProError: LocalizedError {
     
     case loadMatchesError(afError: AFError?)
     case createMatchError(afError: AFError?)
+    case deleteMatchError(afError: AFError?)
     
     case genericError(afError: AFError?)
     
@@ -27,6 +28,7 @@ enum ProError: LocalizedError {
         case .updatePlayerError: return "Unable to update player. Please try again later."
         case .loadMatchesError: return "Unable to load matches. Please try again later."
         case .createMatchError: return "Unable to save match. Please try again later."
+        case .deleteMatchError: return "Unable to delete match. Please try again later."
         case .genericError: return "Uh oh. Something went wrong. Please try again later."
         }
     }
@@ -39,6 +41,7 @@ enum ProError: LocalizedError {
              .updatePlayerError(let afError),
              .loadMatchesError(let afError),
              .createMatchError(let afError),
+             .deleteMatchError(let afError),
              .genericError(let afError):
             return afError
         }
