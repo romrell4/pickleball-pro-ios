@@ -45,4 +45,28 @@ class MatchTest: XCTestCase {
         XCTAssertEqual(match.statGroupings(gameIndex: 2, playerIds: ["p1", "p2"]).first { $0.label == "Aces" }?.team1Amount, 0)
         XCTAssertEqual(match.statGroupings(gameIndex: 2, playerIds: ["p1", "p2"]).first { $0.label == "Aces" }?.team2Amount, 0)
     }
+    
+    func testPlayerResults() throws {
+        let match = Match(id: "1", date: Date(), team1: [Player.bob], team2: [Player.eric], scores: [GameScore(team1Score: 10, team2Score: 4)], stats: [])
+        XCTAssertEqual(match.result(for: Player.bob), PlayerMatchResult.win)
+        XCTAssertEqual(match.result(for: Player.eric), PlayerMatchResult.loss)
+        XCTAssertEqual(match.result(for: Player.jessica), PlayerMatchResult.didNotPlay)
+        
+        let tieMatch = Match(
+            id: "1",
+            date: Date(),
+            team1: [Player.bob, Player.bryan],
+            team2: [Player.eric, Player.jessica],
+            scores: [
+                GameScore(team1Score: 10, team2Score: 4),
+                GameScore(team1Score: 2, team2Score: 10)
+            ],
+            stats: []
+        )
+        XCTAssertEqual(tieMatch.result(for: Player.bob), PlayerMatchResult.tie)
+        XCTAssertEqual(tieMatch.result(for: Player.bryan), PlayerMatchResult.tie)
+        XCTAssertEqual(tieMatch.result(for: Player.eric), PlayerMatchResult.tie)
+        XCTAssertEqual(tieMatch.result(for: Player.jessica), PlayerMatchResult.tie)
+        XCTAssertEqual(tieMatch.result(for: Player.mark), PlayerMatchResult.didNotPlay)
+    }
 }

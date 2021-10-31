@@ -71,6 +71,7 @@
 		F8E75F4426A339170000F93F /* MatchScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4326A339170000F93F /* MatchScoreView.swift */; };
 		F8E75F4726A33E960000F93F /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4626A33E960000F93F /* Match.swift */; };
 		F8E75F4926A33EC60000F93F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4826A33EC60000F93F /* Player.swift */; };
+		F8ED67DB272DFB9D00EFB491 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ED67DA272DFB9D00EFB491 /* StatsViewModel.swift */; };
 		F8F62AEF26C6299B0030FC5D /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F62AEE26C6299B0030FC5D /* TestView.swift */; };
 		FAA89A51BF6F64983AB3419A /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2B95DD5676BF30375CE2E7 /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework */; };
 /* End PBXBuildFile section */
@@ -234,6 +235,7 @@
 		F8E75F4326A339170000F93F /* MatchScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchScoreView.swift; sourceTree = "<group>"; };
 		F8E75F4626A33E960000F93F /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		F8E75F4826A33EC60000F93F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		F8ED67DA272DFB9D00EFB491 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		F8F62AEE26C6299B0030FC5D /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		FADB2A0A7F2C6C952EF6AFE1 /* Pods-Pickleball ProTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball ProTests.release.xcconfig"; path = "Target Support Files/Pods-Pickleball ProTests/Pods-Pickleball ProTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -423,6 +425,7 @@
 				F8BECE4026D9E76D00083AC5 /* BaseViewModel.swift */,
 				F8B484CF26C0ABE000EE3E53 /* MatchesViewModel.swift */,
 				F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */,
+				F8ED67DA272DFB9D00EFB491 /* StatsViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -1032,6 +1035,7 @@
 				F8CC712626C42F0800D90FA3 /* LiveMatchView.swift in Sources */,
 				F8F62AEF26C6299B0030FC5D /* TestView.swift in Sources */,
 				F8E75F4926A33EC60000F93F /* Player.swift in Sources */,
+				F8ED67DB272DFB9D00EFB491 /* StatsViewModel.swift in Sources */,
 				F8BECE3F26D9E39200083AC5 /* Secrets.swift in Sources */,
 				F8E75F4726A33E960000F93F /* Match.swift in Sources */,
 				F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */,

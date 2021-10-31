@@ -24,10 +24,6 @@ struct Match: Identifiable, Codable, Comparable {
         case stats
     }
     
-    static func < (lhs: Match, rhs: Match) -> Bool {
-        lhs.date > rhs.date
-    }
-    
     var team1Scores: [Int] {
         scores.map { $0.team1Score }
     }
@@ -69,6 +65,10 @@ struct Match: Identifiable, Codable, Comparable {
     
     static func == (lhs: Match, rhs: Match) -> Bool {
         lhs.id == rhs.id
+    }
+    
+    static func < (lhs: Match, rhs: Match) -> Bool {
+        lhs.date > rhs.date
     }
 }
 

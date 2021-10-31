@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Player: Identifiable, Codable {
+struct Player: Identifiable, Codable, Equatable {
     let id: String
     var firstName: String
     var lastName: String
@@ -62,6 +62,7 @@ extension Player {
     static let jessica = Player(id: "2", firstName: "Jessica", lastName: "Romrell")
     static let bryan = Player(id: "3", firstName: "Bryan", lastName: "Lundberg")
     static let bob = Player(id: "4", firstName: "Bob", lastName: "Crane")
+    static let mark = Player(id: "5", firstName: "Mark", lastName: "")
 }
 
 #endif

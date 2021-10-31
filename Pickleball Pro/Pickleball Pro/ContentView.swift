@@ -11,6 +11,7 @@ import FirebaseAuth
 private let repository = RepositoryImpl()
 private let matchesViewModel = MatchesViewModel(repository: repository)
 private let playersViewModel = PlayersViewModel(repository: repository)
+private let statsViewModel = StatsViewModel(repository: repository)
 
 struct ContentView: View {
     @AppStorage(PreferenceKeys.colorScheme) private var colorScheme: ColorSchemePreference = .matchOs
@@ -19,6 +20,7 @@ struct ContentView: View {
         MainTabView()
             .environmentObject(matchesViewModel)
             .environmentObject(playersViewModel)
+            .environmentObject(statsViewModel)
             .preferredColorScheme(colorScheme.colorScheme)
             .onAppear {
                 Auth.auth().addStateDidChangeListener { _, user in
