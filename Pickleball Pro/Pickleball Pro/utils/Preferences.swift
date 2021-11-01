@@ -12,6 +12,8 @@ struct PreferenceKeys {
     static var colorScheme = "colorScheme"
     static var autoSwitchSides = "autoSwitchSides"
     static var liveMatchConfirmations = "liveMatchConfirmations"
+    static var playerSortDirection = "playerSortDirection"
+    static var playerSortOption = "playerSortOption"
 }
 
 enum ColorSchemePreference: String, CaseIterable {

@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct PlayersView: View {
-    // TODO: Save sort in shared prefs
     @EnvironmentObject var viewModel: PlayersViewModel
     @State private var showingAddPlayerSheet = false
-    @State private var sortDirectionAsc: Bool = true
-    @State private var selectedSort: PlayerSortOption = .firstName
+    @AppStorage(PreferenceKeys.playerSortDirection) fileprivate var sortDirectionAsc: Bool = true
+    @AppStorage(PreferenceKeys.playerSortOption) fileprivate var selectedSort: PlayerSortOption = .firstName
     @State private var searchFilter = ""
     
     var body: some View {
@@ -96,10 +95,11 @@ struct PlayersView: View {
                 }
                 return sortDirectionAsc ? lhs.lastName < rhs.lastName : lhs.lastName > rhs.lastName
             case .level:
-                let bottom = sortDirectionAsc ? Double.greatestFiniteMagnitude : 0
+                let bottom = sortDirectionAsc ? 0 : Double.greatestFiniteMagnitude
                 let leftLevel = lhs.level ?? bottom
                 let rightLevel = rhs.level ?? bottom
-                return sortDirectionAsc ? leftLevel < rightLevel : leftLevel > rightLevel
+                // This is reversed from the others, simply because Bryan wanted the default to be highest ranked at the top (but wanted the names to still default to the "lowest" letter on top
+                return sortDirectionAsc ? leftLevel > rightLevel : leftLevel < rightLevel
             }
         }
     }
