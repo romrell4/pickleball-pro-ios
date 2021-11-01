@@ -38,8 +38,10 @@ struct PlayerSummaryView: View {
     }
 }
 
+#if DEBUG
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
         PlayerSummaryView(player: Player.eric)
     }
 }
+#endif

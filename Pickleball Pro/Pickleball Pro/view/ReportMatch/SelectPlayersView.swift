@@ -140,6 +140,7 @@ private extension EnterPlayer {
     }
 }
 
+#if DEBUG
 struct SelectPlayersView_Previews: PreviewProvider {
     static var previews: some View {
         TestWrapper()
@@ -153,3 +154,4 @@ struct SelectPlayersView_Previews: PreviewProvider {
         }
     }
 }
+#endif

@@ -185,8 +185,10 @@ struct UnderlinedImage: View {
     }
 }
 
+#if DEBUG
 struct MatchStatsView_Previews: PreviewProvider {
     static var previews: some View {
         MatchStatsView(match: Match.doubles)
     }
 }
+#endif

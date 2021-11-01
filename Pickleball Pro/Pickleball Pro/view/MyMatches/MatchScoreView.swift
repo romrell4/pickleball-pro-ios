@@ -61,8 +61,10 @@ private struct ScoreNumberView: View {
     }
 }
 
+#if DEBUG
 struct ScoreView_Previews: PreviewProvider {
     static var previews: some View {
         MatchScoreView(match: Match.doubles)
     }
 }
+#endif

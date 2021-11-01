@@ -83,6 +83,7 @@ struct StatTracker: View {
     }
 }
 
+#if DEBUG
 struct StatTracker_Previews: PreviewProvider {
     static var previews: some View {
         StatTracker(player: Player.eric) { _ in
@@ -92,3 +93,4 @@ struct StatTracker_Previews: PreviewProvider {
         .preferredColorScheme(.dark)
     }
 }
+#endif

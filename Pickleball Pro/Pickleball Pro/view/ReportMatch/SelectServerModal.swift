@@ -63,6 +63,7 @@ private struct PlayerView: View {
     }
 }
 
+#if DEBUG
 struct SelectServerModal_Previews: PreviewProvider {
     private struct Test: View {
         @State var team1 = LiveMatchTeam(
@@ -90,3 +91,4 @@ struct SelectServerModal_Previews: PreviewProvider {
         .preferredColorScheme(.light)
     }
 }
+#endif

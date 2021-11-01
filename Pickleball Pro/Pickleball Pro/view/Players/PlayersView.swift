@@ -123,9 +123,11 @@ private extension Player {
     }
 }
 
+#if DEBUG
 struct PlayersView_Previews: PreviewProvider {
     static var previews: some View {
         PlayersView()
             .environmentObject(PlayersViewModel(repository: TestRepository()))
     }
 }
+#endif

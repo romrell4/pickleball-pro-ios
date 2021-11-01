@@ -59,9 +59,11 @@ private struct RecordView: View {
     }
 }
 
+#if DEBUG
 struct MyStatsView_Previews: PreviewProvider {
     static var previews: some View {
         MyStatsView()
             .environmentObject(StatsViewModel(repository: TestRepository()))
     }
 }
+#endif

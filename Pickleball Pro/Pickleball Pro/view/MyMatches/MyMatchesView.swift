@@ -55,9 +55,11 @@ struct MyMatchesView: View {
     }
 }
 
+#if DEBUG
 struct MyMatchesView_Previews: PreviewProvider {
     static var previews: some View {
         MyMatchesView()
             .environmentObject(MatchesViewModel(repository: TestRepository()))
     }
 }
+#endif

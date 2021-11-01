@@ -133,6 +133,7 @@ struct RoundedCornersShape: Shape {
     }
 }
 
+#if DEBUG
 struct StatView_Previews: PreviewProvider {
     static var previews: some View {
         ParentStatView(
@@ -146,3 +147,4 @@ struct StatView_Previews: PreviewProvider {
         .previewLayout(.sizeThatFits)
     }
 }
+#endif

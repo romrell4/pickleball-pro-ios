@@ -561,6 +561,7 @@ extension LiveMatchPlayer {
     }
 }
 
+#if DEBUG
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -573,3 +574,4 @@ struct LiveMatchView_Previews: PreviewProvider {
         .environmentObject(MatchesViewModel(repository: TestRepository()))
     }
 }
+#endif

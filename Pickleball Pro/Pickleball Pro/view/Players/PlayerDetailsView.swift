@@ -262,6 +262,7 @@ private extension View {
     }
 }
 
+#if DEBUG
 struct PlayerDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
@@ -270,3 +271,4 @@ struct PlayerDetailsView_Previews: PreviewProvider {
         }
     }
 }
+#endif

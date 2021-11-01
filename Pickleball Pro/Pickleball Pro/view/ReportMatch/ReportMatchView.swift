@@ -245,6 +245,7 @@ private struct EnterScoresStepView: View {
     }
 }
 
+#if DEBUG
 struct ReportMatchView_Previews: PreviewProvider {
     static var previews: some View {
         ReportMatchView()
@@ -252,3 +253,4 @@ struct ReportMatchView_Previews: PreviewProvider {
             .environmentObject(MatchesViewModel(repository: TestRepository()))
     }
 }
+#endif

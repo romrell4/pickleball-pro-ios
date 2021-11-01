@@ -39,8 +39,10 @@ struct MatchDetailView: View {
     }
 }
 
+#if DEBUG
 struct MatchDetailView_Previews: PreviewProvider {
     static var previews: some View {
         MatchDetailView(match: Match.singles)
     }
 }
+#endif

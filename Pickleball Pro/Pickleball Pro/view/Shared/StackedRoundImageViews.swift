@@ -26,6 +26,7 @@ struct StackedRoundImageViews: View {
     }
 }
 
+#if DEBUG
 struct StackedRoundImageViews_Previews: PreviewProvider {
     static var previews: some View {
         StackedRoundImageViews(
@@ -35,3 +36,4 @@ struct StackedRoundImageViews_Previews: PreviewProvider {
         )
     }
 }
+#endif

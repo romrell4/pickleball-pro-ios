@@ -25,8 +25,10 @@ struct MatchSummaryView: View {
     }
 }
 
+#if DEBUG
 struct MatchSummaryView_Previews: PreviewProvider {
     static var previews: some View {
         MatchSummaryView(match: Match.doubles)
     }
 }
+#endif
