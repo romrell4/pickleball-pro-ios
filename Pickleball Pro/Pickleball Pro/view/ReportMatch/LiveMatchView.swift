@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LiveMatchView: View {
+    // TODO: This seems to be reloading when switching tabs back and forth
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @AppStorage(PreferenceKeys.autoSwitchSides) var autoSwitchSides = false

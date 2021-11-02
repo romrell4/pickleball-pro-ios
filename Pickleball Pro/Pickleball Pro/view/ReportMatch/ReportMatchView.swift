@@ -143,6 +143,11 @@ struct ReportMatchView: View {
             playerValidationError = true
             throw MyError.playerValidationError
         }
+        let allPlayers = team1 + team2
+        if allPlayers.count != Set((allPlayers).map { $0.id }).count {
+            playerValidationError = true
+            throw MyError.playerValidationError
+        }
         return (team1, team2)
     }
     
