@@ -24,7 +24,7 @@ platform :ios do
       distribute_external: true,
       changelog: "Thank you for being a BETA tester! Please test all of the functionality in the app that you would typically use, such as adding/editing/deleting players, reporting matches, etc",
       groups: "Beta Testers",
-      demo_account_review_required: true,
+      demo_account_required: true,
       beta_app_review_info: {
         contact_email: "emromrell14@gmail.com",
         contact_first_name: "Eric",
@@ -38,7 +38,10 @@ platform :ios do
     deliver(
       submit_for_review: true,
       force: true,
-      skip_binary_upload: true
+      skip_binary_upload: true,
+      submission_information: {
+        add_id_info_uses_idfa: false
+      }
     )
     add_git_tag
     commit_version_bump
