@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PlayersView: View {
     @EnvironmentObject var viewModel: PlayersViewModel
+    @ObservedObject private var loginManager = LoginManager.instance
     @State private var showingAddPlayerSheet = false
     @AppStorage(PreferenceKeys.playerSortDirection) fileprivate var sortDirectionAsc: Bool = true
     @AppStorage(PreferenceKeys.playerSortOption) fileprivate var selectedSort: PlayerSortOption = .firstName
@@ -34,7 +35,7 @@ struct PlayersView: View {
                 }
                 if #available(iOS 15.0, *) {
                     list.searchable(text: $searchFilter).refreshable {
-                        viewModel.load(force: true)
+                        viewModel.load()
                     }
                 } else {
                     list
@@ -59,6 +60,7 @@ struct PlayersView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "plus.circle")
+                        .disabled(!loginManager.isLoggedIn)
                         .foregroundColor(.blue)
                         .onTapGesture {
                             showingAddPlayerSheet = true
@@ -70,9 +72,6 @@ struct PlayersView: View {
                     PlayerDetailsView(player: nil)
                         .navigationBarTitleDisplayMode(.inline)
                 }
-            }
-            .onAppear {
-                viewModel.load()
             }
         }
     }

@@ -77,10 +77,7 @@ class RepositoryImpl: Repository {
     
     private func request<Req: Encodable, Res: Decodable>(path: String, method: HTTPMethod = .get, body: Req?, callback: @escaping (Result<Res, AFError>) -> Void) {
         func makeRequest(token: String?) {
-            var headers: HTTPHeaders = [
-                "x-api-key": postmanToken,
-                "x-mock-response-code": "200",
-            ]
+            var headers: HTTPHeaders = []
             if let token = token {
                 headers["x-firebase-token"] = token
             }

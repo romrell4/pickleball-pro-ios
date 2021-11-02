@@ -7,18 +7,23 @@
 
 import Combine
 
-class BaseViewModel: ObservableObject {
+class BaseViewModel<ViewState>: ObservableObject, LoginListener {
+    let loginManager = LoginManager.instance
+    @Published var state: LoadingState<ViewState>
     var repository: Repository
     
     init(repository: Repository) {
         self.repository = repository
+        state = .idle(loggedIn: loginManager.isLoggedIn)
+        loginManager.add(listener: self)
     }
     
-    func clear() {}
+    /// This function is meant to be overrideen. Each view model should impement their own logic to deal with a user logging in or out
+    func loginChanged(isLoggedIn: Bool) {}
 }
 
 enum LoadingState<Value> {
-    case idle
+    case idle(loggedIn: Bool)
     case loading(Value?)
     case failed(ProError, Value?)
     case success(Value)
@@ -44,6 +49,10 @@ enum LoadingState<Value> {
     
     mutating func receivedFailure(_ error: ProError) {
         self = .failed(error, data)
+    }
+    
+    mutating func loggedOut() {
+        self = .idle(loggedIn: false)
     }
 }
 

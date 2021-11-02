@@ -39,7 +39,7 @@ struct MyMatchesView: View {
                     }
                     if #available(iOS 15.0, *) {
                         list.refreshable {
-                            viewModel.load(force: true)
+                            viewModel.load()
                         }
                     } else {
                         list
@@ -48,9 +48,6 @@ struct MyMatchesView: View {
             }
             .navigationTitle("Match History")
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                viewModel.load()
-            }
         }
     }
 }

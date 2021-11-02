@@ -7,23 +7,22 @@
 
 import Foundation
 
-class PlayersViewModel: BaseViewModel {
-    @Published var state: LoadingState<[Player]> = .idle
-    
-    override func clear() {
-        state = .idle
+class PlayersViewModel: BaseViewModel<[Player]> {
+    override func loginChanged(isLoggedIn: Bool) {
+        super.loginChanged(isLoggedIn: isLoggedIn)
+        if isLoggedIn {
+            load()
+        } else {
+            state.loggedOut()
+        }
     }
     
-    func load(force: Bool = false) {
-        if !force {
-            if !state.dataOrEmpty().isEmpty {
-                // If we have players already, no need to reload
-                return
-            } else if case .loading = state {
-                // If we are already loading, don't load again
-                return
-            }
+    func load() {
+        guard loginManager.isLoggedIn else {
+            state.loggedOut()
+            return
         }
+        
         state.startLoad()
         repository.loadPlayers {
             switch $0 {

@@ -17,6 +17,7 @@
 		F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */; };
 		F897347027209409004B440E /* InitialsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F897346F27209409004B440E /* InitialsImageView.swift */; };
 		F8973474272107BE004B440E /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8973473272107BE004B440E /* Preferences.swift */; };
+		F89868F62730E2BD00719C32 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89868F52730E2BD00719C32 /* LoginManager.swift */; };
 		F8A3E7DE26C7371300FD6392 /* PlayersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */; };
 		F8A3E7E326CCAC0B00FD6392 /* LiveMatchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E226CCAC0B00FD6392 /* LiveMatchTest.swift */; };
 		F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */; };
@@ -38,7 +39,6 @@
 		F8B484CD26C0517300EE3E53 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484CC26C0517300EE3E53 /* SettingsView.swift */; };
 		F8B484D026C0ABE000EE3E53 /* MatchesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484CF26C0ABE000EE3E53 /* MatchesViewModel.swift */; };
 		F8BECE3D26D9DAE600083AC5 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE3C26D9DAE600083AC5 /* ErrorHandler.swift */; };
-		F8BECE3F26D9E39200083AC5 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE3E26D9E39200083AC5 /* Secrets.swift */; };
 		F8BECE4126D9E76D00083AC5 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4026D9E76D00083AC5 /* BaseViewModel.swift */; };
 		F8BECE4326DDCE1700083AC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */; };
 		F8BECE4D26DDDA2900083AC5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4C26DDDA2900083AC5 /* LoginView.swift */; };
@@ -108,6 +108,7 @@
 		F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSummaryView.swift; sourceTree = "<group>"; };
 		F897346F27209409004B440E /* InitialsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsImageView.swift; sourceTree = "<group>"; };
 		F8973473272107BE004B440E /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		F89868F52730E2BD00719C32 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersViewModel.swift; sourceTree = "<group>"; };
 		F8A3E7E226CCAC0B00FD6392 /* LiveMatchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchTest.swift; sourceTree = "<group>"; };
 		F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPlayersView.swift; sourceTree = "<group>"; };
@@ -128,7 +129,6 @@
 		F8B484CC26C0517300EE3E53 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		F8B484CF26C0ABE000EE3E53 /* MatchesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesViewModel.swift; sourceTree = "<group>"; };
 		F8BECE3C26D9DAE600083AC5 /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
-		F8BECE3E26D9E39200083AC5 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		F8BECE4026D9E76D00083AC5 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F8BECE4926DDD12A00083AC5 /* Pickleball Pro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pickleball Pro.entitlements"; sourceTree = "<group>"; };
@@ -235,8 +235,8 @@
 			children = (
 				F8B484BB26C0408000EE3E53 /* Extensions.swift */,
 				F8BECE3C26D9DAE600083AC5 /* ErrorHandler.swift */,
-				F8BECE3E26D9E39200083AC5 /* Secrets.swift */,
 				F8973473272107BE004B440E /* Preferences.swift */,
+				F89868F52730E2BD00719C32 /* LoginManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -584,6 +584,7 @@
 				F82DB87F26BB4E570003F7FD /* StatView.swift in Sources */,
 				F8B484C226C04F4100EE3E53 /* MyStatsView.swift in Sources */,
 				F8E75ED226A337570000F93F /* ContentView.swift in Sources */,
+				F89868F62730E2BD00719C32 /* LoginManager.swift in Sources */,
 				F8B484D026C0ABE000EE3E53 /* MatchesViewModel.swift in Sources */,
 				F8B42A6226EA999C008BD63C /* ModalView.swift in Sources */,
 				F8B42A6026EA842C008BD63C /* SelectServerModal.swift in Sources */,
@@ -598,7 +599,6 @@
 				F8F62AEF26C6299B0030FC5D /* TestView.swift in Sources */,
 				F8E75F4926A33EC60000F93F /* Player.swift in Sources */,
 				F8ED67DB272DFB9D00EFB491 /* StatsViewModel.swift in Sources */,
-				F8BECE3F26D9E39200083AC5 /* Secrets.swift in Sources */,
 				F8E75F4726A33E960000F93F /* Match.swift in Sources */,
 				F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */,
 				F8A3E7F126D70CD900FD6392 /* PlayerDetailsView.swift in Sources */,
@@ -766,7 +766,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				ENABLE_PREVIEWS = YES;
@@ -792,7 +792,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				ENABLE_PREVIEWS = YES;

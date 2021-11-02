@@ -32,28 +32,3 @@ struct LoginView: UIViewControllerRepresentable {
         
     }
 }
-
-class LoginViewDelegate: ObservableObject {
-    static let instance = LoginViewDelegate()
-    @Published var user: User? = nil
-    
-    private init() {
-        Auth.auth().addStateDidChangeListener { (_, user) in
-#if DEBUG
-            if let user = user {
-                print("User: \(user)")
-                print("Email: \(user.email ?? "no email")")
-                print("Name: \(user.displayName ?? "no name")")
-                user.getIDToken { token, error in
-                    if let token = token {
-                        print(token)
-                    }
-                }
-            } else {
-                print("No user. Logged out")
-            }            
-#endif
-            self.user = user
-        }
-    }
-}

@@ -22,14 +22,6 @@ struct ContentView: View {
             .environmentObject(playersViewModel)
             .environmentObject(statsViewModel)
             .preferredColorScheme(colorScheme.colorScheme)
-            .onAppear {
-                Auth.auth().addStateDidChangeListener { _, user in
-                    if user == nil {
-                        matchesViewModel.clear()
-                        playersViewModel.clear()
-                    }
-                }
-            }
     }
 }
 

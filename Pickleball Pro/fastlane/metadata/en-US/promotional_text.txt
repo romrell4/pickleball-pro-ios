@@ -1,0 +1,1 @@
+This app allows pickleball players and fans to track match scores, view trends in their game, and track live stats during a match for point by point analysis.

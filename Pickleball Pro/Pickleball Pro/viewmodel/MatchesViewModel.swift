@@ -8,22 +8,19 @@
 import Foundation
 import Combine
 
-class MatchesViewModel: BaseViewModel {
-    @Published var state: LoadingState<[Match]> = .idle
-    
-    override func clear() {
-        state = .idle
+class MatchesViewModel: BaseViewModel<[Match]> {
+    override func loginChanged(isLoggedIn: Bool) {
+        if isLoggedIn {
+            load()
+        } else {
+            state.loggedOut()
+        }
     }
     
-    func load(force: Bool = false) {
-        if !force {
-            if !state.dataOrEmpty().isEmpty {
-                // If we have matches already, no need to reload
-                return
-            } else if case .loading = state {
-                // If we are already loading, don't load again
-                return
-            }
+    func load() {
+        guard loginManager.isLoggedIn else {
+            state.loggedOut()
+            return
         }
         state.startLoad()
         repository.loadMatches {

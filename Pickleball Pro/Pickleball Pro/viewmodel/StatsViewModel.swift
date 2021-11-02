@@ -7,10 +7,8 @@
 
 import Foundation
 
-class StatsViewModel: BaseViewModel {
-    // TODO: Make StateViewModel with generic state so that it can be cleared at the root level
+class StatsViewModel: BaseViewModel<StatsViewState> {
     // TODO: Implement caching at the repo level
-    @Published var state: LoadingState<StatsViewState> = .idle
     private var matches: [Match]? = nil {
         didSet { updateStateIfReady() }
     }
@@ -19,6 +17,11 @@ class StatsViewModel: BaseViewModel {
     }
     
     func load() {
+        guard loginManager.isLoggedIn else {
+            state.loggedOut()
+            return
+        }
+        
         state.startLoad()
         repository.loadMatches {
             switch $0 {
@@ -39,6 +42,14 @@ class StatsViewModel: BaseViewModel {
             case .failure(let error):
                 self.state.receivedFailure(.loadPlayersError(afError: error))
             }
+        }
+    }
+    
+    override func loginChanged(isLoggedIn: Bool) {
+        if isLoggedIn {
+            load()
+        } else {
+            state.loggedOut()
         }
     }
     

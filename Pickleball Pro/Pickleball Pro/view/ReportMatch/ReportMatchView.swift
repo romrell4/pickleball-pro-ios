@@ -16,7 +16,7 @@ struct ReportMatchView: View {
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.currentTab) var currentTab
     
-    @ObservedObject private var loginDelegate = LoginViewDelegate.instance
+    @ObservedObject private var loginManager = LoginManager.instance
     
     @State private var alert: ProAlert? = nil
     @State private var showingLoginSheet = false
@@ -48,7 +48,7 @@ struct ReportMatchView: View {
                                 gameScores: $enteredGameScores,
                                 validationError: scoreValidationError,
                                 onTrackLiveMatchTapped: {
-                                    guard loginDelegate.user != nil else {
+                                    guard loginManager.user != nil else {
                                         showingLoginSheet = true
                                         return
                                     }
@@ -59,7 +59,7 @@ struct ReportMatchView: View {
                                     shouldNavigateToLiveMatch = true
                                 },
                                 onSaveTapped: {
-                                    guard loginDelegate.user != nil else {
+                                    guard loginManager.isLoggedIn else {
                                         showingLoginSheet = true
                                         return
                                     }
@@ -105,7 +105,7 @@ struct ReportMatchView: View {
             }
         }
         .onAppear {
-            if loginDelegate.user != nil {
+            if loginManager.user != nil {
                 playersViewModel.load()
             } else {
                 showingLoginSheet = true
