@@ -12,13 +12,20 @@ protocol LoginListener {
     func loginChanged(isLoggedIn: Bool)
 }
 
+struct User {
+    var displayName: String?
+}
+
 class LoginManager: ObservableObject {
-    static let instance = LoginManager()
     @Published var user: User? = nil
     var isLoggedIn: Bool { user != nil }
     private var listeners = [String: LoginListener]()
     
-    private init() {
+    init() {
+        listenForUser()
+    }
+    
+    func listenForUser() {
         Auth.auth().addStateDidChangeListener { (_, user) in
 #if DEBUG
             if let user = user {
@@ -34,7 +41,7 @@ class LoginManager: ObservableObject {
                 print("No user. Logged out")
             }
 #endif
-            self.user = user
+            self.user = user.map { User(displayName: $0.displayName) }
             self.listeners.forEach {
                 $0.1.loginChanged(isLoggedIn: user != nil)
             }
@@ -62,3 +69,11 @@ class LoginManager: ObservableObject {
         listeners.removeValue(forKey: tag)
     }
 }
+
+#if DEBUG
+class TestLoginManager: LoginManager {
+    override func listenForUser() {
+        self.user = User(displayName: "Test")
+    }
+}
+#endif

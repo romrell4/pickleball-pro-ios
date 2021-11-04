@@ -9,9 +9,10 @@ import SwiftUI
 import FirebaseAuth
 
 private let repository = RepositoryImpl()
-private let matchesViewModel = MatchesViewModel(repository: repository)
-private let playersViewModel = PlayersViewModel(repository: repository)
-private let statsViewModel = StatsViewModel(repository: repository)
+private let loginManager = LoginManager()
+private let matchesViewModel = MatchesViewModel(repository: repository, loginManager: loginManager)
+private let playersViewModel = PlayersViewModel(repository: repository, loginManager: loginManager)
+private let statsViewModel = StatsViewModel(repository: repository, loginManager: loginManager)
 
 struct ContentView: View {
     @AppStorage(PreferenceKeys.colorScheme) private var colorScheme: ColorSchemePreference = .matchOs

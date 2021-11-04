@@ -14,9 +14,10 @@ private let ENTER_SCORES_ID = 1
 struct ReportMatchView: View {
     @EnvironmentObject var playersViewModel: PlayersViewModel
     @EnvironmentObject var matchesViewModel: MatchesViewModel
+    private var loginManager: LoginManager {
+        playersViewModel.loginManager
+    }
     @Environment(\.currentTab) var currentTab
-    
-    @ObservedObject private var loginManager = LoginManager.instance
     
     @State private var alert: ProAlert? = nil
     @State private var showingLoginSheet = false
@@ -26,7 +27,7 @@ struct ReportMatchView: View {
     @State private var playerValidationError = false
     @State private var scoreValidationError = false
     
-    @State private var shouldNavigateToLiveMatch = false
+    @State private var navigateToLiveMatchWithPlayers: LiveMatchPlayers? = nil
     
     private var players: [Player] {
         if case let .success(players) = playersViewModel.state {
@@ -48,15 +49,15 @@ struct ReportMatchView: View {
                                 gameScores: $enteredGameScores,
                                 validationError: scoreValidationError,
                                 onTrackLiveMatchTapped: {
-                                    guard loginManager.user != nil else {
+                                    guard loginManager.isLoggedIn else {
                                         showingLoginSheet = true
                                         return
                                     }
-                                    guard let _ = try? validatePlayers() else {
+                                    guard let players = try? validatePlayers() else {
                                         scrollView.scrollTo(SELECT_PLAYERS_ID)
                                         return
                                     }
-                                    shouldNavigateToLiveMatch = true
+                                    navigateToLiveMatchWithPlayers = LiveMatchPlayers(players: players)
                                 },
                                 onSaveTapped: {
                                     guard loginManager.isLoggedIn else {
@@ -80,15 +81,6 @@ struct ReportMatchView: View {
                                     } catch {}
                                 }
                             ).id(ENTER_SCORES_ID)
-                            NavigationLink(
-                                destination: LiveMatchView(
-                                    players: getPlayers()
-                                ) {
-                                    reset()
-                                    currentTab.wrappedValue = .myMatches
-                                },
-                                isActive: $shouldNavigateToLiveMatch
-                            ) { EmptyView() }
                         }
                     }
                     if playersViewModel.state.isLoading || matchesViewModel.state.isLoading {
@@ -96,20 +88,22 @@ struct ReportMatchView: View {
                     }
                 }
             }
-            .navigationBarTitle("Report Match")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle("Report Match", displayMode: .inline)
             .navigationBarHidden(true)
             .alert(item: $alert) { $0.alert }
             .sheet(isPresented: $showingLoginSheet) {
                 LoginView()
             }
+            .fullScreenCover(item: $navigateToLiveMatchWithPlayers) {
+                LiveMatchView(players: $0.players) {
+                    reset()
+                    currentTab.wrappedValue = .myMatches
+                }
+            }
         }
         .onAppear {
-            if loginManager.user != nil {
-                playersViewModel.load()
-            } else {
-                showingLoginSheet = true
-            }
+            playersViewModel.load()
+            showingLoginSheet = playersViewModel.state.isLoggedOut
         }
     }
     
@@ -186,6 +180,14 @@ struct ReportMatchView: View {
     }
 }
 
+private struct LiveMatchPlayers: Identifiable {
+    var id: String {
+        (players.0 + players.1).map { $0.id }.joined(separator: "")
+    }
+    
+    let players: ([Player], [Player])
+}
+
 private struct SelectPlayersStepView: View {
     @EnvironmentObject var playersViewModel: PlayersViewModel
     @Binding var selectedPlayers: [EnterPlayers]
@@ -254,8 +256,8 @@ private struct EnterScoresStepView: View {
 struct ReportMatchView_Previews: PreviewProvider {
     static var previews: some View {
         ReportMatchView()
-            .environmentObject(PlayersViewModel(repository: TestRepository()))
-            .environmentObject(MatchesViewModel(repository: TestRepository()))
+            .environmentObject(PlayersViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
+            .environmentObject(MatchesViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }
 #endif

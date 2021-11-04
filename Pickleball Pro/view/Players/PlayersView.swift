@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PlayersView: View {
     @EnvironmentObject var viewModel: PlayersViewModel
-    @ObservedObject private var loginManager = LoginManager.instance
     @State private var showingAddPlayerSheet = false
     @AppStorage(PreferenceKeys.playerSortDirection) fileprivate var sortDirectionAsc: Bool = true
     @AppStorage(PreferenceKeys.playerSortOption) fileprivate var selectedSort: PlayerSortOption = .firstName
@@ -42,8 +41,7 @@ struct PlayersView: View {
                 }
             }
             .listStyle(PlainListStyle())
-            .navigationBarTitle("Players")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle("Players", displayMode: .inline)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Image(systemName: sortDirectionAsc ? "arrow.down" : "arrow.up")
@@ -60,7 +58,7 @@ struct PlayersView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "plus.circle")
-                        .disabled(!loginManager.isLoggedIn)
+                        .disabled(!viewModel.loginManager.isLoggedIn)
                         .foregroundColor(.blue)
                         .onTapGesture {
                             showingAddPlayerSheet = true
@@ -126,7 +124,7 @@ private extension Player {
 struct PlayersView_Previews: PreviewProvider {
     static var previews: some View {
         PlayersView()
-            .environmentObject(PlayersViewModel(repository: TestRepository()))
+            .environmentObject(PlayersViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }
 #endif

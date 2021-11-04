@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct SettingsView: View {
-    @ObservedObject private var loginManager = LoginManager.instance
+    @EnvironmentObject var viewModel: SettingsViewModel
     @State private var sheetPresented = false
     @AppStorage(PreferenceKeys.colorScheme) private var colorScheme: ColorSchemePreference = .matchOs
     @AppStorage(PreferenceKeys.autoSwitchSides) private var autoSwitchSides = false
@@ -18,7 +18,7 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section(header: Text("Account")) {
-                if let user = loginManager.user {
+                if let user = viewModel.loginManager.user {
                     if let name = user.displayName {
                         Text("Logged in as \(name)")
                     } else {
@@ -83,8 +83,11 @@ private struct ToggleSection: View {
     }
 }
 
+#if DEBUG
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environmentObject(SettingsViewModel(loginManager: TestLoginManager()))
     }
 }
+#endif

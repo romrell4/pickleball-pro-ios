@@ -46,8 +46,7 @@ struct MyMatchesView: View {
                     }
                 }
             }
-            .navigationTitle("Match History")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle("Match History", displayMode: .inline)
         }
     }
 }
@@ -56,7 +55,7 @@ struct MyMatchesView: View {
 struct MyMatchesView_Previews: PreviewProvider {
     static var previews: some View {
         MyMatchesView()
-            .environmentObject(MatchesViewModel(repository: TestRepository()))
+            .environmentObject(MatchesViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }
 #endif

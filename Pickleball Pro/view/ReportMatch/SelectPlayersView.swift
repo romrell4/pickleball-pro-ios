@@ -106,7 +106,7 @@ private struct EnterPlayersView: View {
                     PlayerDetailsView(player: nil) {
                         self.player = EnterPlayer(player: $0)
                     }
-                        .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarTitleDisplayMode(.inline)
                 }
             }
         }

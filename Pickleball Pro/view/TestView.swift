@@ -7,19 +7,16 @@
 
 import SwiftUI
 
-struct TestView: View {    
+struct TestView: View {
+    @State private var showing: Bool = false
+
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(0..<10, id: \.self) { num in
-                    NavigationLink(destination: Text("Hello")) {
-                        Text("\(num)")
-                    }
-                    .deleteDisabled(true)
-                }
-                .onDelete {
-                    print($0)
-                }
+        Button("Show") {
+            showing = true
+        }
+        .fullScreenCover(isPresented: $showing) {
+            LiveMatchView(players: ([Player.eric], [Player.jessica])) {
+                
             }
         }
     }
@@ -28,5 +25,6 @@ struct TestView: View {
 struct TestView_Previews: PreviewProvider {
     static var previews: some View {
         TestView()
+            .environmentObject(MatchesViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }

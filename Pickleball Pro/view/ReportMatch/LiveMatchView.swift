@@ -40,129 +40,132 @@ struct LiveMatchView: View {
     }
     
     var body: some View {
-        ZStack {
-            Rectangle()
-                .fill(Color("liveMatchBackground"))
-            VStack(spacing: 0) {
-                TeamView(statTrackerModalState: $statTrackerModalState, team: match.team1, isBottomView: false)
-                Image("pickleball_court")
-                    .resizable()
-                TeamView(statTrackerModalState: $statTrackerModalState, team: match.team2, isBottomView: true)
-            }
-            .padding(.vertical)
-            .padding(.leading, 80)
-            
-            ScoresView(match: $match)
-            
-            switch statTrackerModalState {
-            case .visible(let player, let previousShot):
-                ModalView(onDismiss: { statTrackerModalState = .gone }) {
-                    StatTracker(player: player.player, shot: previousShot) { newShot in
-                        if let shot = newShot {
-                            match.pointFinished(with: shot, by: player)
-                        }
-                        statTrackerModalState = .gone
-                    }
+        NavigationView {
+            ZStack {
+                Rectangle()
+                    .fill(Color("liveMatchBackground"))
+                    .edgesIgnoringSafeArea(.bottom)
+                VStack(spacing: 0) {
+                    TeamView(statTrackerModalState: $statTrackerModalState, team: match.team1, isBottomView: false)
+                    Image("pickleball_court")
+                        .resizable()
+                    TeamView(statTrackerModalState: $statTrackerModalState, team: match.team2, isBottomView: true)
                 }
-            case .gone: EmptyView()
-            }
-            if selectServerModalVisible {
-                ModalView(onDismiss: {}) {
-                    SelectServerModal(
-                        team1: $match.team1,
-                        team2: $match.team2
-                    ) { player in
-                        selectServerModalVisible = false
-                        
-                        // If they selected a "player2", switch sides
-                        switch player.id {
-                        case match.team1.adPlayer?.id:
-                            match.switchSides(isTeam1Intiating: true)
-                        case match.team2.adPlayer?.id:
-                            match.switchSides(isTeam1Intiating: false)
-                        default: break
+                .padding(.vertical)
+                .padding(.leading, 80)
+                
+                ScoresView(match: $match)
+                
+                switch statTrackerModalState {
+                case .visible(let player, let previousShot):
+                    ModalView(onDismiss: { statTrackerModalState = .gone }) {
+                        StatTracker(player: player.player, shot: previousShot) { newShot in
+                            if let shot = newShot {
+                                match.pointFinished(with: shot, by: player)
+                            }
+                            statTrackerModalState = .gone
                         }
                     }
+                case .gone: EmptyView()
                 }
-            }
-            
-            if matchesViewModel.state.isLoading {
-                LoadingModalView()
-            }
-        }
-        .navigationBarTitle("Live Match", displayMode: .inline)
-        .navigationBarBackButtonHidden(true)
-        .sheet(isPresented: $matchStatsModalVisible) {
-            MatchDetailView(match: match.toMatch())
-        }
-        .alert(item: $alert, content: { $0.alert })
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Cancel") {
-                    alert = Alert(
-                        title: Text("Are you sure?"),
-                        message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
-                        primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss()
-                        },
-                        secondaryButton: .cancel(Text("No"))
-                    ).toProAlert()
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu(content: {
-                    Button("Finish Match") {
-                        if requireConfirmations {
-                            alert = Alert(
-                                title: Text("Are you sure?"),
-                                message: Text("You will not be able to come back to edit this match after finishing it."),
-                                primaryButton: .default(Text("Yes")) {
-                                    finishMatch()
-                                },
-                                secondaryButton: .cancel(Text("No"))
-                            ).toProAlert()
-                        } else {
-                            finishMatch()
-                        }
-                    }
-                    Button("Start New Game") {
-                        if requireConfirmations {
-                            alert = Alert(
-                                title: Text("Are you sure?"),
-                                message: Text("You will not be able to come back to edit this game after starting a new one."),
-                                primaryButton: .default(Text("Yes")) {
-                                    startNewGame()
-                                },
-                                secondaryButton: .cancel(Text("No"))
-                            ).toProAlert()
-                        } else {
-                            startNewGame()
-                        }
-                    }
-                    Button("Switch Court Sides") {
-                        match.switchCourtSides()
-                    }
-                    if match.canUndoLastShot() {
-                        Button("Undo Last Shot") {
-                            if let stat = match.stats.popLast() {
-                                switch stat.scoreResult {
-                                case .team1Point:
-                                    match.team1.losePoint()
-                                    match.switchSides(isTeam1Intiating: true)
-                                case .team2Point:
-                                    match.team2.losePoint()
-                                    match.switchSides(isTeam1Intiating: false)
-                                case .sideout(let previousServerId, let wasFirstServer):
-                                    match.unrotateServer(previousServerId: previousServerId, wasFirstServer: wasFirstServer)
-                                }
-                                statTrackerModalState = .visible(player: match.player(for: stat.stat.playerId), savedShot: stat.stat.shot)
+                if selectServerModalVisible {
+                    ModalView(onDismiss: {}) {
+                        SelectServerModal(
+                            team1: $match.team1,
+                            team2: $match.team2
+                        ) { player in
+                            selectServerModalVisible = false
+                            
+                            // If they selected a "player2", switch sides
+                            switch player.id {
+                            case match.team1.adPlayer?.id:
+                                match.switchSides(isTeam1Intiating: true)
+                            case match.team2.adPlayer?.id:
+                                match.switchSides(isTeam1Intiating: false)
+                            default: break
                             }
                         }
                     }
-                    Button("View Match Stats") {
-                        matchStatsModalVisible = true
+                }
+                
+                if matchesViewModel.state.isLoading {
+                    LoadingModalView()
+                }
+            }
+            .navigationBarTitle("Live Match", displayMode: .inline)
+            .navigationBarBackButtonHidden(true)
+            .sheet(isPresented: $matchStatsModalVisible) {
+                MatchDetailView(match: match.toMatch())
+            }
+            .alert(item: $alert, content: { $0.alert })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        alert = Alert(
+                            title: Text("Are you sure?"),
+                            message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
+                            primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss()
+                            },
+                            secondaryButton: .cancel(Text("No"))
+                        ).toProAlert()
                     }
-                }) {
-                    Image(systemName: "ellipsis.circle")
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu(content: {
+                        Button("Finish Match") {
+                            if requireConfirmations {
+                                alert = Alert(
+                                    title: Text("Are you sure?"),
+                                    message: Text("You will not be able to come back to edit this match after finishing it."),
+                                    primaryButton: .default(Text("Yes")) {
+                                        finishMatch()
+                                    },
+                                    secondaryButton: .cancel(Text("No"))
+                                ).toProAlert()
+                            } else {
+                                finishMatch()
+                            }
+                        }
+                        Button("Start New Game") {
+                            if requireConfirmations {
+                                alert = Alert(
+                                    title: Text("Are you sure?"),
+                                    message: Text("You will not be able to come back to edit this game after starting a new one."),
+                                    primaryButton: .default(Text("Yes")) {
+                                        startNewGame()
+                                    },
+                                    secondaryButton: .cancel(Text("No"))
+                                ).toProAlert()
+                            } else {
+                                startNewGame()
+                            }
+                        }
+                        Button("Switch Court Sides") {
+                            match.switchCourtSides()
+                        }
+                        if match.canUndoLastShot() {
+                            Button("Undo Last Shot") {
+                                if let stat = match.stats.popLast() {
+                                    switch stat.scoreResult {
+                                    case .team1Point:
+                                        match.team1.losePoint()
+                                        match.switchSides(isTeam1Intiating: true)
+                                    case .team2Point:
+                                        match.team2.losePoint()
+                                        match.switchSides(isTeam1Intiating: false)
+                                    case .sideout(let previousServerId, let wasFirstServer):
+                                        match.unrotateServer(previousServerId: previousServerId, wasFirstServer: wasFirstServer)
+                                    }
+                                    statTrackerModalState = .visible(player: match.player(for: stat.stat.playerId), savedShot: stat.stat.shot)
+                                }
+                            }
+                        }
+                        Button("View Match Stats") {
+                            matchStatsModalVisible = true
+                        }
+                    }) {
+                        Image(systemName: "ellipsis.circle")
+                    }
                 }
             }
         }
@@ -565,14 +568,10 @@ extension LiveMatchPlayer {
 #if DEBUG
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob])) {
-                print("Saved")
-            }
-            .ignoresSafeArea(.all, edges: .bottom)
-            .preferredColorScheme(.dark)
+        LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob])) {
+            print("Saved")
         }
-        .environmentObject(MatchesViewModel(repository: TestRepository()))
+        .environmentObject(MatchesViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }
 #endif

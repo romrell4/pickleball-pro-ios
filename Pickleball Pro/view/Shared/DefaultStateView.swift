@@ -90,8 +90,7 @@ struct DefaultStateView_Previews: PreviewProvider {
                         Text("\(data) \($0)")
                     }
                 }
-                .navigationTitle("Test")
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitle("Test", displayMode: .inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Picker("Select a state fixture", selection: $selectedState) {

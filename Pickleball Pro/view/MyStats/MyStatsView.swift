@@ -19,8 +19,7 @@ struct MyStatsView: View {
                     Spacer()
                 }
             }
-            .navigationTitle("Stats")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle("Stats", displayMode: .inline)
         }
         .onAppear {
             viewModel.load()
@@ -63,7 +62,7 @@ private struct RecordView: View {
 struct MyStatsView_Previews: PreviewProvider {
     static var previews: some View {
         MyStatsView()
-            .environmentObject(StatsViewModel(repository: TestRepository()))
+            .environmentObject(StatsViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }
 #endif

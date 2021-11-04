@@ -8,12 +8,13 @@
 import Combine
 
 class BaseViewModel<ViewState>: ObservableObject, LoginListener {
-    let loginManager = LoginManager.instance
     @Published var state: LoadingState<ViewState>
     var repository: Repository
+    let loginManager: LoginManager
     
-    init(repository: Repository) {
+    init(repository: Repository, loginManager: LoginManager) {
         self.repository = repository
+        self.loginManager = loginManager
         state = .idle(loggedIn: loginManager.isLoggedIn)
         loginManager.add(listener: self)
     }
@@ -39,6 +40,13 @@ enum LoadingState<Value> {
     var isLoading: Bool {
         switch self {
         case .loading: return true
+        default: return false
+        }
+    }
+    
+    var isLoggedOut: Bool {
+        switch self {
+        case .idle(let loggedIn): return !loggedIn
         default: return false
         }
     }

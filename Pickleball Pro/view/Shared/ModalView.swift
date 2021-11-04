@@ -15,6 +15,7 @@ struct ModalView<Content: View>: View {
         ZStack {
             Rectangle()
                 .fill(Color.black.opacity(0.45))
+                .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
                     onDismiss()
                 }
@@ -37,8 +38,10 @@ struct LoadingModalView: View {
 
 struct ModalView_Previews: PreviewProvider {
     static var previews: some View {
-        ModalView(onDismiss: { print("dismiss") }) {
-            Text("Hello world this is a long test that will helpfull wrap before")
+        NavigationView {
+            ModalView(onDismiss: { print("dismiss") }) {
+                Text("Hello world this is a long test that will helpfull wrap before")
+            }.navigationBarTitle("Test", displayMode: .inline)
         }
     }
 }
