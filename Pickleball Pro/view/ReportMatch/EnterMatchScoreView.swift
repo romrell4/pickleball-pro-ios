@@ -10,8 +10,9 @@ import SwiftUI
 private let MAX_GAMES = 5
 
 struct EnterMatchScoreView: View {
-    // TODO: Put players' icons before scores
-    // TODO: Figure out scrolling and next buttons between text fields
+    // TODO: Figure out next buttons?
+    let team1: [Player]
+    let team2: [Player]
     @Binding var scores: [EnterGameScore]
     
     @State private var scoreValidationError = false
@@ -19,6 +20,17 @@ struct EnterMatchScoreView: View {
     var body: some View {
         VStack {
             HStack {
+                VStack {
+                    if team1.count > 1 && team2.count > 1 {
+                        StackedRoundImageViews(size: 50, player1: team1[0], player2: team1[1])
+                        StackedRoundImageViews(size: 50, player1: team2[0], player2: team2[1])
+                    } else {
+                        team1[0].image()
+                            .frame(width: 50, height: 50)
+                        team2[0].image()
+                            .frame(width: 50, height: 50)
+                    }
+                }.padding(.trailing, 10)
                 ForEach(scores.indices, id: \.self) { index in
                     GameScoreView(score: .proxy($scores[index]))
                 }
@@ -88,7 +100,11 @@ struct EnterMatchScoreView_Previews: PreviewProvider {
         @State private var scores = [EnterGameScore()]
         
         var body: some View {
-            EnterMatchScoreView(scores: $scores)
+            EnterMatchScoreView(
+                team1: [Player.eric],
+                team2: [Player.jessica],
+                scores: $scores
+            )
         }
     }
 }

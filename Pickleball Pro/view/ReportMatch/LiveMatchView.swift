@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    // TODO: This seems to be reloading when switching tabs back and forth
+    // TODO: Singles server side should be determined based on score
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @AppStorage(PreferenceKeys.autoSwitchSides) var autoSwitchSides = false
@@ -21,19 +21,19 @@ struct LiveMatchView: View {
     
     var onMatchSaved: () -> Void
     
-    init?(players: ([Player], [Player]), onMatchSaved: @escaping () -> Void) {
-        guard players.0.count > 0 && players.1.count > 0 else { return nil }
+    init?(team1: [Player], team2: [Player], onMatchSaved: @escaping () -> Void) {
+        guard team1.count > 0 && team2.count > 0 else { return nil }
         _match = State(initialValue: LiveMatch(
             team1: LiveMatchTeam(
                 deucePlayer: LiveMatchPlayer(
-                    player: players.0[0]
+                    player: team1[0]
                     //,servingState: .serving(isFirstServer: players.0.count == 1)
                 ),
-                adPlayer: LiveMatchPlayer(player: players.0[safe: 1])
+                adPlayer: LiveMatchPlayer(player: team1[safe: 1])
             ),
             team2: LiveMatchTeam(
-                deucePlayer: LiveMatchPlayer(player: players.1[0]),
-                adPlayer: LiveMatchPlayer(player: players.1[safe: 1])
+                deucePlayer: LiveMatchPlayer(player: team2[0]),
+                adPlayer: LiveMatchPlayer(player: team2[safe: 1])
             )
         ))
         self.onMatchSaved = onMatchSaved
@@ -568,7 +568,7 @@ extension LiveMatchPlayer {
 #if DEBUG
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveMatchView(players: ([Player.eric, Player.jessica], [Player.bryan, Player.bob])) {
+        LiveMatchView(team1: [Player.eric, Player.jessica], team2: [Player.bryan, Player.bob]) {
             print("Saved")
         }
         .environmentObject(MatchesViewModel(repository: TestRepository(), loginManager: TestLoginManager()))

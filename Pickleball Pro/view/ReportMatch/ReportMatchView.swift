@@ -12,6 +12,7 @@ private let SELECT_PLAYERS_ID = 0
 private let ENTER_SCORES_ID = 1
 
 struct ReportMatchView: View {
+    // TODO: Create ReportMatchViewModel?
     @EnvironmentObject var playersViewModel: PlayersViewModel
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     private var loginManager: LoginManager {
@@ -25,9 +26,9 @@ struct ReportMatchView: View {
     @State private var enteredGameScores = [EnterGameScore()]
     
     @State private var playerValidationError = false
-    @State private var scoreValidationError = false
     
-    @State private var navigateToLiveMatchWithPlayers: LiveMatchPlayers? = nil
+    @State private var navigateToLiveMatchWithPlayers: TeamPlayers? = nil
+    @State private var showEnterScoreModalWithPlayers: TeamPlayers? = nil
     
     private var players: [Player] {
         if case let .success(players) = playersViewModel.state {
@@ -38,67 +39,50 @@ struct ReportMatchView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ScrollViewReader { scrollView in
-                ZStack {
-                    ScrollView {
-                        VStack {
-                            SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError, allPlayers: players)
-                                .id(SELECT_PLAYERS_ID)
-                            EnterScoresStepView(
-                                gameScores: $enteredGameScores,
-                                validationError: scoreValidationError,
-                                onTrackLiveMatchTapped: {
-                                    guard loginManager.isLoggedIn else {
-                                        showingLoginSheet = true
-                                        return
-                                    }
-                                    guard let players = try? validatePlayers() else {
-                                        scrollView.scrollTo(SELECT_PLAYERS_ID)
-                                        return
-                                    }
-                                    navigateToLiveMatchWithPlayers = LiveMatchPlayers(players: players)
-                                },
-                                onSaveTapped: {
-                                    guard loginManager.isLoggedIn else {
-                                        showingLoginSheet = true
-                                        return
-                                    }
-                                    do {
-                                        let match = try validateMatch()
-                                        matchesViewModel.create(match: match) { error in
-                                            if let error = error {
-                                                alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
-                                            } else {
-                                                reset()
-                                                currentTab.wrappedValue = .myMatches
-                                            }
-                                        }
-                                    } catch MyError.playerValidationError {
-                                        scrollView.scrollTo(SELECT_PLAYERS_ID)
-                                    } catch MyError.scoreValidationError {
-                                        scrollView.scrollTo(ENTER_SCORES_ID)
-                                    } catch {}
-                                }
-                            ).id(ENTER_SCORES_ID)
+        ZStack {
+            VStack {
+                SelectPlayersStepView(selectedPlayers: $selectedPlayers, validationError: playerValidationError, allPlayers: players)
+                EnterScoresStepView(
+                    onTrackLiveMatchTapped: {
+                        if let players = canEnterScores() {
+                            navigateToLiveMatchWithPlayers = players
+                        }
+                    },
+                    onEnterCompletedTapped: {
+                        if let players = canEnterScores() {
+                            showEnterScoreModalWithPlayers = players
                         }
                     }
-                    if playersViewModel.state.isLoading || matchesViewModel.state.isLoading {
-                        LoadingModalView()
+                )
+            }
+            EnterScoresModal(item: $showEnterScoreModalWithPlayers, scores: $enteredGameScores) {
+                playerValidationError = false
+                do {
+                    let match = try validateMatch()
+                    matchesViewModel.create(match: match) { error in
+                        if let error = error {
+                            alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
+                        } else {
+                            reset()
+                            currentTab.wrappedValue = .myMatches
+                        }
                     }
+                } catch MyError.playerValidationError {
+                    playerValidationError = true
                 }
             }
-            .navigationBarTitle("Report Match", displayMode: .inline)
-            .navigationBarHidden(true)
-            .alert(item: $alert) { $0.alert }
-            .sheet(isPresented: $showingLoginSheet) {
-                LoginView()
+            if playersViewModel.state.isLoading || matchesViewModel.state.isLoading {
+                LoadingModalView()
             }
-            .fullScreenCover(item: $navigateToLiveMatchWithPlayers) {
-                LiveMatchView(players: $0.players) {
-                    reset()
-                    currentTab.wrappedValue = .myMatches
-                }
+        }
+        .alert(item: $alert) { $0.alert }
+        .sheet(isPresented: $showingLoginSheet) {
+            LoginView()
+        }
+        .fullScreenCover(item: $navigateToLiveMatchWithPlayers) {
+            LiveMatchView(team1: $0.team1, team2: $0.team2) {
+                reset()
+                currentTab.wrappedValue = .myMatches
             }
         }
         .onAppear {
@@ -111,42 +95,39 @@ struct ReportMatchView: View {
         selectedPlayers = [EnterPlayers()]
         enteredGameScores = [EnterGameScore()]
         playerValidationError = false
-        scoreValidationError = false
+    }
+    
+    private func canEnterScores() -> TeamPlayers? {
+        guard loginManager.isLoggedIn else {
+            showingLoginSheet = true
+            return nil
+        }
+        playerValidationError = false
+        guard let players = try? selectedPlayers.validate(players: players) else {
+            playerValidationError = true
+            return nil
+        }
+        return players
     }
     
     private func validateMatch() throws -> Match {
-        let (team1, team2) = try validatePlayers()
-        let scores = try validateScores()
+        let teamPlayers = try selectedPlayers.validate(players: players)
+        let scores = try enteredGameScores.validate()
         
         return Match(
             id: "",
             date: Date(),
-            team1: team1,
-            team2: team2,
+            team1: teamPlayers.team1,
+            team2: teamPlayers.team2,
             scores: scores,
             stats: []
         )
     }
-    
-    private func validatePlayers() throws -> ([Player], [Player]) {
-        playerValidationError = false
-        
-        let (team1, team2) = getPlayers()
-        
-        guard team1.count == team2.count, team1.count > 0, team2.count > 0 else {
-            playerValidationError = true
-            throw MyError.playerValidationError
-        }
-        let allPlayers = team1 + team2
-        if allPlayers.count != Set((allPlayers).map { $0.id }).count {
-            playerValidationError = true
-            throw MyError.playerValidationError
-        }
-        return (team1, team2)
-    }
-    
-    private func getPlayers() -> ([Player], [Player]) {
-        let (team1, team2) = selectedPlayers.map {
+}
+
+private extension Array {
+    func validate(players: [Player]) throws -> TeamPlayers where Element == EnterPlayers {
+        let (team1, team2) = self.map {
             ($0.team1Player.toPlayer(players: players), $0.team2Player.toPlayer(players: players))
         }.reduce(([Player](), [Player]())) { soFar, next in
             var soFar = soFar
@@ -158,34 +139,41 @@ struct ReportMatchView: View {
             }
             return soFar
         }
-        return (team1, team2)
+        guard team1.count == team2.count, team1.count > 0, team2.count > 0 else {
+            throw MyError.playerValidationError
+        }
+        if (team1 + team2).count != Set((team1 + team2).map { $0.id }).count {
+            throw MyError.playerValidationError
+        }
+        return TeamPlayers(team1: team1, team2: team2)
     }
     
-    private func validateScores() throws -> [GameScore] {
-        scoreValidationError = false
-        
-        let scores: [GameScore] = try enteredGameScores.map {
+    func validate() throws -> [GameScore] where Element == EnterGameScore {
+        let scores: [GameScore] = try self.compactMap {
+            // Filter out if they didn't put anything in the boxes
+            guard !$0.team1.isEmpty && !$0.team2.isEmpty else { return nil }
+            // Throw an error if they put something bad in the boxes
             guard let team1Score = Int($0.team1), let team2Score = Int($0.team2) else {
-                scoreValidationError = true
                 throw MyError.scoreValidationError
             }
             return GameScore(team1Score: team1Score, team2Score: team2Score)
         }
         return scores
     }
-    
-    enum MyError: Error {
-        case playerValidationError
-        case scoreValidationError
-    }
 }
 
-private struct LiveMatchPlayers: Identifiable {
-    var id: String {
-        (players.0 + players.1).map { $0.id }.joined(separator: "")
-    }
+private enum MyError: Error {
+    case playerValidationError
+    case scoreValidationError
+}
+
+private struct TeamPlayers: Identifiable {
+    let team1: [Player]
+    let team2: [Player]
     
-    let players: ([Player], [Player])
+    var id: String {
+        (team1 + team2).map { $0.id }.joined(separator: "")
+    }
 }
 
 private struct SelectPlayersStepView: View {
@@ -210,10 +198,8 @@ private struct SelectPlayersStepView: View {
 }
 
 private struct EnterScoresStepView: View {
-    @Binding var gameScores: [EnterGameScore]
-    var validationError: Bool
     var onTrackLiveMatchTapped: () -> Void
-    var onSaveTapped: () -> Void
+    var onEnterCompletedTapped: () -> Void
     
     var body: some View {
         GroupBox {
@@ -230,25 +216,50 @@ private struct EnterScoresStepView: View {
                     .padding(.vertical, 8)
                     .padding(.horizontal, 20)
                     .background(Capsule().fill(Color.green))
-                    .padding()
                     .onTapGesture {
                         onTrackLiveMatchTapped()
                     }
                 Text("or")
-                Text("Enter Completed Match Scores:")
-                    .font(.title2)
-                    .padding(.vertical)
-                    .foregroundColor(validationError ? .red : Color(.label))
-                EnterMatchScoreView(scores: $gameScores)
-                Button("Save") {
-                    onSaveTapped()
-                }
+                Text("Enter Completed Match Scores")
                     .foregroundColor(.white)
                     .padding(.vertical, 8)
                     .padding(.horizontal, 20)
                     .background(Capsule().fill(Color.blue))
+                    .onTapGesture {
+                        onEnterCompletedTapped()
+                    }
             }
         }.padding()
+    }
+}
+
+private struct EnterScoresModal: View {
+    @Binding var item: TeamPlayers?
+    @Binding var scores: [EnterGameScore]
+    let onSaveTapped: () throws -> Void
+    
+    @State private var validationError: Bool = false
+    
+    var body: some View {
+        if let teamPlayers = item {
+            ModalView(onDismiss: { item = nil }) {
+                VStack {
+                    Text("Enter match scores")
+                        .font(.title2)
+                        .foregroundColor(validationError ? .red : Color(.label))
+                    EnterMatchScoreView(team1: teamPlayers.team1, team2: teamPlayers.team2, scores: $scores)
+                    Button("Save") {
+                        do {
+                            try onSaveTapped()
+                        } catch (e: MyError.scoreValidationError) {
+                            validationError = true
+                        } catch {}
+                    }
+                }
+            }
+        } else {
+            VStack {}
+        }
     }
 }
 
