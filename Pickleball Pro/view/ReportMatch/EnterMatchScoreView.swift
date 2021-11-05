@@ -91,6 +91,7 @@ struct EnterGameScore {
     var team2: String = ""
 }
 
+#if DEBUG
 struct EnterMatchScoreView_Previews: PreviewProvider {
     static var previews: some View {
         TestWrapper()
@@ -108,3 +109,4 @@ struct EnterMatchScoreView_Previews: PreviewProvider {
         }
     }
 }
+#endif

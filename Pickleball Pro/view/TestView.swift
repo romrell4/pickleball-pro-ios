@@ -20,9 +20,11 @@ struct TestView: View {
     }
 }
 
+#if DEBUG
 struct TestView_Previews: PreviewProvider {
     static var previews: some View {
         TestView()
             .environmentObject(MatchesViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }
+#endif
