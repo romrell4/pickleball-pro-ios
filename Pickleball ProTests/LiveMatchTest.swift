@@ -186,30 +186,30 @@ class LiveMatchTest: XCTestCase {
         
         XCTAssertEqual(match.team1.scores.last, 1)
         XCTAssertEqual(match.team2.scores.last, 0)
+        XCTAssertEqual(match.team1.deucePlayer!.id, "1")
+        XCTAssertNil(match.team1.adPlayer)
+        XCTAssertEqual(match.team2.deucePlayer!.id, "2")
+        XCTAssertNil(match.team2.adPlayer)
+        XCTAssertEqual(match.currentServer.id, "2")
+        
+        match.pointFinished(with: Stat.Shot(type: .drop, result: .error, side: .backhand), by: match.team1.deucePlayer!)
+        
+        XCTAssertEqual(match.team1.scores.last, 1)
+        XCTAssertEqual(match.team2.scores.last, 1)
         XCTAssertNil(match.team1.deucePlayer)
         XCTAssertEqual(match.team1.adPlayer!.id, "1")
         XCTAssertNil(match.team2.deucePlayer)
         XCTAssertEqual(match.team2.adPlayer!.id, "2")
         XCTAssertEqual(match.currentServer.id, "2")
         
-        match.pointFinished(with: Stat.Shot(type: .drop, result: .error, side: .backhand), by: match.team1.adPlayer!)
+        match.pointFinished(with: Stat.Shot(type: .drop, result: .winner, side: .backhand), by: match.team1.adPlayer!)
         
         XCTAssertEqual(match.team1.scores.last, 1)
         XCTAssertEqual(match.team2.scores.last, 1)
-        XCTAssertEqual(match.team1.deucePlayer!.id, "1")
-        XCTAssertNil(match.team1.adPlayer)
-        XCTAssertEqual(match.team2.deucePlayer!.id, "2")
-        XCTAssertNil(match.team2.adPlayer)
-        XCTAssertEqual(match.currentServer.id, "2")
-        
-        match.pointFinished(with: Stat.Shot(type: .drop, result: .winner, side: .backhand), by: match.team1.deucePlayer!)
-        
-        XCTAssertEqual(match.team1.scores.last, 1)
-        XCTAssertEqual(match.team2.scores.last, 1)
-        XCTAssertEqual(match.team1.deucePlayer!.id, "1")
-        XCTAssertNil(match.team1.adPlayer)
-        XCTAssertEqual(match.team2.deucePlayer!.id, "2")
-        XCTAssertNil(match.team2.adPlayer)
+        XCTAssertNil(match.team1.deucePlayer)
+        XCTAssertEqual(match.team1.adPlayer!.id, "1")
+        XCTAssertNil(match.team2.deucePlayer)
+        XCTAssertEqual(match.team2.adPlayer!.id, "2")
         XCTAssertEqual(match.currentServer.id, "1")
     }
     

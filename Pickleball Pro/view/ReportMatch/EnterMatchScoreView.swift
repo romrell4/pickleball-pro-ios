@@ -10,7 +10,6 @@ import SwiftUI
 private let MAX_GAMES = 5
 
 struct EnterMatchScoreView: View {
-    // TODO: Figure out next buttons?
     let team1: [Player]
     let team2: [Player]
     @Binding var scores: [EnterGameScore]

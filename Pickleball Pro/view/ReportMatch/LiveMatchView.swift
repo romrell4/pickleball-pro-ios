@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    // TODO: Singles server side should be determined based on score
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @AppStorage(PreferenceKeys.autoSwitchSides) var autoSwitchSides = false
@@ -360,6 +359,19 @@ struct LiveMatch {
             guard case .serving(let isFirstServer) = currentServer.servingState else { return }
             scoreResult = .sideout(previousServerId: currentServer.id, wasFirstServer: isFirstServer)
             rotateServer()
+            
+            // In singles, when a sideout happens, the server's side is based on their score (deuce for an even score, ad for an odd score)
+            if !isDoubles {
+                if team1.isServing &&
+                    ((team1.scores.last! % 2 == 0 && team1.deucePlayer == nil)) ||
+                    ((team1.scores.last! % 2 == 1 && team1.adPlayer == nil)) {
+                    switchSides(isTeam1Intiating: true)
+                } else if team2.isServing &&
+                    ((team2.scores.last! % 2 == 0 && team2.deucePlayer == nil)) ||
+                    ((team2.scores.last! % 2 == 1 && team2.adPlayer == nil)) {
+                    switchSides(isTeam1Intiating: false)
+                }
+            }
         }
         
         stats.append(
@@ -568,7 +580,10 @@ extension LiveMatchPlayer {
 #if DEBUG
 struct LiveMatchView_Previews: PreviewProvider {
     static var previews: some View {
-        LiveMatchView(team1: [Player.eric, Player.jessica], team2: [Player.bryan, Player.bob]) {
+        LiveMatchView(
+            team1: [Player.eric],//, Player.jessica],
+            team2: [Player.bryan]//, Player.bob]
+        ) {
             print("Saved")
         }
         .environmentObject(MatchesViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
