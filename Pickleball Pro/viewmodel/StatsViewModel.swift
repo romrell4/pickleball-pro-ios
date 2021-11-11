@@ -15,6 +15,9 @@ class StatsViewModel: BaseViewModel<StatsViewState> {
     private var me: Player? = nil {
         didSet { updateStateIfReady() }
     }
+    var filter: StatsFilter = .all {
+        didSet { updateStateIfReady() }
+    }
     
     func load() {
         guard loginManager.isLoggedIn else {
@@ -54,7 +57,11 @@ class StatsViewModel: BaseViewModel<StatsViewState> {
     }
     
     private func updateStateIfReady() {
-        if let matches = matches, let me = me {
+        if var matches = matches, let me = me {
+            if filter != .all {
+                matches = matches.filter { (filter == .doubles) == $0.isDoubles }
+            }
+            
             let (wins, losses, ties) = matches.reduce((0, 0, 0)) { soFar, match in
                 let (wins, losses, ties) = soFar
                 switch match.result(for: me) {
@@ -67,6 +74,12 @@ class StatsViewModel: BaseViewModel<StatsViewState> {
             self.state = .success(StatsViewState(wins: wins, losses: losses, ties: ties))
         }
     }
+}
+
+enum StatsFilter: String, CaseIterable {
+    case all = "All Matches"
+    case singles = "Singles"
+    case doubles = "Doubles"
 }
 
 enum PlayerMatchResult {

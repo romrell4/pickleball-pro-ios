@@ -14,6 +14,14 @@ struct MyStatsView: View {
         NavigationView {
             DefaultStateView(state: viewModel.state) { state in
                 VStack {
+                    Picker("Filter", selection: $viewModel.filter) {
+                        ForEach(StatsFilter.allCases, id: \.self) {
+                            Text($0.rawValue).tag($0)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                    
                     RecordView(state: state)
                     // TODO: Add other charts and stuff?
                     Spacer()
