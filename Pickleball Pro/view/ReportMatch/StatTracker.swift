@@ -9,9 +9,9 @@ import SwiftUI
 
 struct StatTracker: View {
     private let player: Player
-    private let onButtonTap: (Stat.Shot?) -> Void
+    private let onButtonTap: (LiveMatchShot?) -> Void
     
-    init(player: Player, shot: Stat.Shot? = nil, onButtonTap: @escaping (Stat.Shot?) -> Void) {
+    init(player: Player, shot: LiveMatchShot? = nil, onButtonTap: @escaping (LiveMatchShot?) -> Void) {
         self.player = player
         
         if let shot = shot {
@@ -69,7 +69,7 @@ struct StatTracker: View {
             
             HStack {
                 Button("Save") {
-                    onButtonTap(Stat.Shot(type: selectedType, result: selectedResult, side: selectedSide))
+                    onButtonTap(LiveMatchShot(playerId: player.id, type: selectedType, result: selectedResult, side: selectedSide))
                 }
                 .padding(.horizontal)
                 Button("Cancel") {

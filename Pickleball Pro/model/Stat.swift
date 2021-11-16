@@ -14,14 +14,6 @@ struct Stat: Hashable, Codable {
     let shotResult: Result
     var shotSide: ShotSide? = nil
     
-    var shot: Shot { Shot(type: shotType, result: shotResult, side: shotSide) }
-    
-    struct Shot {
-        let type: ShotType
-        let result: Result
-        let side: ShotSide?
-    }
-    
     enum ShotType: String, CaseIterable, Codable {
         case serve
         case drop

@@ -40,6 +40,12 @@ extension Color {
     }
 }
 
+extension Date {
+    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        return calendar.component(component, from: self)
+    }
+}
+
 protocol PlayerImagable {
     var imageUrl: String? { get }
     var _firstName: String? { get }

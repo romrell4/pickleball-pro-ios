@@ -62,16 +62,29 @@ class StatsViewModel: BaseViewModel<StatsViewState> {
                 matches = matches.filter { (filter == .doubles) == $0.isDoubles }
             }
             
-            let (wins, losses, ties) = matches.reduce((0, 0, 0)) { soFar, match in
-                let (wins, losses, ties) = soFar
-                switch match.result(for: me) {
-                case .win: return (wins + 1, losses, ties)
-                case .loss: return (wins, losses + 1, ties)
-                case .tie: return (wins, losses, ties + 1)
-                case .didNotPlay: return soFar
-                }
-            }
+            
+            let (wins, losses, ties) = matches.record(for: me)
             self.state = .success(StatsViewState(wins: wins, losses: losses, ties: ties))
+            // TODO: Determine time period based off of match dispertion
+//            let monthlyRecord: [(String, Double)] = Dictionary(grouping: matches, by: { "\($0.date.get(.month))-\($0.date.get(.year))" }).map {
+//                let (wins, losses, ties) = $1.record(for: me)
+//                return ($0, Double(wins) / Double(wins + losses + ties))
+//            }
+//            self.state = .success(StatsViewState(wins: wins, losses: losses, ties: ties, recordOverTime: monthlyRecord))
+        }
+    }
+}
+
+private extension Array where Element == Match {
+    func record(for player: Player) -> (Int, Int, Int) {
+        return self.reduce((0, 0, 0)) { soFar, match in
+            let (wins, losses, ties) = soFar
+            switch match.result(for: player) {
+            case .win: return (wins + 1, losses, ties)
+            case .loss: return (wins, losses + 1, ties)
+            case .tie: return (wins, losses, ties + 1)
+            case .didNotPlay: return soFar
+            }
         }
     }
 }
@@ -118,4 +131,5 @@ struct StatsViewState {
     let wins: Int
     let losses: Int
     let ties: Int
+//    let recordOverTime: [(String, Double)]?
 }

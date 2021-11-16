@@ -13,18 +13,30 @@ struct MyStatsView: View {
     var body: some View {
         NavigationView {
             DefaultStateView(state: viewModel.state) { state in
-                VStack {
-                    Picker("Filter", selection: $viewModel.filter) {
-                        ForEach(StatsFilter.allCases, id: \.self) {
-                            Text($0.rawValue).tag($0)
+                ScrollView {
+                    VStack {
+                        Picker("Filter", selection: $viewModel.filter) {
+                            ForEach(StatsFilter.allCases, id: \.self) {
+                                Text($0.rawValue).tag($0)
+                            }
                         }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding()
+                        
+                        Text("Overall Record")
+                        RecordView(state: state)
+                        
+                        // TODO: Add other charts and stuff?
+//                        if let recordOverTime = state.recordOverTime {
+//                            BarChartView(data: ChartData(values: recordOverTime), title: "Record over time", form: ChartForm.large, dropShadow: true, cornerImage: nil, valueSpecifier: "%.2f")
+//                                .padding()
+//                        } else {
+//
+//                        }
+                        
+                        
+                        Spacer()
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding()
-                    
-                    RecordView(state: state)
-                    // TODO: Add other charts and stuff?
-                    Spacer()
                 }
             }
             .navigationBarTitle("Stats", displayMode: .inline)
