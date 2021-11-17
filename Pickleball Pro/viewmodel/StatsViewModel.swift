@@ -62,15 +62,8 @@ class StatsViewModel: BaseViewModel<StatsViewState> {
                 matches = matches.filter { (filter == .doubles) == $0.isDoubles }
             }
             
-            
             let (wins, losses, ties) = matches.record(for: me)
             self.state = .success(StatsViewState(wins: wins, losses: losses, ties: ties))
-            // TODO: Determine time period based off of match dispertion
-//            let monthlyRecord: [(String, Double)] = Dictionary(grouping: matches, by: { "\($0.date.get(.month))-\($0.date.get(.year))" }).map {
-//                let (wins, losses, ties) = $1.record(for: me)
-//                return ($0, Double(wins) / Double(wins + losses + ties))
-//            }
-//            self.state = .success(StatsViewState(wins: wins, losses: losses, ties: ties, recordOverTime: monthlyRecord))
         }
     }
 }

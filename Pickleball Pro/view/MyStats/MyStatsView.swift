@@ -27,13 +27,11 @@ struct MyStatsView: View {
                         RecordView(state: state)
                         
                         // TODO: Add other charts and stuff?
-//                        if let recordOverTime = state.recordOverTime {
-//                            BarChartView(data: ChartData(values: recordOverTime), title: "Record over time", form: ChartForm.large, dropShadow: true, cornerImage: nil, valueSpecifier: "%.2f")
-//                                .padding()
-//                        } else {
-//
-//                        }
-                        
+                        // X-Axis: Shot Type
+                        // Y-Axis: Amount
+                        // Red Bar: Errors
+                        // Blue Bar: Winners
+                        // Look into zooming into x-axis shot types?
                         
                         Spacer()
                     }

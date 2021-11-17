@@ -16,23 +16,57 @@ struct SelectServerModal: View {
         VStack {
             Text("Who will start serving?")
                 .font(.title2)
-            TeamView(team: $team1, onServerTapped: onServerTapped)
-            TeamView(team: $team2, onServerTapped: onServerTapped)
+            TeamView(team: $team1, isBottom: false, onServerTapped: onServerTapped)
+            TeamView(team: $team2, isBottom: true, onServerTapped: onServerTapped)
         }
     }
 }
 
 private struct TeamView: View {
     @Binding var team: LiveMatchTeam
+    let isBottom: Bool
     let onServerTapped: (LiveMatchPlayer) -> Void
+    
+    var deucePlayer: PlayerView? {
+        if team.deucePlayer != nil {
+            return PlayerView(player: $team.deucePlayer, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
+        } else {
+            return nil
+        }
+    }
+    
+    var adPlayer: PlayerView? {
+        if team.adPlayer != nil {
+            return PlayerView(player: $team.adPlayer, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
+        } else {
+            return nil
+        }
+    }
+    
+    var switchImage: some View {
+        Image(systemName: "arrow.left.arrow.right")
+            .resizable()
+            .foregroundColor(.blue)
+            .frame(width: 20, height: 20)
+            .onTapGesture {
+                team.switchSides()
+            }
+    }
     
     var body: some View {
         HStack {
-            if team.deucePlayer != nil {
-                PlayerView(player: $team.deucePlayer, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
-            }
-            if team.adPlayer != nil {
-                PlayerView(player: $team.adPlayer, isDoubles: team.isDoubles, onServerTapped: onServerTapped)
+            if !isBottom {
+                deucePlayer
+                if team.isDoubles {
+                    switchImage
+                }
+                adPlayer
+            } else {
+                adPlayer
+                if team.isDoubles {
+                    switchImage
+                }
+                deucePlayer
             }
         }
     }
@@ -68,7 +102,7 @@ struct SelectServerModal_Previews: PreviewProvider {
     private struct Test: View {
         @State var team1 = LiveMatchTeam(
             deucePlayer: LiveMatchPlayer(player: Player.eric),
-            adPlayer: LiveMatchPlayer(player: Player.jessica)
+            adPlayer: nil //LiveMatchPlayer(player: Player.jessica)
         )
         @State var team2 = LiveMatchTeam(
             deucePlayer: LiveMatchPlayer(player: Player.bryan),
@@ -87,8 +121,8 @@ struct SelectServerModal_Previews: PreviewProvider {
     
     static var previews: some View {
         Test()
-        .previewLayout(.sizeThatFits)
-        .preferredColorScheme(.light)
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.light)
     }
 }
 #endif
