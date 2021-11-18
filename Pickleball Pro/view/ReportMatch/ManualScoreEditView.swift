@@ -64,6 +64,7 @@ private struct ScoreView: View {
     }
 }
 
+#if DEBUG
 struct ManualScoreEditView_Previews: PreviewProvider {
     private struct Test: View {
         @State var match = LiveMatch(
@@ -95,3 +96,4 @@ struct ManualScoreEditView_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
     }
 }
+#endif
