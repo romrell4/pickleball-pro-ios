@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    // TODO: Add a menu option to "Edit Scores" which will bring up a dialog to modify the current score and player configuration
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @AppStorage(PreferenceKeys.autoSwitchSides) var autoSwitchSides = false
