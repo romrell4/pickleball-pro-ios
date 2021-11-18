@@ -25,6 +25,20 @@ class LiveMatchTest: XCTestCase {
         XCTAssertTrue(match.team1.deucePlayer!.isServing)
         XCTAssertFalse(match.team2.isServing)
         XCTAssertFalse(match.team2.deucePlayer!.isServing)
+        
+        // Make sure that server side is switched after a sideout
+        match.team2.earnPoint()
+        match.sideout()
+        XCTAssertFalse(match.team1.isServing)
+        XCTAssertFalse(match.team1.adPlayer!.isServing)
+        XCTAssertTrue(match.team2.isServing)
+        XCTAssertTrue(match.team2.adPlayer!.isServing)
+        
+        match.sideout()
+        XCTAssertTrue(match.team1.isServing)
+        XCTAssertTrue(match.team1.deucePlayer!.isServing)
+        XCTAssertFalse(match.team2.isServing)
+        XCTAssertFalse(match.team2.deucePlayer!.isServing)
     }
     
     func testDoublesServerRotation() throws {
@@ -174,8 +188,8 @@ class LiveMatchTest: XCTestCase {
         )
         match.pointFinished(with: LiveMatchShot(playerId: "1", type: .drive, result: .winner, side: .forehand))
         
-        XCTAssertEqual(match.team1.scores.last, 1)
-        XCTAssertEqual(match.team2.scores.last, 0)
+        XCTAssertEqual(match.team1.currentScore, 1)
+        XCTAssertEqual(match.team2.currentScore, 0)
         XCTAssertNil(match.team1.deucePlayer)
         XCTAssertEqual(match.team1.adPlayer?.id, "1")
         XCTAssertNil(match.team2.deucePlayer)
@@ -184,8 +198,8 @@ class LiveMatchTest: XCTestCase {
         
         match.pointFinished(with: LiveMatchShot(playerId: "1", type: .drop, result: .error, side: .backhand))
         
-        XCTAssertEqual(match.team1.scores.last, 1)
-        XCTAssertEqual(match.team2.scores.last, 0)
+        XCTAssertEqual(match.team1.currentScore, 1)
+        XCTAssertEqual(match.team2.currentScore, 0)
         XCTAssertEqual(match.team1.deucePlayer?.id, "1")
         XCTAssertNil(match.team1.adPlayer)
         XCTAssertEqual(match.team2.deucePlayer?.id, "2")
@@ -194,8 +208,8 @@ class LiveMatchTest: XCTestCase {
         
         match.pointFinished(with: LiveMatchShot(playerId: "1", type: .drop, result: .error, side: .backhand))
         
-        XCTAssertEqual(match.team1.scores.last, 1)
-        XCTAssertEqual(match.team2.scores.last, 1)
+        XCTAssertEqual(match.team1.currentScore, 1)
+        XCTAssertEqual(match.team2.currentScore, 1)
         XCTAssertNil(match.team1.deucePlayer)
         XCTAssertEqual(match.team1.adPlayer?.id, "1")
         XCTAssertNil(match.team2.deucePlayer)
@@ -204,8 +218,8 @@ class LiveMatchTest: XCTestCase {
         
         match.pointFinished(with: LiveMatchShot(playerId: "1", type: .drop, result: .winner, side: .backhand))
         
-        XCTAssertEqual(match.team1.scores.last, 1)
-        XCTAssertEqual(match.team2.scores.last, 1)
+        XCTAssertEqual(match.team1.currentScore, 1)
+        XCTAssertEqual(match.team2.currentScore, 1)
         XCTAssertNil(match.team1.deucePlayer)
         XCTAssertEqual(match.team1.adPlayer?.id, "1")
         XCTAssertNil(match.team2.deucePlayer)
@@ -227,8 +241,8 @@ class LiveMatchTest: XCTestCase {
         
         match.pointFinished(with: LiveMatchShot(playerId: "1", type: .dink, result: .winner, side: .backhand))
         
-        XCTAssertEqual(match.team1.scores.last, 1)
-        XCTAssertEqual(match.team2.scores.last, 0)
+        XCTAssertEqual(match.team1.currentScore, 1)
+        XCTAssertEqual(match.team2.currentScore, 0)
         XCTAssertEqual(match.team1.deucePlayer!.id, "2")
         XCTAssertEqual(match.team1.adPlayer!.id, "1")
         XCTAssertEqual(match.team2.deucePlayer!.id, "3")
@@ -237,8 +251,8 @@ class LiveMatchTest: XCTestCase {
         
         match.pointFinished(with: LiveMatchShot(playerId: "1", type: .dink, result: .winner, side: .backhand))
         
-        XCTAssertEqual(match.team1.scores.last, 2)
-        XCTAssertEqual(match.team2.scores.last, 0)
+        XCTAssertEqual(match.team1.currentScore, 2)
+        XCTAssertEqual(match.team2.currentScore, 0)
         XCTAssertEqual(match.team1.deucePlayer!.id, "1")
         XCTAssertEqual(match.team1.adPlayer!.id, "2")
         XCTAssertEqual(match.team2.deucePlayer!.id, "3")
@@ -247,8 +261,8 @@ class LiveMatchTest: XCTestCase {
         
         match.pointFinished(with: LiveMatchShot(playerId: "4", type: .dink, result: .error, side: .backhand))
         
-        XCTAssertEqual(match.team1.scores.last, 3)
-        XCTAssertEqual(match.team2.scores.last, 0)
+        XCTAssertEqual(match.team1.currentScore, 3)
+        XCTAssertEqual(match.team2.currentScore, 0)
         XCTAssertEqual(match.team1.deucePlayer!.id, "2")
         XCTAssertEqual(match.team1.adPlayer!.id, "1")
         XCTAssertEqual(match.team2.deucePlayer!.id, "3")
@@ -257,8 +271,8 @@ class LiveMatchTest: XCTestCase {
         
         match.pointFinished(with: LiveMatchShot(playerId: "1", type: .dink, result: .error, side: .backhand))
         
-        XCTAssertEqual(match.team1.scores.last, 3)
-        XCTAssertEqual(match.team2.scores.last, 0)
+        XCTAssertEqual(match.team1.currentScore, 3)
+        XCTAssertEqual(match.team2.currentScore, 0)
         XCTAssertEqual(match.team1.deucePlayer!.id, "2")
         XCTAssertEqual(match.team1.adPlayer!.id, "1")
         XCTAssertEqual(match.team2.deucePlayer!.id, "3")
@@ -267,8 +281,8 @@ class LiveMatchTest: XCTestCase {
         
         match.pointFinished(with: LiveMatchShot(playerId: "4", type: .dink, result: .winner, side: .backhand))
         
-        XCTAssertEqual(match.team1.scores.last, 3)
-        XCTAssertEqual(match.team2.scores.last, 1)
+        XCTAssertEqual(match.team1.currentScore, 3)
+        XCTAssertEqual(match.team2.currentScore, 1)
         XCTAssertEqual(match.team1.deucePlayer!.id, "2")
         XCTAssertEqual(match.team1.adPlayer!.id, "1")
         XCTAssertEqual(match.team2.deucePlayer!.id, "4")

@@ -375,19 +375,6 @@ struct LiveMatch {
             guard case .serving(let isFirstServer) = currentServer.servingState else { return }
             scoreResult = .sideout(previousServerId: currentServer.id, wasFirstServer: isFirstServer)
             sideout()
-            
-            // In singles, when a sideout happens, the server's side is based on their score (deuce for an even score, ad for an odd score)
-            if !isDoubles {
-                if team1.isServing &&
-                    ((team1.scores.last! % 2 == 0 && team1.deucePlayer == nil)) ||
-                    ((team1.scores.last! % 2 == 1 && team1.adPlayer == nil)) {
-                    switchSides(isTeam1Intiating: true)
-                } else if team2.isServing &&
-                    ((team2.scores.last! % 2 == 0 && team2.deucePlayer == nil)) ||
-                    ((team2.scores.last! % 2 == 1 && team2.adPlayer == nil)) {
-                    switchSides(isTeam1Intiating: false)
-                }
-            }
         }
         
         pointResults.append(
@@ -443,6 +430,17 @@ struct LiveMatch {
         }
     }
     
+    mutating func ensureSinglesServerSide() {
+        // In singles, when a sideout happens, the server's side is based on their score (deuce for an even score, ad for an odd score)
+        if !isDoubles {
+            let team = currentServingTeam
+            let evenScore = team.currentScore % 2 == 0
+            if (evenScore && team.deucePlayer == nil) || (!evenScore && team.adPlayer == nil) {
+                switchSides(isTeam1Intiating: team1.isServing)
+            }
+        }
+    }
+    
     mutating func unrotateServer(previousServerId: String, wasFirstServer: Bool) {
         setServer(playerId: previousServerId, isFirstServer: wasFirstServer)
     }
@@ -483,6 +481,8 @@ struct LiveMatch {
             team2.adPlayer?.servingState = .serving(isFirstServer: isFirstServer)
         default: break
         }
+        
+        ensureSinglesServerSide()
     }
     
     func toMatch() -> Match {
@@ -514,6 +514,7 @@ struct LiveMatchTeam {
     var players: [LiveMatchPlayer] { [deucePlayer, adPlayer].compactMap { $0 } }
     var isServing: Bool { players.contains { $0.isServing } }
     var isDoubles: Bool { deucePlayer != nil && adPlayer != nil }
+    var currentScore: Int { scores.last ?? 0 }
     
     mutating func earnPoint() {
         scores[scores.count - 1] += 1
