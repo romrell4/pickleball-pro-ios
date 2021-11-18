@@ -72,6 +72,7 @@ struct MatchStatsView: View {
                     Text(filters[index]).tag(index)
                 }
             }
+            .labelsHidden()
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)
             .padding(.bottom)

@@ -20,15 +20,8 @@ struct EnterMatchScoreView: View {
         VStack {
             HStack {
                 VStack {
-                    if team1.count > 1 && team2.count > 1 {
-                        StackedRoundImageViews(size: 50, player1: team1[0], player2: team1[1])
-                        StackedRoundImageViews(size: 50, player1: team2[0], player2: team2[1])
-                    } else {
-                        team1[0].image()
-                            .frame(width: 50, height: 50)
-                        team2[0].image()
-                            .frame(width: 50, height: 50)
-                    }
+                    StackedRoundImageViews(size: 50, player1: team1[safe: 0], player2: team1[safe: 1])
+                    StackedRoundImageViews(size: 50, player1: team2[safe: 0], player2: team2[safe: 1])
                 }.padding(.trailing, 10)
                 ForEach(scores.indices, id: \.self) { index in
                     GameScoreView(score: .proxy($scores[index]))
@@ -101,8 +94,8 @@ struct EnterMatchScoreView_Previews: PreviewProvider {
         
         var body: some View {
             EnterMatchScoreView(
-                team1: [Player.eric],
-                team2: [Player.jessica],
+                team1: [Player.eric, Player.bob],
+                team2: [Player.jessica, Player.bryan],
                 scores: $scores
             )
         }

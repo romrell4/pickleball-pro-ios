@@ -15,6 +15,7 @@
 		F82DB88126BB4E6E0003F7FD /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88026BB4E6E0003F7FD /* Stat.swift */; };
 		F82DB88326BCF6710003F7FD /* MyMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88226BCF6710003F7FD /* MyMatchesView.swift */; };
 		F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */; };
+		F884EE522744B58500B6E74F /* ManualScoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F884EE512744B58500B6E74F /* ManualScoreEditView.swift */; };
 		F897347027209409004B440E /* InitialsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F897346F27209409004B440E /* InitialsImageView.swift */; };
 		F8973474272107BE004B440E /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8973473272107BE004B440E /* Preferences.swift */; };
 		F89868F62730E2BD00719C32 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89868F52730E2BD00719C32 /* LoginManager.swift */; };
@@ -27,7 +28,7 @@
 		F8A3E7F126D70CD900FD6392 /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7F026D70CD900FD6392 /* PlayerDetailsView.swift */; };
 		F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80026A34486001A6655 /* RoundImageView.swift */; };
 		F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */; };
-		F8B42A6026EA842C008BD63C /* SelectServerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B42A5F26EA842C008BD63C /* SelectServerModal.swift */; };
+		F8B42A6026EA842C008BD63C /* SelectServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B42A5F26EA842C008BD63C /* SelectServerView.swift */; };
 		F8B42A6226EA999C008BD63C /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B42A6126EA999C008BD63C /* ModalView.swift */; };
 		F8B484B626BF83F700EE3E53 /* StatTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484B526BF83F700EE3E53 /* StatTracker.swift */; };
 		F8B484BC26C0408000EE3E53 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B484BB26C0408000EE3E53 /* Extensions.swift */; };
@@ -107,6 +108,7 @@
 		F82DB88026BB4E6E0003F7FD /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		F82DB88226BCF6710003F7FD /* MyMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchesView.swift; sourceTree = "<group>"; };
 		F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSummaryView.swift; sourceTree = "<group>"; };
+		F884EE512744B58500B6E74F /* ManualScoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualScoreEditView.swift; sourceTree = "<group>"; };
 		F897346F27209409004B440E /* InitialsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsImageView.swift; sourceTree = "<group>"; };
 		F8973473272107BE004B440E /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		F89868F52730E2BD00719C32 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
@@ -118,7 +120,7 @@
 		F8A3E7F026D70CD900FD6392 /* PlayerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsView.swift; sourceTree = "<group>"; };
 		F8A4C80026A34486001A6655 /* RoundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImageView.swift; sourceTree = "<group>"; };
 		F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedRoundImageViews.swift; sourceTree = "<group>"; };
-		F8B42A5F26EA842C008BD63C /* SelectServerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectServerModal.swift; sourceTree = "<group>"; };
+		F8B42A5F26EA842C008BD63C /* SelectServerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectServerView.swift; sourceTree = "<group>"; };
 		F8B42A6126EA999C008BD63C /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		F8B484B526BF83F700EE3E53 /* StatTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTracker.swift; sourceTree = "<group>"; };
 		F8B484BB26C0408000EE3E53 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -270,9 +272,10 @@
 				F8B484C326C04F6800EE3E53 /* ReportMatchView.swift */,
 				F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */,
 				F8B484B526BF83F700EE3E53 /* StatTracker.swift */,
-				F8B42A5F26EA842C008BD63C /* SelectServerModal.swift */,
+				F8B42A5F26EA842C008BD63C /* SelectServerView.swift */,
 				F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */,
 				F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */,
+				F884EE512744B58500B6E74F /* ManualScoreEditView.swift */,
 			);
 			path = ReportMatch;
 			sourceTree = "<group>";
@@ -590,7 +593,7 @@
 				F89868F62730E2BD00719C32 /* LoginManager.swift in Sources */,
 				F8B484D026C0ABE000EE3E53 /* MatchesViewModel.swift in Sources */,
 				F8B42A6226EA999C008BD63C /* ModalView.swift in Sources */,
-				F8B42A6026EA842C008BD63C /* SelectServerModal.swift in Sources */,
+				F8B42A6026EA842C008BD63C /* SelectServerView.swift in Sources */,
 				F8B484C626C04F7800EE3E53 /* PlayersView.swift in Sources */,
 				F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */,
 				F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */,
@@ -608,6 +611,7 @@
 				F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */,
 				F8C9187F2725C7980042A14C /* ErrorView.swift in Sources */,
 				F8B484C026C04D3600EE3E53 /* MainTabView.swift in Sources */,
+				F884EE522744B58500B6E74F /* ManualScoreEditView.swift in Sources */,
 				F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */,
 				F8BECE4126D9E76D00083AC5 /* BaseViewModel.swift in Sources */,
 				F82DB88326BCF6710003F7FD /* MyMatchesView.swift in Sources */,
@@ -770,7 +774,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				ENABLE_PREVIEWS = YES;
@@ -797,7 +801,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				ENABLE_PREVIEWS = YES;

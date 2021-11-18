@@ -30,17 +30,11 @@ struct IndividualScoreView: View {
     
     var body: some View {
         HStack {
-            if (players.count == 1) {
-                players[0].image()
-                    .frame(width: 40, height: 40)
-            } else {
-                StackedRoundImageViews(
-                    size: 30,
-                    player1: players[0],
-                    player2: players[1]
-                )
-                .frame(width: 40, height: 40)
-            }
+            StackedRoundImageViews(
+                size: 40,
+                player1: players[safe: 0],
+                player2: players[safe: 1]
+            )
                 
             Text(players.map { $0.firstName }.joined(separator: " & "))
             Spacer()

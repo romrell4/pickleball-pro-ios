@@ -49,7 +49,9 @@ struct SettingsView: View {
                     ForEach(ColorSchemePreference.allCases, id: \.self) {
                         Text($0.displayName)
                     }
-                }.pickerStyle(SegmentedPickerStyle())
+                }
+                .labelsHidden()
+                .pickerStyle(SegmentedPickerStyle())
             }
             ToggleSection(
                 isOn: $liveMatchConfirmations,

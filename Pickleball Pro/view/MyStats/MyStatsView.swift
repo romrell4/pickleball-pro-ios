@@ -20,6 +20,7 @@ struct MyStatsView: View {
                                 Text($0.rawValue).tag($0)
                             }
                         }
+                        .labelsHidden()
                         .pickerStyle(SegmentedPickerStyle())
                         .padding()
                         

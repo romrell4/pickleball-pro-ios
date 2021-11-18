@@ -49,13 +49,16 @@ struct StatTracker: View {
                 ForEach(types.indices, id: \.self) { index in
                     Text(types[index].rawValue.capitalized).tag(index)
                 }
-            }.pickerStyle(WheelPickerStyle())
+            }
+            .labelsHidden()
+            .pickerStyle(WheelPickerStyle())
             
             Picker("Result", selection: $resultIndex) {
                 ForEach(results.indices, id: \.self) { index in
                     Text(results[index].rawValue.capitalized).tag(index)
                 }
             }
+            .labelsHidden()
             .pickerStyle(SegmentedPickerStyle())
             
             if !(selectedType == .serve) {
@@ -64,6 +67,7 @@ struct StatTracker: View {
                         Text(sides[index].rawValue.capitalized).tag(index)
                     }
                 }
+                .labelsHidden()
                 .pickerStyle(SegmentedPickerStyle())
             }
             

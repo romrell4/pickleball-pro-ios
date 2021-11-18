@@ -98,6 +98,7 @@ struct DefaultStateView_Previews: PreviewProvider {
                                 Text($0.title)
                             }
                         }
+                        .labelsHidden()
                         .pickerStyle(.menu)
                     }
                 }

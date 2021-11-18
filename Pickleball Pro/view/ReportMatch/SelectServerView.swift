@@ -7,17 +7,16 @@
 
 import SwiftUI
 
-struct SelectServerModal: View {
-    @Binding var team1: LiveMatchTeam
-    @Binding var team2: LiveMatchTeam
-    let onServerTapped: (LiveMatchPlayer) -> Void
+struct SelectServerView: View {
+    @Binding var match: LiveMatch
+    var onServerTapped: (LiveMatchPlayer) -> Void = {_ in}
     
     var body: some View {
         VStack {
-            Text("Who will start serving?")
+            Text("Select the server")
                 .font(.title2)
-            TeamView(team: $team1, isBottom: false, onServerTapped: onServerTapped)
-            TeamView(team: $team2, isBottom: true, onServerTapped: onServerTapped)
+            TeamView(team: $match.team1, isBottom: false, onServerTapped: onServerTapped)
+            TeamView(team: $match.team2, isBottom: true, onServerTapped: onServerTapped)
         }
     }
 }
@@ -80,15 +79,17 @@ private struct PlayerView: View {
     var body: some View {
         if let player = player {
             VStack {
-                player.player.image()
-                    .frame(width: 50, height: 50)
+                HStack(spacing: 4) {
+                    player.player.image()
+                        .frame(width: 50, height: 50)
+                    player.servingState.image
+                }
                 Text(player.firstName)
                     .font(.caption)
                     .frame(width: 70)
             }
             .padding(8)
             .onTapGesture {
-                self.player?.servingState = .serving(isFirstServer: !isDoubles)
                 onServerTapped(player)
             }
         } else {
@@ -100,19 +101,20 @@ private struct PlayerView: View {
 #if DEBUG
 struct SelectServerModal_Previews: PreviewProvider {
     private struct Test: View {
-        @State var team1 = LiveMatchTeam(
-            deucePlayer: LiveMatchPlayer(player: Player.eric),
-            adPlayer: nil //LiveMatchPlayer(player: Player.jessica)
-        )
-        @State var team2 = LiveMatchTeam(
-            deucePlayer: LiveMatchPlayer(player: Player.bryan),
-            adPlayer: LiveMatchPlayer(player: Player.bob)
+        @State var match = LiveMatch(
+            team1: LiveMatchTeam(
+                deucePlayer: LiveMatchPlayer(player: Player.eric),
+                adPlayer: nil //LiveMatchPlayer(player: Player.jessica)
+            ),
+            team2: LiveMatchTeam(
+                deucePlayer: LiveMatchPlayer(player: Player.bryan),
+                adPlayer: LiveMatchPlayer(player: Player.bob)
+            )
         )
         
         var body: some View {
-            SelectServerModal(
-                team1: $team1,
-                team2: $team2
+            SelectServerView(
+                match: $match
             ) {
                 print($0)
             }

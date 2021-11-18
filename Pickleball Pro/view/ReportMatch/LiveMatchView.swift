@@ -16,6 +16,7 @@ struct LiveMatchView: View {
     @State private var match: LiveMatch
     @State private var statTrackerModalState: StatTrackerModalState = .gone
     @State private var selectServerModalVisible: Bool = true
+    @State private var manualScoreEditModalVisible: Bool = false
     @State private var alert: ProAlert? = nil
     @State private var matchStatsModalVisible: Bool = false
     
@@ -70,13 +71,12 @@ struct LiveMatchView: View {
                 }
                 if selectServerModalVisible {
                     ModalView(onDismiss: {}) {
-                        SelectServerModal(
-                            team1: $match.team1,
-                            team2: $match.team2
-                        ) { player in
+                        SelectServerView(match: $match) { player in
                             selectServerModalVisible = false
                             
-                            // If they selected a "player2", switch sides
+                            match.setServer(playerId: player.id, isFirstServer: !match.isDoubles)
+                            
+                            // If they selected a player on the ad side, switch sides
                             switch player.id {
                             case match.team1.adPlayer?.id:
                                 match.switchSides(isTeam1Intiating: true)
@@ -84,6 +84,13 @@ struct LiveMatchView: View {
                                 match.switchSides(isTeam1Intiating: false)
                             default: break
                             }
+                        }
+                    }
+                }
+                if manualScoreEditModalVisible {
+                    ModalView(onDismiss: { manualScoreEditModalVisible = false }) {
+                        ManualScoreEditView(match: $match) {
+                            manualScoreEditModalVisible = false
                         }
                     }
                 }
@@ -139,6 +146,9 @@ struct LiveMatchView: View {
                             } else {
                                 startNewGame()
                             }
+                        }
+                        Button("Edit Score") {
+                            manualScoreEditModalVisible = true
                         }
                         Button("Switch Court Sides") {
                             match.switchCourtSides()
@@ -224,10 +234,6 @@ private struct PlayerView: View {
     @Binding var statTrackerModalState: StatTrackerModalState
     var player: LiveMatchPlayer?
     
-    private let pickleballImage: some View = Image("pickleball")
-        .resizable()
-        .frame(width: 20, height: 20)
-    
     var body: some View {
         if let player = player {
             HStack(spacing: 4) {
@@ -236,16 +242,7 @@ private struct PlayerView: View {
                     .onTapGesture {
                         statTrackerModalState = .visible(player: player)
                     }
-                VStack(spacing: 4) {
-                    switch player.servingState {
-                    case .serving(let isFirstServer):
-                        pickleballImage
-                        if !isFirstServer {
-                            pickleballImage
-                        }
-                    case .notServing: EmptyView()
-                    }
-                }
+                player.servingState.image
             }
         } else {
             Spacer().frame(width: 50)
@@ -302,6 +299,24 @@ private struct ScoreView: View {
     }
 }
 
+extension LiveMatchPlayer.ServingState {
+    var image: some View {
+        VStack(spacing: 4) {
+            let pickleballImage = Image("pickleball")
+                .resizable()
+                .frame(width: 20, height: 20)
+            switch self {
+            case .serving(let isFirstServer):
+                pickleballImage
+                if !isFirstServer {
+                    pickleballImage
+                }
+            case .notServing: EmptyView()
+            }
+        }
+    }
+}
+
 private enum StatTrackerModalState {
     case visible(player: LiveMatchPlayer, savedShot: LiveMatchShot? = nil)
     case gone
@@ -337,7 +352,7 @@ struct LiveMatch {
         team1.scores.append(0)
         team2.scores.append(0)
         
-        resetServer()
+        setServer(playerId: nil)
     }
     
     mutating func pointFinished(with shot: LiveMatchShot) {
@@ -387,85 +402,50 @@ struct LiveMatch {
     
     mutating func sideout() {
         if isDoubles {
-            switch team1.deucePlayer?.servingState {
-            case .serving(let isFirstServer):
+            var newServer: (playerId: String?, firstServer: Bool) = (nil, true)
+            if case let .serving(isFirstServer) = team1.deucePlayer?.servingState {
                 if isFirstServer {
-                    team1.adPlayer?.servingState = .serving(isFirstServer: false)
+                    newServer = (team1.adPlayer?.id, false)
                 } else {
-                    team2.deucePlayer?.servingState = .serving(isFirstServer: true)
+                    newServer = (team2.deucePlayer?.id, true)
                 }
-                team1.deucePlayer?.servingState = .notServing
-                return
-            default: break
-            }
-            
-            switch team1.adPlayer?.servingState {
-            case .serving(let isFirstServer):
+            } else if case let .serving(isFirstServer) = team1.adPlayer?.servingState {
                 if isFirstServer {
-                    team1.deucePlayer?.servingState = .serving(isFirstServer: false)
+                    newServer = (team1.deucePlayer?.id, false)
                 } else {
-                    team2.deucePlayer?.servingState = .serving(isFirstServer: true)
+                    newServer = (team2.deucePlayer?.id, true)
                 }
-                team1.adPlayer?.servingState = .notServing
-                return
-            default: break
-            }
-            
-            switch team2.deucePlayer?.servingState {
-            case .serving(let isFirstServer):
+            } else if case let .serving(isFirstServer) = team2.deucePlayer?.servingState {
                 if isFirstServer {
-                    team2.adPlayer?.servingState = .serving(isFirstServer: false)
+                    newServer = (team2.adPlayer?.id, false)
                 } else {
-                    team1.deucePlayer?.servingState = .serving(isFirstServer: true)
+                    newServer = (team1.deucePlayer?.id, true)
                 }
-                team2.deucePlayer?.servingState = .notServing
-                return
-            default: break
-            }
-            
-            switch team2.adPlayer?.servingState {
-            case .serving(let isFirstServer):
+            } else if case let .serving(isFirstServer) = team2.adPlayer?.servingState {
                 if isFirstServer {
-                    team2.deucePlayer?.servingState = .serving(isFirstServer: false)
+                    newServer = (team2.deucePlayer?.id, false)
                 } else {
-                    team1.deucePlayer?.servingState = .serving(isFirstServer: true)
+                    newServer = (team1.deucePlayer?.id, true)
                 }
-                team2.adPlayer?.servingState = .notServing
-                return
-            default: break
             }
+            setServer(playerId: newServer.playerId, isFirstServer: newServer.firstServer)
         } else {
+            var newServerId: String? = nil
             if team1.deucePlayer?.isServing == true {
-                team2.deucePlayer?.servingState = .serving()
-                team1.deucePlayer?.servingState = .notServing
+                newServerId = team2.deucePlayer?.id
             } else if team1.adPlayer?.isServing == true {
-                team2.adPlayer?.servingState = .serving()
-                team1.adPlayer?.servingState = .notServing
+                newServerId = team2.adPlayer?.id
             } else if team2.deucePlayer?.isServing == true {
-                team1.deucePlayer?.servingState = .serving()
-                team2.deucePlayer?.servingState = .notServing
+                newServerId = team1.deucePlayer?.id
             } else if team2.adPlayer?.isServing == true {
-                team1.adPlayer?.servingState = .serving()
-                team2.adPlayer?.servingState = .notServing
+                newServerId = team1.adPlayer?.id
             }
+            setServer(playerId: newServerId)
         }
     }
     
     mutating func unrotateServer(previousServerId: String, wasFirstServer: Bool) {
-        resetServer()
-        
-        switch previousServerId {
-        case team1.deucePlayer?.id:
-            team1.deucePlayer?.servingState = .serving(isFirstServer: wasFirstServer)
-        case team1.adPlayer?.id:
-            team1.adPlayer?.servingState = .serving(isFirstServer: wasFirstServer)
-        case team2.deucePlayer?.id:
-            team2.deucePlayer?.servingState = .serving(isFirstServer: wasFirstServer)
-        case team2.adPlayer?.id:
-            team2.adPlayer?.servingState = .serving(isFirstServer: wasFirstServer)
-        default:
-            break
-        }
+        setServer(playerId: previousServerId, isFirstServer: wasFirstServer)
     }
     
     mutating func switchSides(isTeam1Intiating: Bool) {
@@ -488,6 +468,24 @@ struct LiveMatch {
         self.team2 = tempTeam
     }
     
+    mutating func setServer(playerId: String?, isFirstServer: Bool = true) {
+        team1.deucePlayer?.servingState = .notServing
+        team1.adPlayer?.servingState = .notServing
+        team2.deucePlayer?.servingState = .notServing
+        team2.adPlayer?.servingState = .notServing
+        switch playerId {
+        case team1.deucePlayer?.id:
+            team1.deucePlayer?.servingState = .serving(isFirstServer: isFirstServer)
+        case team1.adPlayer?.id:
+            team1.adPlayer?.servingState = .serving(isFirstServer: isFirstServer)
+        case team2.deucePlayer?.id:
+            team2.deucePlayer?.servingState = .serving(isFirstServer: isFirstServer)
+        case team2.adPlayer?.id:
+            team2.adPlayer?.servingState = .serving(isFirstServer: isFirstServer)
+        default: break
+        }
+    }
+    
     func toMatch() -> Match {
         Match(
             id: "",
@@ -506,13 +504,6 @@ struct LiveMatch {
                 )
             }
         )
-    }
-    
-    private mutating func resetServer() {
-        team1.deucePlayer?.servingState = .notServing
-        team1.adPlayer?.servingState = .notServing
-        team2.deucePlayer?.servingState = .notServing
-        team2.adPlayer?.servingState = .notServing
     }
 }
 
