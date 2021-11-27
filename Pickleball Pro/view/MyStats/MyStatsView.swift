@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct MyStatsView: View {
     @EnvironmentObject var viewModel: StatsViewModel
@@ -13,28 +14,43 @@ struct MyStatsView: View {
     var body: some View {
         NavigationView {
             DefaultStateView(state: viewModel.state) { state in
-                ScrollView {
-                    VStack {
-                        Picker("Filter", selection: $viewModel.filter) {
-                            ForEach(StatsFilter.allCases, id: \.self) {
-                                Text($0.rawValue).tag($0)
+                GeometryReader { geometry in
+                    ScrollView {
+                        
+                        VStack {
+                            Picker("Filter", selection: $viewModel.filter) {
+                                ForEach(StatsFilter.allCases, id: \.self) {
+                                    Text($0.rawValue).tag($0)
+                                }
                             }
+                            .labelsHidden()
+                            .pickerStyle(SegmentedPickerStyle())
+                            .padding()
+                            
+                            Text("Overall Record")
+                                .font(.title2)
+                            RecordView(state: state)
+                            
+                            Text("Winners vs Errors")
+                                .font(.title2)
+                                .padding(.vertical)
+                            HStack(spacing: 0) {
+                                VStack(spacing: 0) {
+                                    Text("Forehand")
+                                    WinnerErrorPieChart(data: state.forehandShotResultData)
+                                        .frame(width: geometry.size.width/2, height: geometry.size.width/2)
+                                }
+                                VStack(spacing: 0) {
+                                    Text("Backhand")
+                                    WinnerErrorPieChart(data: state.backhandShotResultData)
+                                        .frame(width: geometry.size.width/2, height: geometry.size.width/2)
+                                }
+                            }
+                            
+                            Text("Shots by Type")
+                            ShotTypeBarChart(data: state.shotTypeData)
+                                .frame(height: 300)
                         }
-                        .labelsHidden()
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding()
-                        
-                        Text("Overall Record")
-                        RecordView(state: state)
-                        
-                        // TODO: Add other charts and stuff?
-                        // X-Axis: Shot Type
-                        // Y-Axis: Amount
-                        // Red Bar: Errors
-                        // Blue Bar: Winners
-                        // Look into zooming into x-axis shot types?
-                        
-                        Spacer()
                     }
                 }
             }

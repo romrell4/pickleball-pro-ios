@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Charts
 
 class StatsViewModel: BaseViewModel<StatsViewState> {
     // TODO: Implement caching at the repo level
@@ -63,7 +64,19 @@ class StatsViewModel: BaseViewModel<StatsViewState> {
             }
             
             let (wins, losses, ties) = matches.record(for: me)
-            self.state = .success(StatsViewState(wins: wins, losses: losses, ties: ties))
+            let stats = matches.stats(for: me)
+            let forehandStats = stats.filter { $0.shotSide == .forehand }
+            let backhandStats = stats.filter { $0.shotSide == .backhand }
+            self.state = .success(
+                StatsViewState(
+                    wins: wins,
+                    losses: losses,
+                    ties: ties,
+                    forehandShotResultData: forehandStats.shotResultData(),
+                    backhandShotResultData: backhandStats.shotResultData(),
+                    shotTypeData: stats.shotTypeData()
+                )
+            )
         }
     }
 }
@@ -79,6 +92,30 @@ private extension Array where Element == Match {
             case .didNotPlay: return soFar
             }
         }
+    }
+    
+    func stats(for player: Player) -> [Stat] {
+        return self.flatMap { $0.stats }.filter { $0.playerId == player.id }
+    }
+}
+
+private extension Array where Element == Stat {
+    func shotTypeData() -> [Stat.ShotType: (winners: Double, errors: Double)] {
+        return Dictionary(grouping: self, by: { $0.shotType }).mapValues { stats in
+            return stats.reduce((0, 0)) { partialResult, stat in
+                var soFar = partialResult
+                if stat.shotResult == .winner {
+                    soFar.0 += 1
+                } else {
+                    soFar.1 += 1
+                }
+                return soFar
+            }
+        }
+    }
+    
+    func shotResultData() -> [Stat.Result: Double] {
+        return Dictionary(grouping: self, by: { $0.shotResult }).mapValues { Double($0.count) / Double(self.count) }
     }
 }
 
@@ -124,5 +161,7 @@ struct StatsViewState {
     let wins: Int
     let losses: Int
     let ties: Int
-//    let recordOverTime: [(String, Double)]?
+    let forehandShotResultData: [Stat.Result: Double]
+    let backhandShotResultData: [Stat.Result: Double]
+    let shotTypeData: [Stat.ShotType: (winners: Double, errors: Double)]
 }

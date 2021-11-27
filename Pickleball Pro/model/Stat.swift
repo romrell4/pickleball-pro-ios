@@ -73,6 +73,15 @@ struct Stat: Hashable, Codable {
             var container = encoder.singleValueContainer()
             try container.encode(self.rawValue.uppercased())
         }
+        
+        var pluralString: String {
+            switch self {
+            case .winner:
+                return "Winners"
+            case .error:
+                return "Errors"
+            }
+        }
     }
     
     enum ShotSide: String, CaseIterable, Codable {

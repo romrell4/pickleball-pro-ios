@@ -15,7 +15,10 @@
 		F82DB88126BB4E6E0003F7FD /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88026BB4E6E0003F7FD /* Stat.swift */; };
 		F82DB88326BCF6710003F7FD /* MyMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88226BCF6710003F7FD /* MyMatchesView.swift */; };
 		F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */; };
+		F85DE45E275183B80002C002 /* WinnerErrorPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DE45D275183B80002C002 /* WinnerErrorPieChart.swift */; };
 		F884EE522744B58500B6E74F /* ManualScoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F884EE512744B58500B6E74F /* ManualScoreEditView.swift */; };
+		F884EE55274701DE00B6E74F /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = F884EE54274701DE00B6E74F /* Charts */; };
+		F884EE58274702B100B6E74F /* ShotTypeBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F884EE57274702B100B6E74F /* ShotTypeBarChart.swift */; };
 		F897347027209409004B440E /* InitialsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F897346F27209409004B440E /* InitialsImageView.swift */; };
 		F8973474272107BE004B440E /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8973473272107BE004B440E /* Preferences.swift */; };
 		F89868F62730E2BD00719C32 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89868F52730E2BD00719C32 /* LoginManager.swift */; };
@@ -108,7 +111,9 @@
 		F82DB88026BB4E6E0003F7FD /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		F82DB88226BCF6710003F7FD /* MyMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMatchesView.swift; sourceTree = "<group>"; };
 		F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchSummaryView.swift; sourceTree = "<group>"; };
+		F85DE45D275183B80002C002 /* WinnerErrorPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerErrorPieChart.swift; sourceTree = "<group>"; };
 		F884EE512744B58500B6E74F /* ManualScoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualScoreEditView.swift; sourceTree = "<group>"; };
+		F884EE57274702B100B6E74F /* ShotTypeBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotTypeBarChart.swift; sourceTree = "<group>"; };
 		F897346F27209409004B440E /* InitialsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsImageView.swift; sourceTree = "<group>"; };
 		F8973473272107BE004B440E /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		F89868F52730E2BD00719C32 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
@@ -166,6 +171,7 @@
 				F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */,
 				F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */,
 				CDC85FF341E7F0A49BEFBC9F /* Pods_Pickleball_Pro.framework in Frameworks */,
+				F884EE55274701DE00B6E74F /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +218,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F884EE562747029B00B6E74F /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				F884EE57274702B100B6E74F /* ShotTypeBarChart.swift */,
+				F85DE45D275183B80002C002 /* WinnerErrorPieChart.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
 		F8A3E7E626D491F900FD6392 /* repository */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +238,7 @@
 		F8B484B726BF8A8300EE3E53 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				F884EE562747029B00B6E74F /* Charts */,
 				F8CBF3A62729D40100643E8F /* ProAlert.swift */,
 				F8A4C80426A34D75001A6655 /* StackedRoundImageViews.swift */,
 				F8A4C80026A34486001A6655 /* RoundImageView.swift */,
@@ -416,6 +432,7 @@
 			packageProductDependencies = (
 				F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */,
 				F8A3E7EA26D4971D00FD6392 /* Alamofire */,
+				F884EE54274701DE00B6E74F /* Charts */,
 			);
 			productName = "Pickleball Pro";
 			productReference = F8E75ECC26A337570000F93F /* Pickleball Pro.app */;
@@ -470,6 +487,7 @@
 			packageReferences = (
 				F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				F884EE53274701DE00B6E74F /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = F8E75ECD26A337570000F93F /* Products */;
 			projectDirPath = "";
@@ -595,7 +613,9 @@
 				F8B42A6226EA999C008BD63C /* ModalView.swift in Sources */,
 				F8B42A6026EA842C008BD63C /* SelectServerView.swift in Sources */,
 				F8B484C626C04F7800EE3E53 /* PlayersView.swift in Sources */,
+				F884EE58274702B100B6E74F /* ShotTypeBarChart.swift in Sources */,
 				F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */,
+				F85DE45E275183B80002C002 /* WinnerErrorPieChart.swift in Sources */,
 				F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */,
 				F8B484B626BF83F700EE3E53 /* StatTracker.swift in Sources */,
 				F82DB87B26BB48F00003F7FD /* MatchStatsView.swift in Sources */,
@@ -905,6 +925,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F884EE53274701DE00B6E74F /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -924,6 +952,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F884EE54274701DE00B6E74F /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F884EE53274701DE00B6E74F /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
 		F8A3E7EA26D4971D00FD6392 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */;
