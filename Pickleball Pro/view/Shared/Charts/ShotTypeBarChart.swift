@@ -63,7 +63,6 @@ struct ShotTypeBarChart: UIViewRepresentable {
         data.groupBars(fromX: 0, groupSpace: 0.1, barSpace: 0.05)
         uiView.data = data
         
-        // TODO: Do we want this?
         uiView.animate(yAxisDuration: 1, easingOption: .easeInOutQuad)
     }
     

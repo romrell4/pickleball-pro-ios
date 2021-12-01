@@ -33,8 +33,16 @@ struct WinnerErrorPieChart: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: PieChartView, context: Context) {
-        let dataSet = PieChartDataSet(entries: data.map { PieChartDataEntry(value: $0.1, label: $0.0.pluralString) })
+        let dataSet = PieChartDataSet(
+            entries: Stat.Result.allCases.map {
+                PieChartDataEntry(
+                    value: self.data[$0] ?? 0.0,
+                    label: $0.pluralString
+                )
+            }
+        )
         dataSet.label = ""
+        // This only works because it matches the order of the enums in Stat.Result
         dataSet.colors = [UIColor.blue.withAlphaComponent(0.7), UIColor.red.withAlphaComponent(0.7)]
         let data = PieChartData(dataSet: dataSet)
         uiView.data = data
@@ -42,7 +50,6 @@ struct WinnerErrorPieChart: UIViewRepresentable {
         // This must happen after the data is set on the chart, otherwise, it will get clobbered (https://github.com/danielgindi/Charts/issues/4690#issuecomment-897744617)
         uiView.data?.setValueFormatter(valueFormatter)
         
-        // TODO: Do we want this?
         uiView.animate(yAxisDuration: 1, easingOption: .easeInOutQuad)
     }
     

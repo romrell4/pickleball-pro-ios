@@ -8,37 +8,23 @@
 import SwiftUI
 
 struct TestView: View {
-    @State private var match: TestMatch = TestMatch()
-
     var body: some View {
-        VStack {
-            Text("\(match.team1.score)").font(.title).padding().onTapGesture {
-                match.track(result: nil, forTeam1: true)
+        GroupBox {
+//            GeometryReader { geometry in
+            HStack(spacing: 0) {
+                VStack(spacing: 0) {
+                    Text("Forehand")
+                    WinnerErrorPieChart(data: [.winner: 0.6, .error: 0.4])
+                        .frame(height: 200)
+                }
+                VStack(spacing: 0) {
+                    Text("Backhand")
+                    WinnerErrorPieChart(data: [.winner: 0.25, .error: 0.75])
+                        .frame(height: 200)
+                }
             }
-            Text("\(match.team2.score)").font(.title).padding().onTapGesture {
-                match.track(result: nil, forTeam1: false)
-            }
-        }
-    }
-}
-
-struct TestMatch {
-    var team1: TestTeam = TestTeam()
-    var team2: TestTeam = TestTeam()
-    var results: [String?] = []
-    
-    mutating func track(result: String? = nil, forTeam1: Bool) {
-        results.append(result)
-        var team = forTeam1 ? team1 : team2
-        team.givePoint()
-    }
-}
-
-struct TestTeam {
-    var score: Int = 0
-    
-    mutating func givePoint() {
-        score += 1
+//            }
+        }.padding(.horizontal)
     }
 }
 
