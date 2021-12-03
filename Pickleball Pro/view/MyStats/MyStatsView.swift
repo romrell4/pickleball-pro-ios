@@ -58,6 +58,16 @@ struct MyStatsView: View {
                 }
             }
             .navigationBarTitle("Stats", displayMode: .inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Picker("Select a date filter", selection: $viewModel.dateFilter) {
+                        ForEach(DateFilter.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                }
+            }
         }
         .onAppear {
             viewModel.load()

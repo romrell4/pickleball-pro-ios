@@ -19,6 +19,9 @@ class StatsViewModel: BaseViewModel<StatsViewState> {
     var filter: StatsFilter = .all {
         didSet { updateStateIfReady() }
     }
+    var dateFilter: DateFilter = .all {
+        didSet { updateStateIfReady() }
+    }
     
     func load() {
         guard loginManager.isLoggedIn else {
@@ -61,6 +64,9 @@ class StatsViewModel: BaseViewModel<StatsViewState> {
         if var matches = matches, let me = me {
             if filter != .all {
                 matches = matches.filter { (filter == .doubles) == $0.isDoubles }
+            }
+            if dateFilter != .all {
+                matches = matches.filter { $0.date > dateFilter.threshold }
             }
             
             let (wins, losses, ties) = matches.record(for: me)
@@ -123,6 +129,28 @@ enum StatsFilter: String, CaseIterable {
     case all = "All Matches"
     case singles = "Singles"
     case doubles = "Doubles"
+}
+
+enum DateFilter: String, CaseIterable {
+    case all = "All time"
+    case oneMonth = "Last month"
+    case threeMonths = "Last 3 months"
+    case sixMonths = "Last 6 months"
+    case year = "Last year"
+    
+    private var monthOffset: Int {
+        switch self {
+        case .all: return 1000
+        case .oneMonth: return 1
+        case .threeMonths: return 3
+        case .sixMonths: return 6
+        case .year: return 12
+        }
+    }
+    
+    var threshold: Date {
+        return Calendar.current.date(byAdding: .month, value: -monthOffset, to: Date())!
+    }
 }
 
 enum PlayerMatchResult {

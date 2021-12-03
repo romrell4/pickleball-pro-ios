@@ -138,7 +138,7 @@ class TestRepository: Repository {
     }
     
     func loadMatches(callback: @escaping (Result<[Match], AFError>) -> Void) {
-        callback(.success([Match.doubles, Match.singles]))
+        callback(.success([Match.doubles, Match.singles, Match.old]))
     }
     
     func createMatch(match: Match, callback: @escaping (Result<Match, AFError>) -> Void) {
