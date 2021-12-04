@@ -36,14 +36,14 @@ platform :ios do
       },
       reject_build_waiting_for_review: true
     )
-#    deliver(
-#      submit_for_review: true,
-#      force: true,
-#      skip_binary_upload: true,
-#      submission_information: {
-#        add_id_info_uses_idfa: false
-#      }
-#    )
+    deliver(
+      submit_for_review: true,
+      force: true,
+      skip_binary_upload: true,
+      submission_information: {
+        add_id_info_uses_idfa: false
+      }
+    )
     commit_version_bump
     add_git_tag
     push_to_git_remote
