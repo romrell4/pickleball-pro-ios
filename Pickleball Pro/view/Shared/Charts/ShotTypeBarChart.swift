@@ -53,6 +53,11 @@ struct ShotTypeBarChart: UIViewRepresentable {
         
         chart.rightAxis.enabled = false
         
+        chart.highlightPerTapEnabled = false
+        chart.dragEnabled = false
+        chart.pinchZoomEnabled = false
+        chart.doubleTapToZoomEnabled = false
+        
         return chart
     }
     
