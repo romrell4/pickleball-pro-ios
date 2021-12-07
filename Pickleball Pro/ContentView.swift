@@ -19,7 +19,7 @@ struct ContentView: View {
             .environmentObject(MatchesViewModel(repository: repository, loginManager: loginManager))
             .environmentObject(PlayersViewModel(repository: repository, loginManager: loginManager))
             .environmentObject(StatsViewModel(repository: repository, loginManager: loginManager))
-            .environmentObject(SettingsViewModel(loginManager: loginManager))
+            .environmentObject(SettingsViewModel(repository: repository, loginManager: loginManager))
             .preferredColorScheme(colorScheme.colorScheme)
     }
 }

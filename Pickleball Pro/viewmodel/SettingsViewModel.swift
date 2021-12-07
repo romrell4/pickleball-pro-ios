@@ -7,10 +7,12 @@
 
 import Foundation
 
-class SettingsViewModel: ObservableObject {
-    let loginManager: LoginManager
-    
-    init(loginManager: LoginManager) {
-        self.loginManager = loginManager
+class SettingsViewModel: BaseViewModel<User> {
+    override func loginChanged(isLoggedIn: Bool) {
+        if isLoggedIn, let user = loginManager.user {
+            state = .success(user)
+        } else {
+            state.loggedOut()
+        }
     }
 }

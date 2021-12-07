@@ -18,7 +18,7 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section(header: Text("Account")) {
-                if let user = viewModel.loginManager.user {
+                if let user = viewModel.state.data {
                     if let name = user.displayName {
                         Text("Logged in as \(name)")
                     } else {
@@ -89,7 +89,7 @@ private struct ToggleSection: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
-            .environmentObject(SettingsViewModel(loginManager: TestLoginManager()))
+            .environmentObject(SettingsViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }
 #endif
