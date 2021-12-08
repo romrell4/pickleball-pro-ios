@@ -40,7 +40,7 @@ platform :ios do
       submit_for_review: true,
       force: true,
       skip_binary_upload: true,
-      skip_screenshots: true,
+      skip_metadata: true,
       submission_information: {
         add_id_info_uses_idfa: false
       }
