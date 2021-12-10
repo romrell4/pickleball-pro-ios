@@ -482,7 +482,9 @@ struct LiveMatch {
         default: break
         }
         
-        ensureSinglesServerSide()
+        if playerId != nil {
+            ensureSinglesServerSide()
+        }
     }
     
     func toMatch() -> Match {
