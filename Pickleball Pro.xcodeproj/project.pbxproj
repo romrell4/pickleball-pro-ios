@@ -62,6 +62,7 @@
 		F8E75F4926A33EC60000F93F /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4826A33EC60000F93F /* Player.swift */; };
 		F8ED67DB272DFB9D00EFB491 /* StatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8ED67DA272DFB9D00EFB491 /* StatsViewModel.swift */; };
 		F8F62AEF26C6299B0030FC5D /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F62AEE26C6299B0030FC5D /* TestView.swift */; };
+		F8FE22B42763C3EB005CC759 /* libswift_Concurrency.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F8FE22B32763C3EB005CC759 /* libswift_Concurrency.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +161,7 @@
 		F8E75F4826A33EC60000F93F /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		F8ED67DA272DFB9D00EFB491 /* StatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewModel.swift; sourceTree = "<group>"; };
 		F8F62AEE26C6299B0030FC5D /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		F8FE22B32763C3EB005CC759 /* libswift_Concurrency.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswift_Concurrency.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.0.sdk/usr/lib/swift/libswift_Concurrency.tbd; sourceTree = DEVELOPER_DIR; };
 		FADB2A0A7F2C6C952EF6AFE1 /* Pods-Pickleball ProTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball ProTests.release.xcconfig"; path = "Target Support Files/Pods-Pickleball ProTests/Pods-Pickleball ProTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8FE22B42763C3EB005CC759 /* libswift_Concurrency.tbd in Frameworks */,
 				F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */,
 				F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */,
 				CDC85FF341E7F0A49BEFBC9F /* Pods_Pickleball_Pro.framework in Frameworks */,
@@ -189,6 +192,7 @@
 		46D246D3F12D4BC0C34278E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F8FE22B32763C3EB005CC759 /* libswift_Concurrency.tbd */,
 				217434A095536E9D67EA721B /* Pods_Pickleball_Pro.framework */,
 				1391E19971CF7A3152D4E476 /* Pods_Pickleball_Pro_WatchKit_App.framework */,
 				BA2B95DD5676BF30375CE2E7 /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework */,
@@ -804,6 +808,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -830,6 +838,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
 				);
 				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro";

@@ -21,30 +21,30 @@ platform :ios do
     ensure_git_status_clean
     increment_build_number(xcodeproj: "Pickleball Pro.xcodeproj")
     build_app(workspace: "Pickleball Pro.xcworkspace", scheme: "Pickleball Pro")
-#    upload_to_testflight(
-#      distribute_external: true,
-#      changelog: "Thank you for being a BETA tester! Please test all of the functionality in the app that you would typically use, such as adding/editing/deleting players, reporting matches, etc",
-#      groups: "Beta Testers",
-#      demo_account_required: true,
-#      beta_app_review_info: {
-#        contact_email: "emromrell14@gmail.com",
-#        contact_first_name: "Eric",
-#        contact_last_name: "Romrell",
-#        contact_phone: "503-679-0157",
-#        demo_account_name: "pickleball.pro.demo@gmail.com",
-#        demo_account_password: ENV["TESTFLIGHT_REVIEW_PASSWORD"]
-#      },
-#      reject_build_waiting_for_review: true
-#    )
-#    deliver(
-#      submit_for_review: true,
-#      force: true,
-#      skip_binary_upload: true,
-#      skip_metadata: true,
-#      submission_information: {
-#        add_id_info_uses_idfa: false
-#      }
-#    )
+    upload_to_testflight(
+      distribute_external: true,
+      changelog: "Thank you for being a BETA tester! Please test all of the functionality in the app that you would typically use, such as adding/editing/deleting players, reporting matches, etc",
+      groups: "Beta Testers",
+      demo_account_required: true,
+      beta_app_review_info: {
+        contact_email: "emromrell14@gmail.com",
+        contact_first_name: "Eric",
+        contact_last_name: "Romrell",
+        contact_phone: "503-679-0157",
+        demo_account_name: "pickleball.pro.demo@gmail.com",
+        demo_account_password: ENV["TESTFLIGHT_REVIEW_PASSWORD"]
+      },
+      reject_build_waiting_for_review: true
+    )
+    deliver(
+      submit_for_review: true,
+      force: true,
+      skip_binary_upload: true,
+      skip_metadata: true,
+      submission_information: {
+        add_id_info_uses_idfa: false
+      }
+    )
     commit_version_bump
     add_git_tag
     push_to_git_remote
