@@ -289,4 +289,48 @@ class LiveMatchTest: XCTestCase {
         XCTAssertEqual(match.team2.adPlayer!.id, "3")
         XCTAssertEqual(match.currentServer.id, "3")
     }
+    
+    func testStartNewGame() {
+        var singlesMatch = LiveMatch(
+            team1: LiveMatchTeam(
+                deucePlayer: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving(isFirstServer: false)),
+                scores: []
+            ),
+            team2: LiveMatchTeam(
+                deucePlayer: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: "")),
+                scores: []
+            )
+        )
+        
+        singlesMatch.startNewGame()
+        
+        XCTAssertEqual(singlesMatch.team1.scores, [0])
+        XCTAssertEqual(singlesMatch.team2.scores, [0])
+        
+        XCTAssertFalse(singlesMatch.team1.deucePlayer!.isServing)
+        XCTAssertFalse(singlesMatch.team2.deucePlayer!.isServing)
+        
+        var doublesMatch = LiveMatch(
+            team1: LiveMatchTeam(
+                deucePlayer: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: ""), servingState: .serving(isFirstServer: false)),
+                adPlayer: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: "")),
+                scores: []
+            ),
+            team2: LiveMatchTeam(
+                deucePlayer: LiveMatchPlayer(player: Player(id: "3", firstName: "", lastName: "", imageUrl: "")),
+                adPlayer: LiveMatchPlayer(player: Player(id: "4", firstName: "", lastName: "", imageUrl: "")),
+                scores: []
+            )
+        )
+        
+        doublesMatch.startNewGame()
+        
+        XCTAssertEqual(doublesMatch.team1.scores, [0])
+        XCTAssertEqual(doublesMatch.team2.scores, [0])
+        
+        XCTAssertFalse(doublesMatch.team1.deucePlayer!.isServing)
+        XCTAssertFalse(doublesMatch.team1.adPlayer!.isServing)
+        XCTAssertFalse(doublesMatch.team2.deucePlayer!.isServing)
+        XCTAssertFalse(doublesMatch.team2.adPlayer!.isServing)
+    }
 }
