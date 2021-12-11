@@ -86,7 +86,11 @@ private struct EnterPlayersView: View {
             .actionSheet(isPresented: $showingActionSheet) {
                 ActionSheet(
                     title: Text("Select Player"),
-                    buttons: allPlayers.sorted { lhs, rhs in
+                    buttons: [
+                        .destructive(Text("Create New Player")) {
+                            showingNewPlayerSheet = true
+                        },
+                    ] + allPlayers.sorted { lhs, rhs in
                         lhs.fullName < rhs.fullName
                     }.compactMap { selectablePlayer in
                         .default(Text(selectablePlayer.fullName)) {
@@ -94,9 +98,6 @@ private struct EnterPlayersView: View {
                         }
                     } + [
                         player.id != nil ? .destructive(Text("Remove")) { player = EnterPlayer() } : nil,
-                        .destructive(Text("Create New Player")) {
-                            showingNewPlayerSheet = true
-                        },
                         .cancel()
                     ].compactMap { $0 }
                 )
