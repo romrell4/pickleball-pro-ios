@@ -30,6 +30,15 @@ class MatchTest: XCTestCase {
                 Stat(playerId: "p3", gameIndex: 0, shotType: .serve, shotResult: .winner),
             ]
         )
+        XCTAssertEqual(match.statGroupings().first { $0.label == "Total Winners" }?.team1Amount, 3)
+        XCTAssertEqual(match.statGroupings().first { $0.label == "Total Winners" }?.team2Amount, 1)
+        
+        XCTAssertEqual(match.statGroupings().first { $0.label == "Total Errors" }?.team1Amount, 0)
+        XCTAssertEqual(match.statGroupings().first { $0.label == "Total Errors" }?.team2Amount, 0)
+        
+        XCTAssertEqual(match.statGroupings().first { $0.label == "Aces" }?.team1Amount, 3)
+        XCTAssertEqual(match.statGroupings().first { $0.label == "Aces" }?.team2Amount, 1)
+        
         XCTAssertEqual(match.statGroupings().first { $0.label == "Aces" }?.team1Amount, 3)
         XCTAssertEqual(match.statGroupings().first { $0.label == "Aces" }?.team2Amount, 1)
         

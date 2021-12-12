@@ -55,7 +55,10 @@ struct Match: Identifiable, Codable, Comparable {
             return Stat.Grouping(label: label, team1Stats: team1Stats.filter(predicate), team2Stats: team2Stats.filter(predicate), hasChildren: hasChildren)
         }
         
-        return Stat.ShotType.allCases.flatMap { type in
+        return [
+            grouping("Total Winners", hasChildren: true) { $0.shotResult == .winner },
+            grouping("Total Errors", hasChildren: true) { $0.shotResult == .error },
+        ] + Stat.ShotType.allCases.flatMap { type in
             [
                 grouping(type.winnersLabel, hasChildren: type != .serve) { $0.shotType == type && $0.shotResult == .winner },
                 grouping(type.errorsLabel, hasChildren: type != .serve) { $0.shotType == type && $0.shotResult == .error },
