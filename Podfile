@@ -9,35 +9,18 @@ target 'Pickleball Pro' do
   # Pods for Pickleball Pro
   pod 'Firebase'
   pod 'FirebaseUI'
+  pod 'SDWebImageSwiftUI'
+  pod 'Alamofire'
+  pod 'Charts'
   
   target 'Pickleball ProTests' do
     inherit! :search_paths
   end
 end
 
-target 'Pickleball Pro WatchKit App' do
-  # Comment the next line if you don't want to use dynamic frameworks
+target 'Pickleball Pro Watch WatchKit Extension' do
   use_frameworks!
   inhibit_all_warnings!
-
-  # Pods for Pickleball Pro WatchKit App
-
-  target 'Pickleball Pro WatchKit AppTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'Pickleball Pro WatchKit AppUITests' do
-    # Pods for testing
-  end
-
-end
-
-target 'Pickleball Pro WatchKit Extension' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-  inhibit_all_warnings!
-
-  # Pods for Pickleball Pro WatchKit Extension
-
+  
+  pod 'SDWebImageSwiftUI'
 end

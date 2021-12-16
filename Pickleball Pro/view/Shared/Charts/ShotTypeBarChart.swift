@@ -17,8 +17,8 @@ struct ShotTypeBarChart: UIViewRepresentable {
     let data: [Stat.ShotType: (winners: Double, errors: Double)]
     var winners: BarChartDataSet {
         let dataset = BarChartDataSet(
-            entries: shotTypes.indexed().map {
-                BarChartDataEntry(x: Double($0.index), y: data[$0.element]?.winners ?? 0.0)
+            entries: shotTypes.enumerated().map { (index, element) in
+                BarChartDataEntry(x: Double(index), y: data[element]?.winners ?? 0.0)
             },
             label: "Winners"
         )
@@ -28,8 +28,8 @@ struct ShotTypeBarChart: UIViewRepresentable {
     }
     var errors: BarChartDataSet {
         let dataset = BarChartDataSet(
-            entries: shotTypes.indexed().map {
-                BarChartDataEntry(x: Double($0.index), y: data[$0.element]?.errors ?? 0.0)
+            entries: shotTypes.enumerated().map { (index, element) in
+                BarChartDataEntry(x: Double(index), y: data[element]?.errors ?? 0.0)
             },
             label: "Errors"
         )
@@ -74,7 +74,7 @@ struct ShotTypeBarChart: UIViewRepresentable {
     typealias UIViewType = BarChartView
 }
 
-class XAxisValueFormatter: AxisValueFormatter {
+class XAxisValueFormatter: IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         return shotTypes[safe: Int(value)]?.rawValue.capitalized ?? ""
     }

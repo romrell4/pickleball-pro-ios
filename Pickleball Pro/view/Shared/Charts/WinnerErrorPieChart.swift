@@ -22,7 +22,7 @@ struct WinnerErrorPieChart: UIViewRepresentable {
     
     func makeUIView(context: Context) -> PieChartView {
         let chart = PieChartView()
-        chart.chartDescription.enabled = false
+        chart.chartDescription?.enabled = false
         chart.usePercentValuesEnabled = true
         chart.holeColor = UIColor.systemBackground
         chart.holeRadiusPercent = 0.25

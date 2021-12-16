@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel = WatchViewModel()
+    
     var body: some View {
-        Text("Hello, World!")
-            .padding()
+        if let match = viewModel.match {
+            LiveMatchView(match: match)
+        } else {
+            WaitingView()
+        }
     }
 }
 
