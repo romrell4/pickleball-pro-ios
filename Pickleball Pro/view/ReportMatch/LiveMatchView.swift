@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct LiveMatchView: View {
+    @ObservedObject private var viewModel: LiveMatchViewModel
     @EnvironmentObject var matchesViewModel: MatchesViewModel
     @Environment(\.presentationMode) var presentationMode
     @AppStorage(PreferenceKeys.autoSwitchSides) var autoSwitchSides = false
     @AppStorage(PreferenceKeys.liveMatchConfirmations) var requireConfirmations = true
-    @State private var match: LiveMatch
     @State private var statTrackerModalState: StatTrackerModalState = .gone
     @State private var selectServerModalVisible: Bool = true
     @State private var manualScoreEditModalVisible: Bool = false
@@ -23,7 +23,7 @@ struct LiveMatchView: View {
     
     init?(team1: [Player], team2: [Player], onMatchSaved: @escaping () -> Void) {
         guard team1.count > 0 && team2.count > 0 else { return nil }
-        _match = State(initialValue: LiveMatch(
+        viewModel = LiveMatchViewModel(initialMatch: LiveMatch(
             team1: LiveMatchTeam(
                 deucePlayer: LiveMatchPlayer(
                     player: team1[0]
@@ -46,22 +46,22 @@ struct LiveMatchView: View {
                     .fill(Color("liveMatchBackground"))
                     .edgesIgnoringSafeArea(.bottom)
                 VStack(spacing: 0) {
-                    TeamView(statTrackerModalState: $statTrackerModalState, team: match.team1, isBottomView: false)
+                    TeamView(statTrackerModalState: $statTrackerModalState, team: viewModel.match.team1, isBottomView: false)
                     Image("pickleball_court")
                         .resizable()
-                    TeamView(statTrackerModalState: $statTrackerModalState, team: match.team2, isBottomView: true)
+                    TeamView(statTrackerModalState: $statTrackerModalState, team: viewModel.match.team2, isBottomView: true)
                 }
                 .padding(.vertical)
                 .padding(.leading, 80)
                 
-                ScoresView(match: $match)
+                ScoresView(match: $viewModel.match)
                 
                 switch statTrackerModalState {
                 case .visible(let player, let previousShot):
                     ModalView(onDismiss: { statTrackerModalState = .gone }) {
                         StatTracker(player: player.player, shot: previousShot) { newShot in
                             if let shot = newShot {
-                                match.pointFinished(with: shot)
+                                viewModel.match.pointFinished(with: shot)
                             }
                             statTrackerModalState = .gone
                         }
@@ -70,17 +70,17 @@ struct LiveMatchView: View {
                 }
                 if selectServerModalVisible {
                     ModalView(onDismiss: {}) {
-                        SelectServerView(match: $match) { player in
+                        SelectServerView(match: $viewModel.match) { player in
                             selectServerModalVisible = false
                             
-                            match.setServer(playerId: player.id, isFirstServer: !match.isDoubles)
+                            viewModel.match.setServer(playerId: player.id, isFirstServer: !viewModel.match.isDoubles)
                             
                             // If they selected a player on the ad side, switch sides
                             switch player.id {
-                            case match.team1.adPlayer?.id:
-                                match.switchSides(isTeam1Intiating: true)
-                            case match.team2.adPlayer?.id:
-                                match.switchSides(isTeam1Intiating: false)
+                            case viewModel.match.team1.adPlayer?.id:
+                                viewModel.match.switchSides(isTeam1Intiating: true)
+                            case viewModel.match.team2.adPlayer?.id:
+                                viewModel.match.switchSides(isTeam1Intiating: false)
                             default: break
                             }
                         }
@@ -88,7 +88,7 @@ struct LiveMatchView: View {
                 }
                 if manualScoreEditModalVisible {
                     ModalView(onDismiss: { manualScoreEditModalVisible = false }) {
-                        ManualScoreEditView(match: $match) {
+                        ManualScoreEditView(match: $viewModel.match) {
                             manualScoreEditModalVisible = false
                         }
                     }
@@ -101,7 +101,7 @@ struct LiveMatchView: View {
             .navigationBarTitle("Live Match", displayMode: .inline)
             .navigationBarBackButtonHidden(true)
             .sheet(isPresented: $matchStatsModalVisible) {
-                MatchDetailView(match: match.toMatch())
+                MatchDetailView(match: viewModel.match.toMatch())
             }
             .alert(item: $alert, content: { $0.alert })
             .toolbar {
@@ -150,23 +150,23 @@ struct LiveMatchView: View {
                             manualScoreEditModalVisible = true
                         }
                         Button("Switch Court Sides") {
-                            match.switchCourtSides()
+                            viewModel.match.switchCourtSides()
                         }
-                        if match.canUndoLastShot() {
+                        if viewModel.match.canUndoLastShot() {
                             Button("Undo Last Shot") {
-                                if let result = match.pointResults.popLast() {
+                                if let result = viewModel.match.pointResults.popLast() {
                                     switch result.scoreResult {
                                     case .team1Point:
-                                        match.team1.losePoint()
-                                        match.switchSides(isTeam1Intiating: true)
+                                        viewModel.match.team1.losePoint()
+                                        viewModel.match.switchSides(isTeam1Intiating: true)
                                     case .team2Point:
-                                        match.team2.losePoint()
-                                        match.switchSides(isTeam1Intiating: false)
+                                        viewModel.match.team2.losePoint()
+                                        viewModel.match.switchSides(isTeam1Intiating: false)
                                     case .sideout(let previousServerId, let wasFirstServer):
-                                        match.unrotateServer(previousServerId: previousServerId, wasFirstServer: wasFirstServer)
+                                        viewModel.match.unrotateServer(previousServerId: previousServerId, wasFirstServer: wasFirstServer)
                                     }
                                     statTrackerModalState = .visible(
-                                        player: match.player(for: result.shot.playerId),
+                                        player: viewModel.match.player(for: result.shot.playerId),
                                         savedShot: result.shot
                                     )
                                 }
@@ -184,10 +184,10 @@ struct LiveMatchView: View {
     }
     
     private func startNewGame() {
-        match.startNewGame()
+        viewModel.match.startNewGame()
         
         if autoSwitchSides {
-            match.switchCourtSides()
+            viewModel.match.switchCourtSides()
         }
         
         selectServerModalVisible = true
@@ -195,7 +195,7 @@ struct LiveMatchView: View {
     
     private func finishMatch() {
         // TODO: Allow for sharing
-        matchesViewModel.create(match: match.toMatch()) { error in
+        matchesViewModel.create(match: viewModel.match.toMatch()) { error in
             if let error = error {
                 alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
             } else {

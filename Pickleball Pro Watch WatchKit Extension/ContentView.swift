@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel = WatchViewModel()
+    @StateObject var viewModel = WatchViewModel()
     
     var body: some View {
-        if let match = viewModel.match {
-            LiveMatchView(match: match)
+        if viewModel.match != nil {
+            LiveMatchView(match: Binding($viewModel.match)!)
         } else {
             WaitingView()
         }

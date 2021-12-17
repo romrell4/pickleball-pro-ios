@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LiveMatch: Codable {
+struct LiveMatch: Codable, Equatable {
     var team1: LiveMatchTeam
     var team2: LiveMatchTeam
     var pointResults: [LiveMatchPointResult] = []
@@ -194,9 +194,9 @@ struct LiveMatch: Codable {
     }
 }
 
-struct LiveMatchTeam: Codable {
-    var deucePlayer: LiveMatchPlayer?
-    var adPlayer: LiveMatchPlayer?
+struct LiveMatchTeam: Codable, Equatable {
+    var deucePlayer: LiveMatchPlayer? = nil
+    var adPlayer: LiveMatchPlayer? = nil
     var scores: [Int] = [0]
     
     var players: [LiveMatchPlayer] { [deucePlayer, adPlayer].compactMap { $0 } }
@@ -219,7 +219,7 @@ struct LiveMatchTeam: Codable {
     }
 }
 
-struct LiveMatchPlayer: Codable {
+struct LiveMatchPlayer: Codable, Equatable {
     var player: Player
     var servingState: ServingState = .notServing
     
@@ -233,25 +233,25 @@ struct LiveMatchPlayer: Codable {
         }
     }
     
-    enum ServingState: Codable {
+    enum ServingState: Codable, Equatable {
         case notServing
         case serving(isFirstServer: Bool = true)
     }
 }
 
-struct LiveMatchPointResult: Codable {
+struct LiveMatchPointResult: Codable, Equatable {
     let gameIndex: Int
     let shot: LiveMatchShot
     var scoreResult: ScoreResult
     
-    enum ScoreResult: Codable {
+    enum ScoreResult: Codable, Equatable {
         case team1Point
         case team2Point
         case sideout(previousServerId: String, wasFirstServer: Bool)
     }
 }
 
-struct LiveMatchShot: Codable {
+struct LiveMatchShot: Codable, Equatable {
     let playerId: String
     let type: Stat.ShotType
     let result: Stat.Result
