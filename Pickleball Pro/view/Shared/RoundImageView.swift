@@ -14,7 +14,7 @@ struct RoundImageView: View {
     var body: some View {
         WebImage(url: URL(string: url))
             .resizable()
-            .indicator { isLoading, _ in ActivityIndicator(isLoading) }
+            .indicator { _, _ in ProgressView() }
             .clipShape(Circle())
     }
 }

@@ -3,12 +3,36 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		431C0DCC6E6FF844EB0F6898 /* Pods_Pickleball_ProTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB483765F8794E7E1BF4BDFA /* Pods_Pickleball_ProTests.framework */; };
+		C6E6DAAD775EF8947DB74660 /* Pods_Pickleball_Pro_Watch_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0CB91DBF2A99E6DF2CCF0B5 /* Pods_Pickleball_Pro_Watch_WatchKit_Extension.framework */; };
 		CDC85FF341E7F0A49BEFBC9F /* Pods_Pickleball_Pro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217434A095536E9D67EA721B /* Pods_Pickleball_Pro.framework */; };
+		F826BD94276B9E9E00BAE288 /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826BD93276B9E9E00BAE288 /* WatchSessionManager.swift */; };
+		F826BD95276B9F0600BAE288 /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826BD93276B9E9E00BAE288 /* WatchSessionManager.swift */; };
+		F826BD99276BD61900BAE288 /* LiveMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826BD98276BD61900BAE288 /* LiveMatchViewModel.swift */; };
+		F826BD9B276C3A7300BAE288 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F826BD9A276C3A7300BAE288 /* TestView.swift */; };
+		F82919F7276962DE00D9C552 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F82919F6276962DE00D9C552 /* Assets.xcassets */; };
+		F82919FD276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F82919FC276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F8291A02276962DF00D9C552 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A01276962DF00D9C552 /* ContentView.swift */; };
+		F8291A04276962DF00D9C552 /* Pickleball_ProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A03276962DF00D9C552 /* Pickleball_ProApp.swift */; };
+		F8291A0B276962E100D9C552 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8291A0A276962E100D9C552 /* Preview Assets.xcassets */; };
+		F8291A0F276962E200D9C552 /* Pickleball Pro.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F82919F4276962D900D9C552 /* Pickleball Pro.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F8291A19276966D700D9C552 /* WaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A18276966D700D9C552 /* WaitingView.swift */; };
+		F8291A1C2769674E00D9C552 /* WatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A1B2769674E00D9C552 /* WatchViewModel.swift */; };
+		F8291A222769686600D9C552 /* LiveMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A212769686600D9C552 /* LiveMatch.swift */; };
+		F8291A232769688E00D9C552 /* LiveMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A212769686600D9C552 /* LiveMatch.swift */; };
+		F8291A24276968BF00D9C552 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88026BB4E6E0003F7FD /* Stat.swift */; };
+		F8291A25276968BF00D9C552 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4826A33EC60000F93F /* Player.swift */; };
+		F8291A26276968BF00D9C552 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75F4626A33E960000F93F /* Match.swift */; };
+		F8291A28276968DD00D9C552 /* SharedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A27276968DD00D9C552 /* SharedExtensions.swift */; };
+		F8291A29276968EE00D9C552 /* SharedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A27276968DD00D9C552 /* SharedExtensions.swift */; };
+		F8291A2C2769699A00D9C552 /* InitialsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F897346F27209409004B440E /* InitialsImageView.swift */; };
+		F8291A2E276969B200D9C552 /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A2D276969B200D9C552 /* LiveMatchView.swift */; };
+		F8291A3027696A2E00D9C552 /* StatTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8291A2F27696A2E00D9C552 /* StatTrackerView.swift */; };
+		F8291A3127696A5400D9C552 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80026A34486001A6655 /* RoundImageView.swift */; };
 		F82DB87B26BB48F00003F7FD /* MatchStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87A26BB48F00003F7FD /* MatchStatsView.swift */; };
 		F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */; };
 		F82DB87F26BB4E570003F7FD /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB87E26BB4E570003F7FD /* StatView.swift */; };
@@ -17,7 +41,6 @@
 		F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82DB88426BDB7730003F7FD /* MatchSummaryView.swift */; };
 		F85DE45E275183B80002C002 /* WinnerErrorPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DE45D275183B80002C002 /* WinnerErrorPieChart.swift */; };
 		F884EE522744B58500B6E74F /* ManualScoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F884EE512744B58500B6E74F /* ManualScoreEditView.swift */; };
-		F884EE55274701DE00B6E74F /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = F884EE54274701DE00B6E74F /* Charts */; };
 		F884EE58274702B100B6E74F /* ShotTypeBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F884EE57274702B100B6E74F /* ShotTypeBarChart.swift */; };
 		F897347027209409004B440E /* InitialsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F897346F27209409004B440E /* InitialsImageView.swift */; };
 		F8973474272107BE004B440E /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8973473272107BE004B440E /* Preferences.swift */; };
@@ -26,7 +49,6 @@
 		F8A3E7E326CCAC0B00FD6392 /* LiveMatchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E226CCAC0B00FD6392 /* LiveMatchTest.swift */; };
 		F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */; };
 		F8A3E7E826D4920F00FD6392 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7E726D4920F00FD6392 /* Repository.swift */; };
-		F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F8A3E7EA26D4971D00FD6392 /* Alamofire */; };
 		F8A3E7EF26D705C500FD6392 /* PlayerSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7EE26D705C500FD6392 /* PlayerSummaryView.swift */; };
 		F8A3E7F126D70CD900FD6392 /* PlayerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3E7F026D70CD900FD6392 /* PlayerDetailsView.swift */; };
 		F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A4C80026A34486001A6655 /* RoundImageView.swift */; };
@@ -52,7 +74,6 @@
 		F8CBF3A72729D40100643E8F /* ProAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CBF3A62729D40100643E8F /* ProAlert.swift */; };
 		F8CC712626C42F0800D90FA3 /* LiveMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712526C42F0800D90FA3 /* LiveMatchView.swift */; };
 		F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */; };
-		F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */; };
 		F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ECF26A337570000F93F /* Pickleball_ProApp.swift */; };
 		F8E75ED226A337570000F93F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E75ED126A337570000F93F /* ContentView.swift */; };
 		F8E75ED426A337580000F93F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75ED326A337580000F93F /* Assets.xcassets */; };
@@ -66,6 +87,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F82919FE276962DF00D9C552 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E75EC426A337570000F93F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F82919FB276962DF00D9C552;
+			remoteInfo = "Pickleball Pro Watch WatchKit Extension";
+		};
+		F8291A0D276962E200D9C552 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8E75EC426A337570000F93F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F82919F3276962D900D9C552;
+			remoteInfo = "Pickleball Pro Watch";
+		};
 		F8E75EDE26A337590000F93F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8E75EC426A337570000F93F /* Project object */;
@@ -76,12 +111,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		F8291A12276962E200D9C552 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F82919FD276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8E75F3226A3375C0000F93F /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
+				F8291A0F276962E200D9C552 /* Pickleball Pro.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,12 +147,31 @@
 		8646174E13FA7702070B9F48 /* Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests/Pods-Pickleball Pro WatchKit App-Pickleball Pro WatchKit AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		96F796578F73131E7BA05E67 /* Pods-Pickleball Pro WatchKit AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit AppTests/Pods-Pickleball Pro WatchKit AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		98F1C21810673DD3E273D782 /* Pods-Pickleball ProTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball ProTests.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball ProTests/Pods-Pickleball ProTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A6D478E797645AF29A25892 /* Pods-Pickleball Pro Watch WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro Watch WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro Watch WatchKit Extension/Pods-Pickleball Pro Watch WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		AB6F34F7EE1A5387C44FE0D5 /* Pods-Pickleball Pro WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit Extension/Pods-Pickleball Pro WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		BA2B95DD5676BF30375CE2E7 /* Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro_WatchKit_App_Pickleball_Pro_WatchKit_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB483765F8794E7E1BF4BDFA /* Pods_Pickleball_ProTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_ProTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBACF5EA62A32E1D4DCD939F /* Pods_Pickleball_Pro_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0CB91DBF2A99E6DF2CCF0B5 /* Pods_Pickleball_Pro_Watch_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro_Watch_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D592EB71AF67FB7138B64C56 /* Pods-Pickleball Pro Watch WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro Watch WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro Watch WatchKit Extension/Pods-Pickleball Pro Watch WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		E3AA6A34EBF7E2101CA0A4F1 /* Pods-Pickleball Pro WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pickleball Pro WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-Pickleball Pro WatchKit App/Pods-Pickleball Pro WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
 		ED4F1DAEA0C0049FBDA28575 /* Pods_Pickleball_Pro_WatchKit_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pickleball_Pro_WatchKit_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F826BD93276B9E9E00BAE288 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
+		F826BD98276BD61900BAE288 /* LiveMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchViewModel.swift; sourceTree = "<group>"; };
+		F826BD9A276C3A7300BAE288 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		F82919F4276962D900D9C552 /* Pickleball Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pickleball Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F82919F6276962DE00D9C552 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F82919FC276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Pickleball Pro Watch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8291A01276962DF00D9C552 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
+		F8291A03276962DF00D9C552 /* Pickleball_ProApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pickleball_ProApp.swift; sourceTree = "<group>"; };
+		F8291A0A276962E100D9C552 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F8291A0C276962E200D9C552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8291A18276966D700D9C552 /* WaitingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingView.swift; sourceTree = "<group>"; };
+		F8291A1B2769674E00D9C552 /* WatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchViewModel.swift; sourceTree = "<group>"; };
+		F8291A212769686600D9C552 /* LiveMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatch.swift; sourceTree = "<group>"; };
+		F8291A27276968DD00D9C552 /* SharedExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedExtensions.swift; sourceTree = "<group>"; };
+		F8291A2D276969B200D9C552 /* LiveMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchView.swift; sourceTree = "<group>"; };
+		F8291A2F27696A2E00D9C552 /* StatTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTrackerView.swift; sourceTree = "<group>"; };
 		F82DB87A26BB48F00003F7FD /* MatchStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchStatsView.swift; sourceTree = "<group>"; };
 		F82DB87C26BB4B960003F7FD /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
 		F82DB87E26BB4E570003F7FD /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
@@ -166,15 +232,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B5CF54C3BEED608CA57068F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F82919F9276962DF00D9C552 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6E6DAAD775EF8947DB74660 /* Pods_Pickleball_Pro_Watch_WatchKit_Extension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8E75EC926A337570000F93F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F8FE22B42763C3EB005CC759 /* libswift_Concurrency.tbd in Frameworks */,
-				F8CC712B26C4D69D00D90FA3 /* SDWebImageSwiftUI in Frameworks */,
-				F8A3E7EB26D4971D00FD6392 /* Alamofire in Frameworks */,
 				CDC85FF341E7F0A49BEFBC9F /* Pods_Pickleball_Pro.framework in Frameworks */,
-				F884EE55274701DE00B6E74F /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +277,7 @@
 				ED4F1DAEA0C0049FBDA28575 /* Pods_Pickleball_Pro_WatchKit_AppTests.framework */,
 				BBACF5EA62A32E1D4DCD939F /* Pods_Pickleball_Pro_WatchKit_Extension.framework */,
 				BB483765F8794E7E1BF4BDFA /* Pods_Pickleball_ProTests.framework */,
+				C0CB91DBF2A99E6DF2CCF0B5 /* Pods_Pickleball_Pro_Watch_WatchKit_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -218,8 +297,58 @@
 				AB6F34F7EE1A5387C44FE0D5 /* Pods-Pickleball Pro WatchKit Extension.release.xcconfig */,
 				98F1C21810673DD3E273D782 /* Pods-Pickleball ProTests.debug.xcconfig */,
 				FADB2A0A7F2C6C952EF6AFE1 /* Pods-Pickleball ProTests.release.xcconfig */,
+				D592EB71AF67FB7138B64C56 /* Pods-Pickleball Pro Watch WatchKit Extension.debug.xcconfig */,
+				9A6D478E797645AF29A25892 /* Pods-Pickleball Pro Watch WatchKit Extension.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F82919F5276962D900D9C552 /* Pickleball Pro Watch */ = {
+			isa = PBXGroup;
+			children = (
+				F82919F6276962DE00D9C552 /* Assets.xcassets */,
+			);
+			path = "Pickleball Pro Watch";
+			sourceTree = "<group>";
+		};
+		F8291A00276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F8291A03276962DF00D9C552 /* Pickleball_ProApp.swift */,
+				F8291A17276966BF00D9C552 /* view */,
+				F8291A1A2769673E00D9C552 /* viewmodel */,
+				F8291A0C276962E200D9C552 /* Info.plist */,
+				F8291A09276962E100D9C552 /* Preview Content */,
+			);
+			path = "Pickleball Pro Watch WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		F8291A09276962E100D9C552 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F8291A0A276962E100D9C552 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F8291A17276966BF00D9C552 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				F8291A01276962DF00D9C552 /* ContentView.swift */,
+				F8291A18276966D700D9C552 /* WaitingView.swift */,
+				F8291A2D276969B200D9C552 /* LiveMatchView.swift */,
+				F8291A2F27696A2E00D9C552 /* StatTrackerView.swift */,
+				F826BD9A276C3A7300BAE288 /* TestView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		F8291A1A2769673E00D9C552 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				F8291A1B2769674E00D9C552 /* WatchViewModel.swift */,
+			);
+			path = viewmodel;
 			sourceTree = "<group>";
 		};
 		F884EE562747029B00B6E74F /* Charts */ = {
@@ -258,9 +387,11 @@
 			isa = PBXGroup;
 			children = (
 				F8B484BB26C0408000EE3E53 /* Extensions.swift */,
+				F8291A27276968DD00D9C552 /* SharedExtensions.swift */,
 				F8BECE3C26D9DAE600083AC5 /* ErrorHandler.swift */,
 				F8973473272107BE004B440E /* Preferences.swift */,
 				F89868F52730E2BD00719C32 /* LoginManager.swift */,
+				F826BD93276B9E9E00BAE288 /* WatchSessionManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -296,6 +427,7 @@
 				F8CC712726C4302200D90FA3 /* EnterMatchScoreView.swift */,
 				F8A3E7E426CED27400FD6392 /* SelectPlayersView.swift */,
 				F884EE512744B58500B6E74F /* ManualScoreEditView.swift */,
+				F8291A212769686600D9C552 /* LiveMatch.swift */,
 			);
 			path = ReportMatch;
 			sourceTree = "<group>";
@@ -327,6 +459,7 @@
 				F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */,
 				F8ED67DA272DFB9D00EFB491 /* StatsViewModel.swift */,
 				F8CB4F1727344ADD00D9891E /* SettingsViewModel.swift */,
+				F826BD98276BD61900BAE288 /* LiveMatchViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -336,6 +469,8 @@
 			children = (
 				F8E75ECE26A337570000F93F /* Pickleball Pro */,
 				F8E75EE026A337590000F93F /* Pickleball ProTests */,
+				F82919F5276962D900D9C552 /* Pickleball Pro Watch */,
+				F8291A00276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension */,
 				F8E75ECD26A337570000F93F /* Products */,
 				D4F0726FD0D18F0D3FEE268F /* Pods */,
 				46D246D3F12D4BC0C34278E6 /* Frameworks */,
@@ -347,6 +482,8 @@
 			children = (
 				F8E75ECC26A337570000F93F /* Pickleball Pro.app */,
 				F8E75EDD26A337590000F93F /* Pickleball ProTests.xctest */,
+				F82919F4276962D900D9C552 /* Pickleball Pro.app */,
+				F82919FC276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -416,6 +553,43 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F82919F3276962D900D9C552 /* Pickleball Pro Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8291A16276962E200D9C552 /* Build configuration list for PBXNativeTarget "Pickleball Pro Watch" */;
+			buildPhases = (
+				F82919F2276962D900D9C552 /* Resources */,
+				F8291A12276962E200D9C552 /* Embed App Extensions */,
+				B5CF54C3BEED608CA57068F1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F82919FF276962DF00D9C552 /* PBXTargetDependency */,
+			);
+			name = "Pickleball Pro Watch";
+			productName = "Pickleball Pro Watch";
+			productReference = F82919F4276962D900D9C552 /* Pickleball Pro.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		F82919FB276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8291A15276962E200D9C552 /* Build configuration list for PBXNativeTarget "Pickleball Pro Watch WatchKit Extension" */;
+			buildPhases = (
+				3929193E7555BA699FEF048C /* [CP] Check Pods Manifest.lock */,
+				F82919F8276962DF00D9C552 /* Sources */,
+				F82919F9276962DF00D9C552 /* Frameworks */,
+				F82919FA276962DF00D9C552 /* Resources */,
+				25B74B2A28C235FDAAD2E29C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pickleball Pro Watch WatchKit Extension";
+			productName = "Pickleball Pro Watch WatchKit Extension";
+			productReference = F82919FC276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		F8E75ECB26A337570000F93F /* Pickleball Pro */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8E75F3326A3375C0000F93F /* Build configuration list for PBXNativeTarget "Pickleball Pro" */;
@@ -431,13 +605,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				F8291A0E276962E200D9C552 /* PBXTargetDependency */,
 			);
 			name = "Pickleball Pro";
-			packageProductDependencies = (
-				F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */,
-				F8A3E7EA26D4971D00FD6392 /* Alamofire */,
-				F884EE54274701DE00B6E74F /* Charts */,
-			);
 			productName = "Pickleball Pro";
 			productReference = F8E75ECC26A337570000F93F /* Pickleball Pro.app */;
 			productType = "com.apple.product-type.application";
@@ -467,9 +637,15 @@
 		F8E75EC426A337570000F93F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					F82919F3276962D900D9C552 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					F82919FB276962DF00D9C552 = {
+						CreatedOnToolsVersion = 13.1;
+					};
 					F8E75ECB26A337570000F93F = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
@@ -488,22 +664,35 @@
 				Base,
 			);
 			mainGroup = F8E75EC326A337570000F93F;
-			packageReferences = (
-				F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				F884EE53274701DE00B6E74F /* XCRemoteSwiftPackageReference "Charts" */,
-			);
 			productRefGroup = F8E75ECD26A337570000F93F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				F8E75ECB26A337570000F93F /* Pickleball Pro */,
 				F8E75EDC26A337590000F93F /* Pickleball ProTests */,
+				F82919F3276962D900D9C552 /* Pickleball Pro Watch */,
+				F82919FB276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F82919F2276962D900D9C552 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F82919F7276962DE00D9C552 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F82919FA276962DF00D9C552 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8291A0B276962E100D9C552 /* Preview Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8E75ECA26A337570000F93F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -524,6 +713,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		25B74B2A28C235FDAAD2E29C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro Watch WatchKit Extension/Pods-Pickleball Pro Watch WatchKit Extension-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro Watch WatchKit Extension/Pods-Pickleball Pro Watch WatchKit Extension-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pickleball Pro Watch WatchKit Extension/Pods-Pickleball Pro Watch WatchKit Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3929193E7555BA699FEF048C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pickleball Pro Watch WatchKit Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4E64399026D72EBC9748B33A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -605,6 +833,28 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F82919F8276962DF00D9C552 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8291A04276962DF00D9C552 /* Pickleball_ProApp.swift in Sources */,
+				F8291A232769688E00D9C552 /* LiveMatch.swift in Sources */,
+				F8291A3027696A2E00D9C552 /* StatTrackerView.swift in Sources */,
+				F8291A29276968EE00D9C552 /* SharedExtensions.swift in Sources */,
+				F8291A26276968BF00D9C552 /* Match.swift in Sources */,
+				F8291A02276962DF00D9C552 /* ContentView.swift in Sources */,
+				F826BD9B276C3A7300BAE288 /* TestView.swift in Sources */,
+				F8291A1C2769674E00D9C552 /* WatchViewModel.swift in Sources */,
+				F8291A2E276969B200D9C552 /* LiveMatchView.swift in Sources */,
+				F8291A25276968BF00D9C552 /* Player.swift in Sources */,
+				F826BD95276B9F0600BAE288 /* WatchSessionManager.swift in Sources */,
+				F8291A24276968BF00D9C552 /* Stat.swift in Sources */,
+				F8291A19276966D700D9C552 /* WaitingView.swift in Sources */,
+				F8291A3127696A5400D9C552 /* RoundImageView.swift in Sources */,
+				F8291A2C2769699A00D9C552 /* InitialsImageView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F8E75EC826A337570000F93F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -630,10 +880,12 @@
 				F8E75F4926A33EC60000F93F /* Player.swift in Sources */,
 				F8ED67DB272DFB9D00EFB491 /* StatsViewModel.swift in Sources */,
 				F8E75F4726A33E960000F93F /* Match.swift in Sources */,
+				F826BD99276BD61900BAE288 /* LiveMatchViewModel.swift in Sources */,
 				F8A3E7E526CED27400FD6392 /* SelectPlayersView.swift in Sources */,
 				F8A3E7F126D70CD900FD6392 /* PlayerDetailsView.swift in Sources */,
 				F82DB87D26BB4B960003F7FD /* MatchDetailView.swift in Sources */,
 				F8C9187F2725C7980042A14C /* ErrorView.swift in Sources */,
+				F8291A28276968DD00D9C552 /* SharedExtensions.swift in Sources */,
 				F8B484C026C04D3600EE3E53 /* MainTabView.swift in Sources */,
 				F884EE522744B58500B6E74F /* ManualScoreEditView.swift in Sources */,
 				F82DB88526BDB7730003F7FD /* MatchSummaryView.swift in Sources */,
@@ -644,11 +896,13 @@
 				F8A4C80126A34486001A6655 /* RoundImageView.swift in Sources */,
 				F8A3E7EF26D705C500FD6392 /* PlayerSummaryView.swift in Sources */,
 				F8C918812725CD820042A14C /* DefaultStateView.swift in Sources */,
+				F8291A222769686600D9C552 /* LiveMatch.swift in Sources */,
 				F897347027209409004B440E /* InitialsImageView.swift in Sources */,
 				F8973474272107BE004B440E /* Preferences.swift in Sources */,
 				F8A3E7DE26C7371300FD6392 /* PlayersViewModel.swift in Sources */,
 				F8A4C80526A34D75001A6655 /* StackedRoundImageViews.swift in Sources */,
 				F8BECE3D26D9DAE600083AC5 /* ErrorHandler.swift in Sources */,
+				F826BD94276B9E9E00BAE288 /* WatchSessionManager.swift in Sources */,
 				F8BECE4D26DDDA2900083AC5 /* LoginView.swift in Sources */,
 				F8B484CD26C0517300EE3E53 /* SettingsView.swift in Sources */,
 				F8CBF3A72729D40100643E8F /* ProAlert.swift in Sources */,
@@ -669,6 +923,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F82919FF276962DF00D9C552 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F82919FB276962DF00D9C552 /* Pickleball Pro Watch WatchKit Extension */;
+			targetProxy = F82919FE276962DF00D9C552 /* PBXContainerItemProxy */;
+		};
+		F8291A0E276962E200D9C552 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F82919F3276962D900D9C552 /* Pickleball Pro Watch */;
+			targetProxy = F8291A0D276962E200D9C552 /* PBXContainerItemProxy */;
+		};
 		F8E75EDF26A337590000F93F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F8E75ECB26A337570000F93F /* Pickleball Pro */;
@@ -677,6 +941,120 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		F8291A10276962E200D9C552 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 34;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = Pickleball_Pro_Watch_WatchKit_Extension;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.romrell4.Pickleball-Pro";
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro.watchkitapp";
+				PRODUCT_NAME = "Pickleball Pro";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		F8291A11276962E200D9C552 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 34;
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = Pickleball_Pro_Watch_WatchKit_Extension;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.romrell4.Pickleball-Pro";
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro.watchkitapp";
+				PRODUCT_NAME = "Pickleball Pro";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
+		F8291A13276962E200D9C552 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D592EB71AF67FB7138B64C56 /* Pods-Pickleball Pro Watch WatchKit Extension.debug.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 34;
+				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro Watch WatchKit Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pickleball Pro Watch WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pickleball Pro";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Debug;
+		};
+		F8291A14276962E200D9C552 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A6D478E797645AF29A25892 /* Pods-Pickleball Pro Watch WatchKit Extension.release.xcconfig */;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 34;
+				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro Watch WatchKit Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = G9JN5J3VZ9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pickleball Pro Watch WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Pickleball Pro";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.romrell4.Pickleball-Pro.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 8.0;
+			};
+			name = Release;
+		};
 		F8E75F2926A3375C0000F93F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -795,7 +1173,6 @@
 			baseConfigurationReference = 54DE0D5F13F8BD755B107420 /* Pods-Pickleball Pro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 34;
@@ -826,7 +1203,6 @@
 			baseConfigurationReference = 77AC1AAA049DAD2D1A3CEB86 /* Pods-Pickleball Pro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 34;
@@ -907,6 +1283,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F8291A15276962E200D9C552 /* Build configuration list for PBXNativeTarget "Pickleball Pro Watch WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8291A13276962E200D9C552 /* Debug */,
+				F8291A14276962E200D9C552 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8291A16276962E200D9C552 /* Build configuration list for PBXNativeTarget "Pickleball Pro Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8291A10276962E200D9C552 /* Debug */,
+				F8291A11276962E200D9C552 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F8E75EC726A337570000F93F /* Build configuration list for PBXProject "Pickleball Pro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -935,51 +1329,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		F884EE53274701DE00B6E74F /* XCRemoteSwiftPackageReference "Charts" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/danielgindi/Charts.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-		F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.4.3;
-			};
-		};
-		F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		F884EE54274701DE00B6E74F /* Charts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F884EE53274701DE00B6E74F /* XCRemoteSwiftPackageReference "Charts" */;
-			productName = Charts;
-		};
-		F8A3E7EA26D4971D00FD6392 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F8A3E7E926D4971D00FD6392 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		F8CC712A26C4D69D00D90FA3 /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F8CC712926C4D69D00D90FA3 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F8E75EC426A337570000F93F /* Project object */;
 }

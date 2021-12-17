@@ -39,6 +39,16 @@ struct InitialsImageView: View {
     }
 }
 
+private extension Color {
+    var luminoscity: CGFloat {
+        guard let comps = UIColor(self).cgColor.components else { return 0 }
+        let red = comps[0] * 0.299
+        let green = comps[1] * 0.587
+        let blue = comps[2] * 0.114
+        return (red + green + blue) * 256
+    }
+}
+
 struct InitialsImageView_Previews: PreviewProvider {
     static var previews: some View {
         InitialsImageView(firstName: "Jessica", lastName: "Romrell")
