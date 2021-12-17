@@ -62,8 +62,10 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
                 self.delegate?.onReceivedMatch(match: match)
             }
         } else if let command = try? decoder.decode(Command.self, from: messageData) {
-            switch command {
-            case .closeMatch: delegate?.onMatchClosed()
+            DispatchQueue.main.async {
+                switch command {
+                case .closeMatch: self.delegate?.onMatchClosed()
+                }
             }
         }
     }
