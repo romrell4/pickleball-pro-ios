@@ -9,7 +9,14 @@ import Foundation
 import WatchConnectivity
 
 protocol WatchSessionManagerDelegate {
+    func onSessionActivated()
     func onReceivedMatch(match: LiveMatch)
+    func onMatchClosed()
+}
+
+extension WatchSessionManagerDelegate {
+    func onSessionActivated() {}
+    func onMatchClosed() {}
 }
 
 class WatchSessionManager: NSObject, WCSessionDelegate {
@@ -34,6 +41,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
             print("Error activating watch session: \(error)")
         } else {
             print("Successfully activated watch session")
+            delegate?.onSessionActivated()
         }
     }
     
@@ -53,6 +61,10 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
             DispatchQueue.main.async {
                 self.delegate?.onReceivedMatch(match: match)
             }
+        } else if let command = try? decoder.decode(Command.self, from: messageData) {
+            switch command {
+            case .closeMatch: delegate?.onMatchClosed()
+            }
         }
     }
     
@@ -61,4 +73,14 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
             session.sendMessageData(data, replyHandler: nil)
         }
     }
+    
+    func sendCommand(command: Command) {
+        if let data = try? encoder.encode(command) {
+            session.sendMessageData(data, replyHandler: nil)
+        }
+    }
+}
+
+enum Command: Codable {
+    case closeMatch
 }

@@ -112,7 +112,9 @@ struct LiveMatchView: View {
                         alert = Alert(
                             title: Text("Are you sure?"),
                             message: Text("By leaving this screen, you will lose any data that you have tracked as part of this match."),
-                            primaryButton: .destructive(Text("Yes")) { self.presentationMode.wrappedValue.dismiss()
+                            primaryButton: .destructive(Text("Yes")) {
+                                viewModel.closeMatch()
+                                self.presentationMode.wrappedValue.dismiss()
                             },
                             secondaryButton: .cancel(Text("No"))
                         ).toProAlert()
@@ -201,6 +203,7 @@ struct LiveMatchView: View {
             if let error = error {
                 alert = Alert(title: Text("Error"), message: Text(error.errorDescription)).toProAlert()
             } else {
+                viewModel.closeMatch()
                 presentationMode.wrappedValue.dismiss()
                 onMatchSaved()
             }

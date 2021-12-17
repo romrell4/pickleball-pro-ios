@@ -22,11 +22,18 @@ class LiveMatchViewModel: ObservableObject, WatchSessionManagerDelegate {
         
         self.$match.sink {
             self.sessionManager.updateMatch(match: $0)
-        }
-        .store(in: &cancellables)
+        }.store(in: &cancellables)
+    }
+    
+    func onSessionActivated() {
+        self.sessionManager.updateMatch(match: self.match)
     }
     
     func onReceivedMatch(match: LiveMatch) {
         self.match = match
+    }
+    
+    func closeMatch() {
+        self.sessionManager.sendCommand(command: .closeMatch)
     }
 }

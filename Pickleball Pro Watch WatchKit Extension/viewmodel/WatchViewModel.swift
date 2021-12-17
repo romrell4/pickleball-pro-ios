@@ -31,4 +31,8 @@ class WatchViewModel: ObservableObject, WatchSessionManagerDelegate {
     func onReceivedMatch(match: LiveMatch) {
         self.match = match
     }
+    
+    func onMatchClosed() {
+        self.match = nil
+    }
 }
