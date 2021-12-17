@@ -13,58 +13,56 @@ struct LiveMatchView: View {
     @State private var statTrackerShowedForPlayer: Player? = nil
     
     var body: some View {
-        NavigationView {
-            HStack(spacing: 10) {
+        HStack(spacing: 10) {
+            VStack(spacing: 10) {
+                Text("\(match.team1.scores.last!)")
+                    .font(.title3)
+                Text("\(match.team2.scores.last!)")
+                    .font(.title3)
+            }
+            #if DEBUG
+            .onTapGesture {
+                showingSettings = true
+            }
+            #endif
+            GeometryReader { geometry in
+                let hSpacing = CGFloat(match.isDoubles ? 4 : 0)
+                let playerSize = geometry.size.width / 2 - (hSpacing / 2)
                 VStack(spacing: 10) {
-                    Text("\(match.team1.scores.last!)")
-                        .font(.title3)
-                    Text("\(match.team2.scores.last!)")
-                        .font(.title3)
-                }
-                #if DEBUG
-                .onTapGesture {
-                    showingSettings = true
-                }
-                #endif
-                GeometryReader { geometry in
-                    let hSpacing = CGFloat(match.isDoubles ? 4 : 0)
-                    let playerSize = geometry.size.width / 2 - (hSpacing / 2)
-                    VStack(spacing: 10) {
-                        HStack(spacing: hSpacing) {
-                            if !match.isDoubles {
-                                Spacer()
-                            }
-                            if let player = match.team1.deucePlayer?.player {
-                                PlayerLink(player: player, size: playerSize).onTapGesture {
-                                    statTrackerShowedForPlayer = player
-                                }
-                            }
-                            if let player = match.team1.adPlayer?.player {
-                                PlayerLink(player: player, size: playerSize).onTapGesture {
-                                    statTrackerShowedForPlayer = player
-                                }
-                            }
-                            if !match.isDoubles {
-                                Spacer()
+                    HStack(spacing: hSpacing) {
+                        if !match.isDoubles {
+                            Spacer()
+                        }
+                        if let player = match.team1.deucePlayer?.player {
+                            PlayerLink(player: player, size: playerSize).onTapGesture {
+                                statTrackerShowedForPlayer = player
                             }
                         }
-                        HStack(spacing: hSpacing) {
-                            if !match.isDoubles {
-                                Spacer()
+                        if let player = match.team1.adPlayer?.player {
+                            PlayerLink(player: player, size: playerSize).onTapGesture {
+                                statTrackerShowedForPlayer = player
                             }
-                            if let player = match.team2.deucePlayer?.player {
-                                PlayerLink(player: player, size: playerSize).onTapGesture {
-                                    statTrackerShowedForPlayer = player
-                                }
+                        }
+                        if !match.isDoubles {
+                            Spacer()
+                        }
+                    }
+                    HStack(spacing: hSpacing) {
+                        if !match.isDoubles {
+                            Spacer()
+                        }
+                        if let player = match.team2.deucePlayer?.player {
+                            PlayerLink(player: player, size: playerSize).onTapGesture {
+                                statTrackerShowedForPlayer = player
                             }
-                            if let player = match.team2.adPlayer?.player {
-                                PlayerLink(player: player, size: playerSize).onTapGesture {
-                                    statTrackerShowedForPlayer = player
-                                }
+                        }
+                        if let player = match.team2.adPlayer?.player {
+                            PlayerLink(player: player, size: playerSize).onTapGesture {
+                                statTrackerShowedForPlayer = player
                             }
-                            if !match.isDoubles {
-                                Spacer()
-                            }
+                        }
+                        if !match.isDoubles {
+                            Spacer()
                         }
                     }
                 }

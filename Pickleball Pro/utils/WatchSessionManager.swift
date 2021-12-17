@@ -18,8 +18,9 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     private var session: WCSession
     private var encoder = JSONEncoder()
     private var decoder = JSONDecoder()
-    private var isReachable = false
     private var lastReceivedMatch: LiveMatch? = nil
+    
+    var isReachable: Bool { session.isReachable }
     
     init(session: WCSession = .default) {
         self.session = session
@@ -32,7 +33,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
         if let error = error {
             print("Error activating watch session: \(error)")
         } else {
-            print("Successfully actived watch session")
+            print("Successfully activated watch session")
         }
     }
     

@@ -19,6 +19,8 @@ struct LiveMatchView: View {
     @State private var alert: ProAlert? = nil
     @State private var matchStatsModalVisible: Bool = false
     
+    @State private var isReachable = false
+    
     var onMatchSaved: () -> Void
     
     init?(team1: [Player], team2: [Player], onMatchSaved: @escaping () -> Void) {
