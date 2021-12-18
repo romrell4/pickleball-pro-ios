@@ -236,6 +236,13 @@ struct LiveMatchPlayer: Codable, Equatable {
     enum ServingState: Codable, Equatable {
         case notServing
         case serving(isFirstServer: Bool = true)
+        
+        var badgeNum: Int? {
+            switch self {
+            case .notServing: return nil
+            case .serving(let isFirstServer): return isFirstServer ? 1 : 2
+            }
+        }
     }
 }
 

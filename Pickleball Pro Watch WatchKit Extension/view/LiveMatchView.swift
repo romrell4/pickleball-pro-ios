@@ -12,6 +12,8 @@ struct LiveMatchView: View {
     @State private var showingSettings = false
     @State private var statTrackerShowedForPlayer: Player? = nil
     
+    private var hSpacing: CGFloat { match.isDoubles ? 4 : 0 }
+    
     var body: some View {
         HStack(spacing: 10) {
             VStack(spacing: 10) {
@@ -26,45 +28,10 @@ struct LiveMatchView: View {
             }
             #endif
             GeometryReader { geometry in
-                let hSpacing = CGFloat(match.isDoubles ? 4 : 0)
                 let playerSize = geometry.size.width / 2 - (hSpacing / 2)
                 VStack(spacing: 10) {
-                    HStack(spacing: hSpacing) {
-                        if !match.isDoubles {
-                            Spacer()
-                        }
-                        if let player = match.team1.deucePlayer?.player {
-                            PlayerLink(player: player, size: playerSize).onTapGesture {
-                                statTrackerShowedForPlayer = player
-                            }
-                        }
-                        if let player = match.team1.adPlayer?.player {
-                            PlayerLink(player: player, size: playerSize).onTapGesture {
-                                statTrackerShowedForPlayer = player
-                            }
-                        }
-                        if !match.isDoubles {
-                            Spacer()
-                        }
-                    }
-                    HStack(spacing: hSpacing) {
-                        if !match.isDoubles {
-                            Spacer()
-                        }
-                        if let player = match.team2.deucePlayer?.player {
-                            PlayerLink(player: player, size: playerSize).onTapGesture {
-                                statTrackerShowedForPlayer = player
-                            }
-                        }
-                        if let player = match.team2.adPlayer?.player {
-                            PlayerLink(player: player, size: playerSize).onTapGesture {
-                                statTrackerShowedForPlayer = player
-                            }
-                        }
-                        if !match.isDoubles {
-                            Spacer()
-                        }
-                    }
+                    teamView(for: match.team1, playerSize: playerSize)
+                    teamView(for: match.team2, playerSize: playerSize)
                 }
             }
         }
@@ -94,15 +61,43 @@ struct LiveMatchView: View {
             }
         }
     }
-}
-
-private struct PlayerLink : View {
-    let player: Player
-    let size: CGFloat
     
-    var body: some View {
-        player.image()
-            .frame(width: size, height: size)
+    private func teamView(for team: LiveMatchTeam, playerSize: CGFloat) -> some View {
+        HStack(spacing: hSpacing) {
+            if !team.isDoubles {
+                Spacer()
+            }
+            playerView(for: team.deucePlayer, size: playerSize)
+            playerView(for: team.adPlayer, size: playerSize)
+            if !team.isDoubles {
+                Spacer()
+            }
+        }
+    }
+    
+    @ViewBuilder private func playerView(for player: LiveMatchPlayer?, size: CGFloat) -> some View {
+        if let player = player {
+            let image = player.player.image()
+                .frame(width: size, height: size)
+                .onTapGesture {
+                    statTrackerShowedForPlayer = player.player
+                }
+            if let count = player.servingState.badgeNum {
+                image.overlay(
+                    ZStack(alignment: .topTrailing) {
+                        Color.clear
+                        Text(String(count))
+                            .foregroundColor(.black)
+                            .frame(width: 20, height: 20)
+                            .background(Color.yellow)
+                            .clipShape(Circle())
+                            .overlay(Circle().strokeBorder(.black))
+                    }
+                )
+            } else {
+                image
+            }
+        }
     }
 }
 

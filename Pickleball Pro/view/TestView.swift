@@ -8,23 +8,40 @@
 import SwiftUI
 
 struct TestView: View {
+    @State var someVar = false
+    
+    @State var color1: Color? = .red
+    @State var color2: Color? = .blue
+    @State var color3: Color? = .yellow
+    @State var color4: Color? = .green
+    
     var body: some View {
-        GroupBox {
-//            GeometryReader { geometry in
-            HStack(spacing: 0) {
-                VStack(spacing: 0) {
-                    Text("Forehand")
-                    WinnerErrorPieChart(data: [.winner: 0.6, .error: 0.4])
-                        .frame(height: 200)
+        VStack {
+            HStack {
+                if let color = color1 {
+                    Circle().fill(color).onTapGesture { someVar = true }
                 }
-                VStack(spacing: 0) {
-                    Text("Backhand")
-                    WinnerErrorPieChart(data: [.winner: 0.25, .error: 0.75])
-                        .frame(height: 200)
+                if let color = color2 {
+                    Circle().fill(color).onTapGesture { someVar = true }
                 }
             }
-//            }
-        }.padding(.horizontal)
+            HStack {
+                if let color = color3 {
+                    Circle().fill(color).onTapGesture { someVar = true }
+                }
+                if let color = color4 {
+                    Circle().fill(color).onTapGesture { someVar = true }
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder func circle(_ color: Color?) -> some View {
+        if let color = color {
+            Circle().fill(color).onTapGesture {
+                someVar = true
+            }
+        }
     }
 }
 
