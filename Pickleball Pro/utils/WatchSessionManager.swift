@@ -8,29 +8,32 @@
 import Foundation
 import WatchConnectivity
 
-protocol WatchSessionManagerDelegate {
-    func onSessionActivated()
+protocol WatchSessionManagerObserver {
     func onReceivedMatch(match: LiveMatch)
     func onMatchClosed()
-}
-
-extension WatchSessionManagerDelegate {
-    func onSessionActivated() {}
-    func onMatchClosed() {}
+    func refreshMatch()
 }
 
 class WatchSessionManager: NSObject, WCSessionDelegate {
-    var delegate: WatchSessionManagerDelegate? = nil
+    static let instance = WatchSessionManager()
     
-    private var session: WCSession
+    private var observerMap = [String: WatchSessionManagerObserver]()
+    private var observers: [WatchSessionManagerObserver] { Array(observerMap.values) }
+    func addObserver(_ observer: WatchSessionManagerObserver) {
+        observerMap[String(describing: observer)] = observer
+    }
+    func removeObserver(_ observer: WatchSessionManagerObserver) {
+        observerMap.removeValue(forKey: String(describing: observer))
+    }
+    
+    private var session: WCSession = .default
     private var encoder = JSONEncoder()
     private var decoder = JSONDecoder()
     private var lastReceivedMatch: LiveMatch? = nil
     
     var isReachable: Bool { session.isReachable }
     
-    init(session: WCSession = .default) {
-        self.session = session
+    private override init() {
         super.init()
         self.session.delegate = self
         self.session.activate()
@@ -41,7 +44,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
             print("Error activating watch session: \(error)")
         } else {
             print("Successfully activated watch session")
-            delegate?.onSessionActivated()
+            observers.forEach { $0.refreshMatch() }
         }
     }
     
@@ -59,12 +62,13 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
         if let match = try? decoder.decode(LiveMatch.self, from: messageData) {
             lastReceivedMatch = match
             DispatchQueue.main.async {
-                self.delegate?.onReceivedMatch(match: match)
+                self.observers.forEach { $0.onReceivedMatch(match: match) }
             }
         } else if let command = try? decoder.decode(Command.self, from: messageData) {
             DispatchQueue.main.async {
                 switch command {
-                case .closeMatch: self.delegate?.onMatchClosed()
+                case .closeMatch: self.observers.forEach { $0.onMatchClosed() }
+                case .refreshMatch: self.observers.forEach { $0.refreshMatch() }
                 }
             }
         }
@@ -85,4 +89,5 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
 
 enum Command: Codable {
     case closeMatch
+    case refreshMatch
 }

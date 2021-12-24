@@ -9,23 +9,17 @@ import Foundation
 import SwiftUI
 import Combine
 
-class WatchViewModel: ObservableObject, WatchSessionManagerDelegate {
+class WatchViewModel: ObservableObject, WatchSessionManagerObserver {
     @Published var match: LiveMatch? = nil
     
-    private let sessionManager: WatchSessionManager
-    private var cancellables = Set<AnyCancellable>()
+    private let sessionManager: WatchSessionManager = .instance
     
     init() {
-        self.sessionManager = WatchSessionManager()
-        self.sessionManager.delegate = self
-        
-        $match
-            .sink { match in
-                if let match = match {
-                    self.sessionManager.updateMatch(match: match)
-                }
-            }
-            .store(in: &cancellables)
+        self.sessionManager.addObserver(self)
+    }
+    
+    deinit {
+        self.sessionManager.removeObserver(self)
     }
     
     func onReceivedMatch(match: LiveMatch) {
@@ -34,5 +28,9 @@ class WatchViewModel: ObservableObject, WatchSessionManagerDelegate {
     
     func onMatchClosed() {
         self.match = nil
+    }
+
+    func refreshMatch() {
+        self.sessionManager.sendCommand(command: .refreshMatch)
     }
 }

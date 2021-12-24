@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct LiveMatch: Codable, Equatable {
     var team1: LiveMatchTeam
@@ -18,7 +19,9 @@ struct LiveMatch: Codable, Equatable {
     
     var currentGameIndex: Int { team1.scores.count - 1 }
     
+    // TODO: Make this nullable?
     var currentServer: LiveMatchPlayer { allPlayers.first { $0.isServing }! }
+    var needsServer: Bool { !allPlayers.contains { $0.isServing } }
     
     var currentServingTeam: LiveMatchTeam {
         team1.players.contains { $0.id == currentServer.id } ? team1 : team2
@@ -149,6 +152,19 @@ struct LiveMatch: Codable, Equatable {
         let tempTeam = team1
         self.team1 = team2
         self.team2 = tempTeam
+    }
+    
+    mutating func selectInitialServer(playerId: String) {
+        setServer(playerId: playerId, isFirstServer: !isDoubles)
+        
+        // If they selected a player on the ad side, switch sides
+        switch playerId {
+        case team1.adPlayer?.id:
+            switchSides(isTeam1Intiating: true)
+        case team2.adPlayer?.id:
+            switchSides(isTeam1Intiating: false)
+        default: break
+        }
     }
     
     mutating func setServer(playerId: String?, isFirstServer: Bool = true) {

@@ -7,19 +7,23 @@
 import SwiftUI
 
 struct LiveMatchView: View {
-    @Binding var match: LiveMatch
+    @ObservedObject var viewModel: LiveMatchViewModel
     
     @State private var showingSettings = false
     @State private var statTrackerShowedForPlayer: Player? = nil
     
-    private var hSpacing: CGFloat { match.isDoubles ? 4 : 0 }
+    private var hSpacing: CGFloat { viewModel.match.isDoubles ? 4 : 0 }
+    
+    init(match: LiveMatch, closeMatch: @escaping () -> Void) {
+        self.viewModel = LiveMatchViewModel(initialMatch: match, closeMatch: closeMatch)
+    }
     
     var body: some View {
         HStack(spacing: 10) {
             VStack(spacing: 10) {
-                Text("\(match.team1.scores.last!)")
+                Text("\(viewModel.match.team1.scores.last!)")
                     .font(.title3)
-                Text("\(match.team2.scores.last!)")
+                Text("\(viewModel.match.team2.scores.last!)")
                     .font(.title3)
             }
             #if DEBUG
@@ -30,8 +34,8 @@ struct LiveMatchView: View {
             GeometryReader { geometry in
                 let playerSize = geometry.size.width / 2 - (hSpacing / 2)
                 VStack(spacing: 10) {
-                    teamView(for: match.team1, playerSize: playerSize)
-                    teamView(for: match.team2, playerSize: playerSize)
+                    teamView(for: viewModel.match.team1, playerSize: playerSize)
+                    teamView(for: viewModel.match.team2, playerSize: playerSize)
                 }
             }
         }
@@ -48,16 +52,26 @@ struct LiveMatchView: View {
         .sheet(isPresented: $showingSettings) {
             List {
                 Button("Start New Game") {
-                    // TODO: Deal with selecting new server
-                    match.startNewGame()
+                    viewModel.match.startNewGame()
                     showingSettings = false
                 }
-                // TODO: Add other necessary options
+                Button("Refresh from Phone") {
+                    viewModel.refreshMatch()
+                    showingSettings = false
+                }
+            }
+        }
+        .sheet(isPresented: Binding(
+            get: { viewModel.match.needsServer },
+            set: { _ in }
+        )) {
+            SelectServerView(match: $viewModel.match) { player in
+                viewModel.match.selectInitialServer(playerId: player.id)
             }
         }
         .sheet(item: $statTrackerShowedForPlayer) { player in
             StatTrackerView(player: player) {
-                match.pointFinished(with: $0)
+                viewModel.match.pointFinished(with: $0)
             }
         }
     }
@@ -77,34 +91,18 @@ struct LiveMatchView: View {
     
     @ViewBuilder private func playerView(for player: LiveMatchPlayer?, size: CGFloat) -> some View {
         if let player = player {
-            let image = player.player.image()
-                .frame(width: size, height: size)
+            player.imageWithServer(imageSize: size)
                 .onTapGesture {
                     statTrackerShowedForPlayer = player.player
                 }
-            if let count = player.servingState.badgeNum {
-                image.overlay(
-                    ZStack(alignment: .topTrailing) {
-                        Color.clear
-                        Text(String(count))
-                            .foregroundColor(.black)
-                            .frame(width: 20, height: 20)
-                            .background(Color.yellow)
-                            .clipShape(Circle())
-                            .overlay(Circle().strokeBorder(.black))
-                    }
-                )
-            } else {
-                image
-            }
         }
     }
 }
 
 #if DEBUG
-struct LiveMatchView_Previews: PreviewProvider {
-    private struct Test: View {
-        @State var match = LiveMatch(
+struct LiveMatchView_Previews: PreviewProvider {    
+    static var previews: some View {
+        LiveMatchView(match: LiveMatch(
             team1: LiveMatchTeam(
                 deucePlayer: LiveMatchPlayer(
                     player: Player.eric,
@@ -118,15 +116,9 @@ struct LiveMatchView_Previews: PreviewProvider {
                 adPlayer: LiveMatchPlayer(player: Player.bob),
                 scores: [6]
             )
-        )
-        
-        var body: some View {
-            LiveMatchView(match: $match)
+        )) {
+            print("Closed")
         }
-    }
-    
-    static var previews: some View {
-        Test()
     }
 }
 #endif

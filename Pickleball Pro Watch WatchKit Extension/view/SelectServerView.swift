@@ -1,8 +1,8 @@
 //
-//  SelectServerModal.swift
-//  Pickleball Pro
+//  SelectServerView.swift
+//  Pickleball Pro Watch WatchKit Extension
 //
-//  Created by Eric Romrell on 9/9/21.
+//  Created by Eric Romrell on 12/18/21.
 //
 
 import SwiftUI
@@ -12,12 +12,15 @@ struct SelectServerView: View {
     var onServerTapped: (LiveMatchPlayer) -> Void = {_ in}
     
     var body: some View {
-        VStack {
-            Text("Select the server")
-                .font(.title2)
-            TeamView(team: $match.team1, isBottom: false, onServerTapped: onServerTapped)
-            TeamView(team: $match.team2, isBottom: true, onServerTapped: onServerTapped)
+        ScrollView {
+            VStack {
+                Text("Select the server")
+                    .font(.body)
+                TeamView(team: $match.team1, isBottom: false, onServerTapped: onServerTapped)
+                TeamView(team: $match.team2, isBottom: true, onServerTapped: onServerTapped)
+            }
         }
+        .navigationBarHidden(true)
     }
 }
 
@@ -78,13 +81,12 @@ private struct PlayerView: View {
     
     var body: some View {
         if let player = player {
-            VStack {
+            VStack(spacing: 0) {
                 player.imageWithServer(imageSize: 50)
                 Text(player.firstName)
                     .font(.caption)
                     .frame(width: 70)
             }
-            .padding(8)
             .onTapGesture {
                 onServerTapped(player)
             }
@@ -95,7 +97,7 @@ private struct PlayerView: View {
 }
 
 #if DEBUG
-struct SelectServerModal_Previews: PreviewProvider {
+struct SelectServerView_Previews: PreviewProvider {
     private struct Test: View {
         @State var match = LiveMatch(
             team1: LiveMatchTeam(

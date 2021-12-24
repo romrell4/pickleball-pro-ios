@@ -15,11 +15,11 @@ protocol PlayerImagable {
 }
 
 extension PlayerImagable {
-    func image() -> some View {
+    @ViewBuilder func image() -> some View {
         if let imageUrl = imageUrl, !imageUrl.isEmpty {
-            return AnyView(RoundImageView(url: imageUrl))
+            RoundImageView(url: imageUrl)
         } else {
-            return AnyView(InitialsImageView(firstName: _firstName ?? "", lastName: _lastName ?? ""))
+            InitialsImageView(firstName: _firstName ?? "", lastName: _lastName ?? "")
         }
     }
 }

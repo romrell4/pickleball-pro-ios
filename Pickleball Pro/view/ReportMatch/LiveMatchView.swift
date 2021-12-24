@@ -14,7 +14,6 @@ struct LiveMatchView: View {
     @AppStorage(PreferenceKeys.autoSwitchSides) var autoSwitchSides = false
     @AppStorage(PreferenceKeys.liveMatchConfirmations) var requireConfirmations = true
     @State private var statTrackerModalState: StatTrackerModalState = .gone
-    @State private var selectServerModalVisible: Bool = true
     @State private var manualScoreEditModalVisible: Bool = false
     @State private var alert: ProAlert? = nil
     @State private var matchStatsModalVisible: Bool = false
@@ -70,21 +69,10 @@ struct LiveMatchView: View {
                     }
                 case .gone: EmptyView()
                 }
-                if selectServerModalVisible {
+                if viewModel.match.needsServer {
                     ModalView(onDismiss: {}) {
                         SelectServerView(match: $viewModel.match) { player in
-                            selectServerModalVisible = false
-                            
-                            viewModel.match.setServer(playerId: player.id, isFirstServer: !viewModel.match.isDoubles)
-                            
-                            // If they selected a player on the ad side, switch sides
-                            switch player.id {
-                            case viewModel.match.team1.adPlayer?.id:
-                                viewModel.match.switchSides(isTeam1Intiating: true)
-                            case viewModel.match.team2.adPlayer?.id:
-                                viewModel.match.switchSides(isTeam1Intiating: false)
-                            default: break
-                            }
+                            viewModel.serverSelected(playerId: player.id)
                         }
                     }
                 }
@@ -142,12 +130,12 @@ struct LiveMatchView: View {
                                     title: Text("Are you sure?"),
                                     message: Text("You will not be able to come back to edit this game after starting a new one."),
                                     primaryButton: .default(Text("Yes")) {
-                                        startNewGame()
+                                        viewModel.startNewGame(autoSwitchSides: autoSwitchSides)
                                     },
                                     secondaryButton: .cancel(Text("No"))
                                 ).toProAlert()
                             } else {
-                                startNewGame()
+                                viewModel.startNewGame(autoSwitchSides: autoSwitchSides)
                             }
                         }
                         Button("Edit Score") {
@@ -185,16 +173,6 @@ struct LiveMatchView: View {
                 }
             }
         }
-    }
-    
-    private func startNewGame() {
-        viewModel.match.startNewGame()
-        
-        if autoSwitchSides {
-            viewModel.match.switchCourtSides()
-        }
-        
-        selectServerModalVisible = true
     }
     
     private func finishMatch() {
@@ -240,13 +218,8 @@ private struct PlayerView: View {
     
     var body: some View {
         if let player = player {
-            HStack(spacing: 4) {
-                player.player.image()
-                    .frame(width: 50, height: 50)
-                    .onTapGesture {
-                        statTrackerModalState = .visible(player: player)
-                    }
-                player.servingState.image
+            player.imageWithServer(imageSize: 50).onTapGesture {
+                statTrackerModalState = .visible(player: player)
             }
         } else {
             Spacer().frame(width: 50)
@@ -299,24 +272,6 @@ private struct ScoreView: View {
     var body: some View {
         GroupBox {
             Text("\(score)").frame(width: 22)
-        }
-    }
-}
-
-extension LiveMatchPlayer.ServingState {
-    var image: some View {
-        VStack(spacing: 4) {
-            let pickleballImage = Image("pickleball")
-                .resizable()
-                .frame(width: 20, height: 20)
-            switch self {
-            case .serving(let isFirstServer):
-                pickleballImage
-                if !isFirstServer {
-                    pickleballImage
-                }
-            case .notServing: EmptyView()
-            }
         }
     }
 }

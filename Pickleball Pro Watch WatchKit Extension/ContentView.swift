@@ -11,10 +11,14 @@ struct ContentView: View {
     @StateObject var viewModel = WatchViewModel()
     
     var body: some View {
-        if viewModel.match != nil {
-            LiveMatchView(match: Binding($viewModel.match)!)
+        if let match = viewModel.match {
+            LiveMatchView(match: match) {
+                viewModel.match = nil
+            }
         } else {
-            WaitingView()
+            WaitingView {
+                viewModel.refreshMatch()
+            }
         }
     }
 }

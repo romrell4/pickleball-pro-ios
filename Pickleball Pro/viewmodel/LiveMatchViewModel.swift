@@ -8,26 +8,27 @@
 import Foundation
 import Combine
 
-class LiveMatchViewModel: ObservableObject, WatchSessionManagerDelegate {
+class LiveMatchViewModel: ObservableObject, WatchSessionManagerObserver {
     // TODO: Move more logic into here?
     @Published var match: LiveMatch
     
-    private let sessionManager: WatchSessionManager
+    private let sessionManager: WatchSessionManager = .instance
     private var cancellables = Set<AnyCancellable>()
     
     init(initialMatch: LiveMatch) {
         self.match = initialMatch
-        self.sessionManager = WatchSessionManager()
-        self.sessionManager.delegate = self
+        self.sessionManager.addObserver(self)
         
-        self.$match.sink {
-            self.sessionManager.updateMatch(match: $0)
+        self.$match.sink { match in
+            self.sessionManager.updateMatch(match: match)
         }.store(in: &cancellables)
     }
     
-    func onSessionActivated() {
-        self.sessionManager.updateMatch(match: self.match)
+    deinit {
+        self.sessionManager.removeObserver(self)
     }
+    
+    func onMatchClosed() {}
     
     func onReceivedMatch(match: LiveMatch) {
         self.match = match
@@ -35,5 +36,24 @@ class LiveMatchViewModel: ObservableObject, WatchSessionManagerDelegate {
     
     func closeMatch() {
         self.sessionManager.sendCommand(command: .closeMatch)
+        
+        // Remove the observer, so that if the watch tries to refresh, this won't accidentally send the old match again (since the view model doesn't deinit for some reason)
+        self.sessionManager.removeObserver(self)
+    }
+    
+    func serverSelected(playerId: String) {
+        match.selectInitialServer(playerId: playerId)
+    }
+    
+    func startNewGame(autoSwitchSides: Bool) {
+        match.startNewGame()
+        
+        if autoSwitchSides {
+            match.switchCourtSides()
+        }
+    }
+    
+    func refreshMatch() {
+        sessionManager.updateMatch(match: match)
     }
 }

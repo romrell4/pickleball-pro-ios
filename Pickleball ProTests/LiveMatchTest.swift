@@ -333,4 +333,60 @@ class LiveMatchTest: XCTestCase {
         XCTAssertFalse(doublesMatch.team2.deucePlayer!.isServing)
         XCTAssertFalse(doublesMatch.team2.adPlayer!.isServing)
     }
+    
+    func testSelectInitialServer() {
+        var singlesMatch = LiveMatch(
+            team1: LiveMatchTeam(
+                deucePlayer: nil,
+                adPlayer: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: "")),
+                scores: []
+            ),
+            team2: LiveMatchTeam(
+                deucePlayer: nil,
+                adPlayer: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: "")),
+                scores: []
+            )
+        )
+        singlesMatch.selectInitialServer(playerId: "1")
+        // It should always start on the deuce side
+        XCTAssertEqual(singlesMatch.team1.deucePlayer!.id, "1")
+        XCTAssertNil(singlesMatch.team1.adPlayer)
+        XCTAssertEqual(singlesMatch.team2.deucePlayer!.id, "2")
+        XCTAssertNil(singlesMatch.team2.adPlayer)
+        XCTAssertTrue(singlesMatch.team1.deucePlayer!.isServing)
+        XCTAssertEqual(singlesMatch.team1.deucePlayer!.servingState, LiveMatchPlayer.ServingState.serving(isFirstServer: true))
+        XCTAssertFalse(singlesMatch.team2.deucePlayer!.isServing)
+        
+        var doublesMatch = LiveMatch(
+            team1: LiveMatchTeam(
+                deucePlayer: LiveMatchPlayer(player: Player(id: "1", firstName: "", lastName: "", imageUrl: "")),
+                adPlayer: LiveMatchPlayer(player: Player(id: "2", firstName: "", lastName: "", imageUrl: "")),
+                scores: []
+            ),
+            team2: LiveMatchTeam(
+                deucePlayer: LiveMatchPlayer(player: Player(id: "3", firstName: "", lastName: "", imageUrl: "")),
+                adPlayer: LiveMatchPlayer(player: Player(id: "4", firstName: "", lastName: "", imageUrl: "")),
+                scores: []
+            )
+        )
+        doublesMatch.selectInitialServer(playerId: "1")
+        // They shouldn't switch, but player 1 should be the second server
+        XCTAssertEqual(doublesMatch.team1.deucePlayer!.id, "1")
+        XCTAssertEqual(doublesMatch.team1.adPlayer!.id, "2")
+        XCTAssertEqual(doublesMatch.team2.deucePlayer!.id, "3")
+        XCTAssertEqual(doublesMatch.team2.adPlayer!.id, "4")
+        XCTAssertTrue(doublesMatch.team1.deucePlayer!.isServing)
+        XCTAssertEqual(doublesMatch.team1.deucePlayer!.servingState, LiveMatchPlayer.ServingState.serving(isFirstServer: false))
+        XCTAssertFalse(doublesMatch.team2.deucePlayer!.isServing)
+        
+        doublesMatch.selectInitialServer(playerId: "2")
+        // Now it should switch team1, but not team2
+        XCTAssertEqual(doublesMatch.team1.deucePlayer!.id, "2")
+        XCTAssertEqual(doublesMatch.team1.adPlayer!.id, "1")
+        XCTAssertEqual(doublesMatch.team2.deucePlayer!.id, "3")
+        XCTAssertEqual(doublesMatch.team2.adPlayer!.id, "4")
+        XCTAssertTrue(doublesMatch.team1.deucePlayer!.isServing)
+        XCTAssertEqual(doublesMatch.team1.deucePlayer!.servingState, LiveMatchPlayer.ServingState.serving(isFirstServer: false))
+        XCTAssertFalse(doublesMatch.team2.deucePlayer!.isServing)
+    }
 }
