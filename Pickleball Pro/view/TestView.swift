@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+#if DEBUG
 struct TestView: View {
     @State private var live = false
     
@@ -25,3 +26,4 @@ struct TestView: View {
 struct TestView_Previews: PreviewProvider {
     static var previews: some View { TestView() }
 }
+#endif
