@@ -9,11 +9,20 @@ import SwiftUI
 
 @main
 struct Pickleball_ProApp: App {
+    @WKExtensionDelegateAdaptor var extensionDelegate: ExtensionDelegate
+    
     var body: some Scene {
         WindowGroup {
             NavigationView {
                 ContentView()
             }
         }
+    }
+}
+
+class ExtensionDelegate: NSObject, WKExtensionDelegate {
+    func applicationDidFinishLaunching() {
+        // Initialize the watch session
+        let _ = WatchSessionManager.instance
     }
 }
