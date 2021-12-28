@@ -34,8 +34,8 @@ struct LiveMatchView: View {
             GeometryReader { geometry in
                 let playerSize = geometry.size.width / 2 - (hSpacing / 2)
                 VStack(spacing: 10) {
-                    teamView(for: viewModel.match.team1, playerSize: playerSize)
-                    teamView(for: viewModel.match.team2, playerSize: playerSize)
+                    teamView(for: viewModel.match.team1, playerSize: playerSize, top: true)
+                    teamView(for: viewModel.match.team2, playerSize: playerSize, top: false)
                 }
             }
         }
@@ -76,13 +76,13 @@ struct LiveMatchView: View {
         }
     }
     
-    private func teamView(for team: LiveMatchTeam, playerSize: CGFloat) -> some View {
+    private func teamView(for team: LiveMatchTeam, playerSize: CGFloat, top: Bool) -> some View {
         HStack(spacing: hSpacing) {
             if !team.isDoubles {
                 Spacer()
             }
-            playerView(for: team.deucePlayer, size: playerSize)
-            playerView(for: team.adPlayer, size: playerSize)
+            playerView(for: top ? team.deucePlayer : team.adPlayer, size: playerSize)
+            playerView(for: top ? team.adPlayer : team.deucePlayer, size: playerSize)
             if !team.isDoubles {
                 Spacer()
             }
