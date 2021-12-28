@@ -61,6 +61,7 @@ struct StatTrackerView: View {
     }
 }
 
+#if DEBUG
 struct StatTrackerView_Previews: PreviewProvider {
     static var previews: some View {
         StatTrackerView(player: Player.eric) { _ in
@@ -68,3 +69,4 @@ struct StatTrackerView_Previews: PreviewProvider {
         }
     }
 }
+#endif
