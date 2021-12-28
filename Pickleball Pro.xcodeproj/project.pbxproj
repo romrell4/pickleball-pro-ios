@@ -41,8 +41,6 @@
 		F85DE45E275183B80002C002 /* WinnerErrorPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DE45D275183B80002C002 /* WinnerErrorPieChart.swift */; };
 		F884EE522744B58500B6E74F /* ManualScoreEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F884EE512744B58500B6E74F /* ManualScoreEditView.swift */; };
 		F884EE58274702B100B6E74F /* ShotTypeBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F884EE57274702B100B6E74F /* ShotTypeBarChart.swift */; };
-		F88DF5A9276E534E001E168D /* SharedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DF5A8276E534E001E168D /* SharedExtensions.swift */; };
-		F88DF5AA276E5357001E168D /* SharedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DF5A8276E534E001E168D /* SharedExtensions.swift */; };
 		F88DF5AB276E5383001E168D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E75ED326A337580000F93F /* Assets.xcassets */; };
 		F88DF5AD276E54D0001E168D /* SelectServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DF5AC276E54D0001E168D /* SelectServerView.swift */; };
 		F88DF5AF276F912C001E168D /* LiveMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88DF5AE276F912C001E168D /* LiveMatchViewModel.swift */; };
@@ -185,7 +183,6 @@
 		F85DE45D275183B80002C002 /* WinnerErrorPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinnerErrorPieChart.swift; sourceTree = "<group>"; };
 		F884EE512744B58500B6E74F /* ManualScoreEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualScoreEditView.swift; sourceTree = "<group>"; };
 		F884EE57274702B100B6E74F /* ShotTypeBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotTypeBarChart.swift; sourceTree = "<group>"; };
-		F88DF5A8276E534E001E168D /* SharedExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedExtensions.swift; path = ../../../../../Documents/SharedExtensions.swift; sourceTree = "<group>"; };
 		F88DF5AC276E54D0001E168D /* SelectServerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectServerView.swift; sourceTree = "<group>"; };
 		F88DF5AE276F912C001E168D /* LiveMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMatchViewModel.swift; sourceTree = "<group>"; };
 		F897346F27209409004B440E /* InitialsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialsImageView.swift; sourceTree = "<group>"; };
@@ -397,7 +394,6 @@
 			isa = PBXGroup;
 			children = (
 				F8B484BB26C0408000EE3E53 /* Extensions.swift */,
-				F88DF5A8276E534E001E168D /* SharedExtensions.swift */,
 				F8291A27276968DD00D9C552 /* PlayerImagable.swift */,
 				F8BECE3C26D9DAE600083AC5 /* ErrorHandler.swift */,
 				F8973473272107BE004B440E /* Preferences.swift */,
@@ -857,7 +853,6 @@
 				F8291A26276968BF00D9C552 /* Match.swift in Sources */,
 				F8291A02276962DF00D9C552 /* ContentView.swift in Sources */,
 				F826BD9B276C3A7300BAE288 /* TestView.swift in Sources */,
-				F88DF5AA276E5357001E168D /* SharedExtensions.swift in Sources */,
 				F8291A2E276969B200D9C552 /* LiveMatchView.swift in Sources */,
 				F8291A25276968BF00D9C552 /* Player.swift in Sources */,
 				F88DF5AD276E54D0001E168D /* SelectServerView.swift in Sources */,
@@ -886,7 +881,6 @@
 				F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */,
 				F85DE45E275183B80002C002 /* WinnerErrorPieChart.swift in Sources */,
 				F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */,
-				F88DF5A9276E534E001E168D /* SharedExtensions.swift in Sources */,
 				F8B484B626BF83F700EE3E53 /* StatTracker.swift in Sources */,
 				F82DB87B26BB48F00003F7FD /* MatchStatsView.swift in Sources */,
 				F8B484C426C04F6800EE3E53 /* ReportMatchView.swift in Sources */,

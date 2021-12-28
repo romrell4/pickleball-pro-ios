@@ -35,7 +35,15 @@ struct InitialsImageView: View {
     }
     
     private var backgroundColor: Color {
-        Color(hue: Double(abs("\(firstName)\(lastName)".hash) % 256) / 256, saturation: 1.0, brightness: 1.0)
+        Color(hue: Double(abs("\(firstName)\(lastName)".persistantHash) % 256) / 256, saturation: 1.0, brightness: 1.0)
+    }
+}
+
+extension String {
+    var persistantHash: Int {
+        return Int(self.utf8.reduce(5381) {
+            ($0 << 5) &+ $0 &+ Int32($1)
+        })
     }
 }
 
