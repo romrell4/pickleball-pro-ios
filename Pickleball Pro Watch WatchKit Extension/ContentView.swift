@@ -12,13 +12,15 @@ struct ContentView: View {
     
     var body: some View {
         if let match = viewModel.match {
-            LiveMatchView(match: match) {
-                viewModel.match = nil
-            }
+            LiveMatchView(match: match)
         } else {
-            WaitingView {
-                viewModel.refreshMatch()
-            }
+            WaitingView()
+                .onAppear {
+                    viewModel.refreshMatch()
+                }
+                .onReceive(NotificationCenter.default.publisher(for: WKExtension.applicationWillEnterForegroundNotification)) { _ in
+                    viewModel.refreshMatch()
+                }
         }
     }
 }

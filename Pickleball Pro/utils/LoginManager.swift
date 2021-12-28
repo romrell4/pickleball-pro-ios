@@ -27,7 +27,7 @@ class LoginManager: ObservableObject {
     
     func listenForUser() {
         Auth.auth().addStateDidChangeListener { (_, user) in
-#if DEBUG
+#if DEBUG && DEBUG_MODE
             if let user = user {
                 print("User: \(user)")
                 print("Email: \(user.email ?? "no email")")

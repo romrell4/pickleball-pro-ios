@@ -9,9 +9,7 @@ import Foundation
 import WatchConnectivity
 
 protocol WatchSessionManagerObserver {
-    func onReceivedMatch(match: LiveMatch)
-    func onMatchClosed()
-    func refreshMatch()
+    func onReceivedMatch(match: LiveMatch?)
 }
 
 class WatchSessionManager: NSObject, WCSessionDelegate {
@@ -29,7 +27,6 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     private var session: WCSession = .default
     private var encoder = JSONEncoder()
     private var decoder = JSONDecoder()
-    private var lastReceivedMatch: LiveMatch? = nil
     
     var isReachable: Bool { session.isReachable }
     
@@ -41,53 +38,67 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if let error = error {
-            print("Error activating watch session: \(error)")
+            log("Error activating watch session: \(error)")
         } else {
-            print("Successfully activated watch session")
-            observers.forEach { $0.refreshMatch() }
+            log("Successfully activated watch session")
         }
     }
     
 #if os(iOS)
     func sessionDidBecomeInactive(_ session: WCSession) {
-        print("Session became inactive")
+        log("Session became inactive")
     }
     
     func sessionDidDeactivate(_ session: WCSession) {
-        print("Session deactivated")
+        log("Session deactivated")
     }
 #endif
     
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-        if let match = try? decoder.decode(LiveMatch.self, from: messageData) {
-            lastReceivedMatch = match
-            DispatchQueue.main.async {
-                self.observers.forEach { $0.onReceivedMatch(match: match) }
-            }
-        } else if let command = try? decoder.decode(Command.self, from: messageData) {
-            DispatchQueue.main.async {
-                switch command {
-                case .closeMatch: self.observers.forEach { $0.onMatchClosed() }
-                case .refreshMatch: self.observers.forEach { $0.refreshMatch() }
-                }
-            }
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        handleApplicationContext()
+    }
+    
+    func handleApplicationContext() {
+        // If we're receiving the same context we just sent, ignore it
+        let newMatchData = session.receivedApplicationContext["match"] as? Data
+        guard newMatchData != session.applicationContext["match"] as? Data else {
+            log("Filtered out receiving duplicate application context")
+            return
+        }
+        let newMatch = newMatchData.map { try? decoder.decode(LiveMatch.self, from: $0) } ?? nil
+        
+        log("Received new application context \(String(describing: newMatchData))")
+        
+        DispatchQueue.main.async {
+            self.observers.forEach { $0.onReceivedMatch(match: newMatch) }
         }
     }
     
-    func updateMatch(match: LiveMatch) {
-        if match != lastReceivedMatch, let data = try? encoder.encode(match) {
-            session.sendMessageData(data, replyHandler: nil)
+    func updateMatch(match: LiveMatch?) {
+        // If we're about to send the same context we just received or already sent, ignore it
+        let newMatchData = match.map { try? encoder.encode($0) } ?? nil
+        guard newMatchData != session.applicationContext["match"] as? Data && newMatchData != session.receivedApplicationContext["match"] as? Data else {
+            log("Filtered out sending duplicate application context")
+            return
         }
-    }
-    
-    func sendCommand(command: Command) {
-        if let data = try? encoder.encode(command) {
-            session.sendMessageData(data, replyHandler: nil)
+        
+        var dict = [String: Any]()
+        if let data = newMatchData {
+            dict["match"] = data
         }
+        log("Updating application context with \(dict)")
+        try? session.updateApplicationContext(dict)
     }
 }
 
-enum Command: Codable {
-    case closeMatch
-    case refreshMatch
+private func log(_ message: Any) {
+    print("\(osType()): \(message)")
+}
+
+private func osType() -> String {
+#if os(watchOS)
+    return "watchOS"
+#else
+    return "iOS"
+#endif
 }

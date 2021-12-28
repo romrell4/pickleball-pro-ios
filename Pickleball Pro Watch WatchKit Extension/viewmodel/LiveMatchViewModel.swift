@@ -11,14 +11,14 @@ import Combine
 
 class LiveMatchViewModel: ObservableObject, WatchSessionManagerObserver {
     @Published var match: LiveMatch
-    private var closeMatch: () -> Void
+    @Published var showingSettings = false
+    @Published var statTrackerShowedForPlayer: Player? = nil
     
     private let sessionManager: WatchSessionManager = .instance
     private var cancellables = Set<AnyCancellable>()
     
-    init(initialMatch: LiveMatch, closeMatch: @escaping () -> Void = {}) {
+    init(initialMatch: LiveMatch) {
         self.match = initialMatch
-        self.closeMatch = closeMatch
         self.sessionManager.addObserver(self)
         
         $match.sink { match in
@@ -31,15 +31,23 @@ class LiveMatchViewModel: ObservableObject, WatchSessionManagerObserver {
         self.sessionManager.removeObserver(self)
     }
     
-    func onMatchClosed() {
-        closeMatch()
-    }
-    
     func refreshMatch() {
-        self.sessionManager.sendCommand(command: .refreshMatch)
+        self.sessionManager.handleApplicationContext()
+        showingSettings = false
     }
     
-    func onReceivedMatch(match: LiveMatch) {
-        self.match = match
+    func onReceivedMatch(match: LiveMatch?) {
+        if let match = match {
+            self.match = match
+        } else {
+            // Dismiss sheets and stuff. The WatchViewModel will take care of exiting the live tracking
+            showingSettings = false
+            statTrackerShowedForPlayer = nil
+        }
+    }
+    
+    func startNewGame() {
+        match.startNewGame()
+        showingSettings = false
     }
 }

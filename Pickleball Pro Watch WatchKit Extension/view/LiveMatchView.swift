@@ -9,13 +9,10 @@ import SwiftUI
 struct LiveMatchView: View {
     @ObservedObject var viewModel: LiveMatchViewModel
     
-    @State private var showingSettings = false
-    @State private var statTrackerShowedForPlayer: Player? = nil
-    
     private var hSpacing: CGFloat { viewModel.match.isDoubles ? 4 : 0 }
     
-    init(match: LiveMatch, closeMatch: @escaping () -> Void) {
-        self.viewModel = LiveMatchViewModel(initialMatch: match, closeMatch: closeMatch)
+    init(match: LiveMatch) {
+        self.viewModel = LiveMatchViewModel(initialMatch: match)
     }
     
     var body: some View {
@@ -27,8 +24,9 @@ struct LiveMatchView: View {
                     .font(.title3)
             }
             #if DEBUG
+            // The watch previews don't show toolbars, so I can't test the settings. This is a hack to let me test it when I'm debugging
             .onTapGesture {
-                showingSettings = true
+                viewModel.showingSettings = true
             }
             #endif
             GeometryReader { geometry in
@@ -45,19 +43,14 @@ struct LiveMatchView: View {
                     .resizable()
                     .frame(width: 20, height: 20)
                     .onTapGesture {
-                        showingSettings = true
+                        viewModel.showingSettings = true
                     }
             }
         }
-        .sheet(isPresented: $showingSettings) {
+        .sheet(isPresented: $viewModel.showingSettings) {
             List {
                 Button("Start New Game") {
-                    viewModel.match.startNewGame()
-                    showingSettings = false
-                }
-                Button("Refresh from Phone") {
-                    viewModel.refreshMatch()
-                    showingSettings = false
+                    viewModel.startNewGame()
                 }
             }
         }
@@ -69,10 +62,13 @@ struct LiveMatchView: View {
                 viewModel.match.selectInitialServer(playerId: player.id)
             }
         }
-        .sheet(item: $statTrackerShowedForPlayer) { player in
+        .sheet(item: $viewModel.statTrackerShowedForPlayer) { player in
             StatTrackerView(player: player) {
                 viewModel.match.pointFinished(with: $0)
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: WKExtension.applicationWillEnterForegroundNotification)) { _ in
+            viewModel.refreshMatch()
         }
     }
     
@@ -93,7 +89,7 @@ struct LiveMatchView: View {
         if let player = player {
             player.imageWithServer(imageSize: size)
                 .onTapGesture {
-                    statTrackerShowedForPlayer = player.player
+                    viewModel.statTrackerShowedForPlayer = player.player
                 }
         }
     }
@@ -116,9 +112,7 @@ struct LiveMatchView_Previews: PreviewProvider {
                 adPlayer: LiveMatchPlayer(player: Player.bob),
                 scores: [6]
             )
-        )) {
-            print("Closed")
-        }
+        ))
     }
 }
 #endif

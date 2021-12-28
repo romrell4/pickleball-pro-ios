@@ -22,15 +22,11 @@ class WatchViewModel: ObservableObject, WatchSessionManagerObserver {
         self.sessionManager.removeObserver(self)
     }
     
-    func onReceivedMatch(match: LiveMatch) {
+    func onReceivedMatch(match: LiveMatch?) {
         self.match = match
-    }
-    
-    func onMatchClosed() {
-        self.match = nil
     }
 
     func refreshMatch() {
-        self.sessionManager.sendCommand(command: .refreshMatch)
+        self.sessionManager.handleApplicationContext()
     }
 }

@@ -11,6 +11,9 @@ struct MainTabView: View {
     @State private var tabSelected: Tab = .myMatches
     
     enum Tab {
+//#if DEBUG
+//        case test
+//#endif
         case myMatches
         case stats
         case reportMatch
@@ -20,6 +23,11 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $tabSelected) {
+//#if DEBUG
+//            TestView().tabItem {
+//                Label("Test", systemImage: "list.bullet")
+//            }.tag(Tab.test)
+//#endif
             MyMatchesView().tabItem {
                 Label("My Matches", systemImage: "list.bullet")
             }.tag(Tab.myMatches)

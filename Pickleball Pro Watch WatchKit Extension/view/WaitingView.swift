@@ -8,29 +8,20 @@
 import SwiftUI
 
 struct WaitingView: View {
-    let onRefreshTapped: () -> Void
-    
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                Text("👋")
-                    .font(.title)
-                Text("Start a live match on your phone to get started!")
-                    .multilineTextAlignment(.center)
-                    .font(.body)
-                    .padding()
-                Button("Refresh") {
-                    onRefreshTapped()
-                }
-            }
+        VStack(spacing: 0) {
+            Text("👋")
+                .font(.title)
+            Text("Start a live match on your phone to get started!")
+                .multilineTextAlignment(.center)
+                .font(.body)
+                .padding()
         }
     }
 }
 
 struct WaitingView_Previews: PreviewProvider {
     static var previews: some View {
-        WaitingView {
-            print("refreshing")
-        }
+        WaitingView()
     }
 }

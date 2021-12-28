@@ -173,6 +173,9 @@ struct LiveMatchView: View {
                 }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            viewModel.refreshMatch()
+        }
     }
     
     private func finishMatch() {

@@ -28,14 +28,15 @@ class LiveMatchViewModel: ObservableObject, WatchSessionManagerObserver {
         self.sessionManager.removeObserver(self)
     }
     
-    func onMatchClosed() {}
-    
-    func onReceivedMatch(match: LiveMatch) {
+    func onReceivedMatch(match: LiveMatch?) {
+        // Only the phone can finish a match
+        guard let match = match else { return }
+        
         self.match = match
     }
     
     func closeMatch() {
-        self.sessionManager.sendCommand(command: .closeMatch)
+        self.sessionManager.updateMatch(match: nil)
         
         // Remove the observer, so that if the watch tries to refresh, this won't accidentally send the old match again (since the view model doesn't deinit for some reason)
         self.sessionManager.removeObserver(self)
@@ -54,6 +55,6 @@ class LiveMatchViewModel: ObservableObject, WatchSessionManagerObserver {
     }
     
     func refreshMatch() {
-        sessionManager.updateMatch(match: match)
+        sessionManager.handleApplicationContext()
     }
 }

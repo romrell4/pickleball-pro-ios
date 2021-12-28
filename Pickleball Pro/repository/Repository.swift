@@ -98,7 +98,7 @@ class RepositoryImpl: Repository {
                 callback($0.result)
             }
             
-            #if DEBUG
+            #if DEBUG && DEBUG_MODE
             request.responseJSON { debugPrint($0) }
             #endif
         }

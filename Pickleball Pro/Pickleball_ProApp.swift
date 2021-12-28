@@ -9,8 +9,11 @@ import SwiftUI
 import Firebase
 import FBSDKCoreKit
 
+let DEBUG_MODE = false
+
 @main
 struct Pickleball_ProApp: App {
+    // TODO: Resolve launch warnings
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
