@@ -68,7 +68,7 @@ struct LiveMatchView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: WKExtension.applicationWillEnterForegroundNotification)) { _ in
-            viewModel.refreshMatch()
+            viewModel.checkForReceivedMatch()
         }
     }
     

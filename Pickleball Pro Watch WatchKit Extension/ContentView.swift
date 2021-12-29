@@ -16,10 +16,10 @@ struct ContentView: View {
         } else {
             WaitingView()
                 .onAppear {
-                    viewModel.refreshMatch()
+                    viewModel.checkForReceivedMatch()
                 }
                 .onReceive(NotificationCenter.default.publisher(for: WKExtension.applicationWillEnterForegroundNotification)) { _ in
-                    viewModel.refreshMatch()
+                    viewModel.checkForReceivedMatch()
                 }
         }
     }

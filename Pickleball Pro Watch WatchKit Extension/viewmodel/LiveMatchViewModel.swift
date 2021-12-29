@@ -31,8 +31,8 @@ class LiveMatchViewModel: ObservableObject, WatchSessionManagerObserver {
         self.sessionManager.removeObserver(self)
     }
     
-    func refreshMatch() {
-        self.sessionManager.handleApplicationContext()
+    func checkForReceivedMatch() {
+        self.sessionManager.handleReceivedApplicationContext()
         showingSettings = false
     }
     

@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+extension Notification.Name {
+    static let liveMatchStarted = Notification.Name("liveMatchStarted")
+    static let liveMatchSaved = Notification.Name("liveMatchSaved")
+}
+
 struct LiveMatchView: View {
     @ObservedObject private var viewModel: LiveMatchViewModel
     @EnvironmentObject var matchesViewModel: MatchesViewModel
@@ -20,9 +25,7 @@ struct LiveMatchView: View {
     
     @State private var isReachable = false
     
-    var onMatchSaved: () -> Void
-    
-    init?(team1: [Player], team2: [Player], onMatchSaved: @escaping () -> Void) {
+    init?(team1: [Player], team2: [Player]) {
         guard team1.count > 0 && team2.count > 0 else { return nil }
         viewModel = LiveMatchViewModel(initialMatch: LiveMatch(
             team1: LiveMatchTeam(
@@ -37,7 +40,10 @@ struct LiveMatchView: View {
                 adPlayer: LiveMatchPlayer(player: team2[safe: 1])
             )
         ))
-        self.onMatchSaved = onMatchSaved
+    }
+    
+    init(match: LiveMatch) {
+        viewModel = LiveMatchViewModel(initialMatch: match)
     }
     
     var body: some View {
@@ -174,7 +180,7 @@ struct LiveMatchView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-            viewModel.refreshMatch()
+            viewModel.checkForReceivedMatch()
         }
     }
     
@@ -186,7 +192,7 @@ struct LiveMatchView: View {
             } else {
                 viewModel.closeMatch()
                 presentationMode.wrappedValue.dismiss()
-                onMatchSaved()
+                NotificationCenter.default.post(name: .liveMatchSaved, object: nil)
             }
         }
     }
@@ -290,9 +296,7 @@ struct LiveMatchView_Previews: PreviewProvider {
         LiveMatchView(
             team1: [Player.eric],//, Player.jessica],
             team2: [Player.bryan]//, Player.bob]
-        ) {
-            print("Saved")
-        }
+        )
         .environmentObject(MatchesViewModel(repository: TestRepository(), loginManager: TestLoginManager()))
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var tabSelected: Tab = .myMatches
+    @StateObject private var viewModel = MainTabViewModel()
     
     enum Tab {
 //#if DEBUG
@@ -43,6 +44,19 @@ struct MainTabView: View {
             SettingsView().tabItem {
                 Label("Settings", systemImage: "gear")
             }.tag(Tab.settings)
+        }
+        .fullScreenCover(item: $viewModel.match) {
+            LiveMatchView(match: $0)
+        }
+        .onAppear {
+            viewModel.checkForReceivedMatch()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .liveMatchStarted)) {
+            guard let data = $0.userInfo?["match"] as? Data, let match = try? JSONDecoder().decode(LiveMatch.self, from: data) else { return }
+            viewModel.match = match
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+            viewModel.checkForReceivedMatch()
         }
     }
 }

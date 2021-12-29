@@ -25,8 +25,6 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     }
     
     private var session: WCSession = .default
-    private var encoder = JSONEncoder()
-    private var decoder = JSONDecoder()
     
     var isReachable: Bool { session.isReachable }
     
@@ -55,39 +53,73 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
 #endif
     
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-        handleApplicationContext()
+        handleReceivedApplicationContext()
     }
     
-    func handleApplicationContext() {
-        // If we're receiving the same context we just sent, ignore it
-        let newMatchData = session.receivedApplicationContext["match"] as? Data
-        guard newMatchData != session.applicationContext["match"] as? Data else {
-            log("Filtered out receiving duplicate application context")
+    func handleReceivedApplicationContext() {
+        // If we're receiving an outdated version, ignore it
+        guard let payload = session.receivedPayload else {
+            log("Filtered out invalid payload")
             return
         }
-        let newMatch = newMatchData.map { try? decoder.decode(LiveMatch.self, from: $0) } ?? nil
+        guard payload.version > (session.sentPayload?.version ?? 0) else {
+            log("Filtered out old payload")
+            return
+        }
+        // If we're receiving the same context we just sent, ignore it
+        guard payload.match != session.sentPayload?.match else {
+            log("Filtered out receiving duplicate payload")
+            return
+        }
         
-        log("Received new application context \(String(describing: newMatchData))")
+        log("Received new payload \(payload)")
         
         DispatchQueue.main.async {
-            self.observers.forEach { $0.onReceivedMatch(match: newMatch) }
+            self.observers.forEach { $0.onReceivedMatch(match: payload.match) }
         }
     }
     
     func updateMatch(match: LiveMatch?) {
-        // If we're about to send the same context we just received or already sent, ignore it
-        let newMatchData = match.map { try? encoder.encode($0) } ?? nil
-        guard newMatchData != session.applicationContext["match"] as? Data && newMatchData != session.receivedApplicationContext["match"] as? Data else {
-            log("Filtered out sending duplicate application context")
-            return
+        let payload = Payload(version: Date().timeIntervalSince1970, match: match)
+        log("Updating payload with \(payload)")
+        session.sendPayload(payload)
+    }
+}
+
+private struct Payload {
+    let version: TimeInterval
+    let match: LiveMatch?
+}
+
+private extension Payload {
+    init?(dict: [String: Any]) {
+        guard let version = dict["version"] as? Double else { return nil }
+        self.version = version
+        self.match = (dict["match"] as? Data).map { try? JSONDecoder().decode(LiveMatch.self, from: $0) } ?? nil
+    }
+    
+    var dict: [String: Any] {
+        var d: [String: Any] = [
+            "version": version
+        ]
+        if let match = match, let data = try? JSONEncoder().encode(match) {
+            d["match"] = data
         }
-        
-        var dict = [String: Any]()
-        if let data = newMatchData {
-            dict["match"] = data
-        }
-        log("Updating application context with \(dict)")
-        try? session.updateApplicationContext(dict)
+        return d
+    }
+}
+
+private extension WCSession {
+    var receivedPayload: Payload? {
+        Payload(dict: receivedApplicationContext)
+    }
+    
+    var sentPayload: Payload? {
+        Payload(dict: applicationContext)
+    }
+    
+    func sendPayload(_ payload: Payload) {
+        try? updateApplicationContext(payload.dict)
     }
 }
 

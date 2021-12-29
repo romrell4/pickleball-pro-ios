@@ -1,15 +1,13 @@
 //
-//  WatchViewModel.swift
-//  Pickleball Pro Watch WatchKit Extension
+//  MainTabViewModel.swift
+//  Pickleball Pro
 //
-//  Created by Eric Romrell on 12/14/21.
+//  Created by Eric Romrell on 12/29/21.
 //
 
 import Foundation
-import SwiftUI
-import Combine
 
-class WatchViewModel: ObservableObject, WatchSessionManagerObserver {
+class MainTabViewModel: ObservableObject, WatchSessionManagerObserver {
     @Published var match: LiveMatch? = nil
     
     private let sessionManager: WatchSessionManager = .instance

@@ -54,7 +54,7 @@ class LiveMatchViewModel: ObservableObject, WatchSessionManagerObserver {
         }
     }
     
-    func refreshMatch() {
-        sessionManager.handleApplicationContext()
+    func checkForReceivedMatch() {
+        sessionManager.handleReceivedApplicationContext()
     }
 }

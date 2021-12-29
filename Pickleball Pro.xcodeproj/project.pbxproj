@@ -70,6 +70,7 @@
 		F8BECE4126D9E76D00083AC5 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4026D9E76D00083AC5 /* BaseViewModel.swift */; };
 		F8BECE4326DDCE1700083AC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */; };
 		F8BECE4D26DDDA2900083AC5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BECE4C26DDDA2900083AC5 /* LoginView.swift */; };
+		F8C67713277CD76C00151B84 /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C67712277CD76C00151B84 /* MainTabViewModel.swift */; };
 		F8C9187F2725C7980042A14C /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C9187E2725C7980042A14C /* ErrorView.swift */; };
 		F8C918812725CD820042A14C /* DefaultStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C918802725CD820042A14C /* DefaultStateView.swift */; };
 		F8CB4F1827344ADD00D9891E /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8CB4F1727344ADD00D9891E /* SettingsViewModel.swift */; };
@@ -212,6 +213,7 @@
 		F8BECE4226DDCE1700083AC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F8BECE4926DDD12A00083AC5 /* Pickleball Pro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pickleball Pro.entitlements"; sourceTree = "<group>"; };
 		F8BECE4C26DDDA2900083AC5 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F8C67712277CD76C00151B84 /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 		F8C9187E2725C7980042A14C /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		F8C918802725CD820042A14C /* DefaultStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStateView.swift; sourceTree = "<group>"; };
 		F8CB4F1727344ADD00D9891E /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 		F8B484CE26C0ABD200EE3E53 /* viewmodel */ = {
 			isa = PBXGroup;
 			children = (
+				F8C67712277CD76C00151B84 /* MainTabViewModel.swift */,
 				F8BECE4026D9E76D00083AC5 /* BaseViewModel.swift */,
 				F8B484CF26C0ABE000EE3E53 /* MatchesViewModel.swift */,
 				F8A3E7DD26C7371300FD6392 /* PlayersViewModel.swift */,
@@ -880,6 +883,7 @@
 				F884EE58274702B100B6E74F /* ShotTypeBarChart.swift in Sources */,
 				F8CC712826C4302200D90FA3 /* EnterMatchScoreView.swift in Sources */,
 				F85DE45E275183B80002C002 /* WinnerErrorPieChart.swift in Sources */,
+				F8C67713277CD76C00151B84 /* MainTabViewModel.swift in Sources */,
 				F8E75ED026A337570000F93F /* Pickleball_ProApp.swift in Sources */,
 				F8B484B626BF83F700EE3E53 /* StatTracker.swift in Sources */,
 				F82DB87B26BB48F00003F7FD /* MatchStatsView.swift in Sources */,
@@ -958,7 +962,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = Pickleball_Pro_Watch_WatchKit_Extension;
@@ -983,7 +987,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				GENERATE_INFOPLIST_FILE = YES;
 				IBSC_MODULE = Pickleball_Pro_Watch_WatchKit_Extension;
@@ -1008,7 +1012,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro Watch WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				ENABLE_PREVIEWS = YES;
@@ -1039,7 +1043,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro Watch WatchKit Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				ENABLE_PREVIEWS = YES;
@@ -1185,7 +1189,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				ENABLE_PREVIEWS = YES;
@@ -1215,7 +1219,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Pickleball Pro/Pickleball Pro.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"Pickleball Pro/Preview Content\"";
 				DEVELOPMENT_TEAM = G9JN5J3VZ9;
 				ENABLE_PREVIEWS = YES;

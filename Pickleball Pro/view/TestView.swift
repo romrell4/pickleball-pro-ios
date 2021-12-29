@@ -16,9 +16,7 @@ struct TestView: View {
             live = true
         }
         .fullScreenCover(isPresented: $live) {
-            LiveMatchView(team1: [Player.eric, Player.jessica], team2: [Player.bryan, Player.bob]) {
-                live = false
-            }
+            LiveMatchView(team1: [Player.eric, Player.jessica], team2: [Player.bryan, Player.bob])
         }
     }
 }

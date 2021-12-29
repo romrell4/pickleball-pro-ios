@@ -45,7 +45,18 @@ struct ReportMatchView: View {
                 EnterScoresStepView(
                     onTrackLiveMatchTapped: {
                         if let players = canEnterScores() {
-                            navigateToLiveMatchWithPlayers = players
+                            let match = LiveMatch(
+                                team1: LiveMatchTeam(
+                                    deucePlayer: LiveMatchPlayer(player: players.team1[0]),
+                                    adPlayer: LiveMatchPlayer(player: players.team1[safe: 1])
+                                ),
+                                team2: LiveMatchTeam(
+                                    deucePlayer: LiveMatchPlayer(player: players.team2[0]),
+                                    adPlayer: LiveMatchPlayer(player: players.team2[safe: 1])
+                                )
+                            )
+                            guard let data = try? JSONEncoder().encode(match) else { return }
+                            NotificationCenter.default.post(name: .liveMatchStarted, object: nil, userInfo: ["match": data])
                         }
                     },
                     onEnterCompletedTapped: {
@@ -79,15 +90,13 @@ struct ReportMatchView: View {
         .sheet(isPresented: $showingLoginSheet) {
             LoginView()
         }
-        .fullScreenCover(item: $navigateToLiveMatchWithPlayers) {
-            LiveMatchView(team1: $0.team1, team2: $0.team2) {
-                reset()
-                currentTab.wrappedValue = .myMatches
-            }
-        }
         .onAppear {
             playersViewModel.load()
             showingLoginSheet = playersViewModel.state.isLoggedOut
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .liveMatchSaved)) { _ in
+            reset()
+            currentTab.wrappedValue = .myMatches
         }
     }
     

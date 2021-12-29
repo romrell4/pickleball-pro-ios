@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct LiveMatch: Codable, Equatable {
+struct LiveMatch: Codable, Equatable, Identifiable {
+    var id = UUID().uuidString
     var team1: LiveMatchTeam
     var team2: LiveMatchTeam
     var pointResults: [LiveMatchPointResult] = []
