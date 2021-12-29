@@ -75,7 +75,7 @@ struct LiveMatchView: View {
                     }
                 case .gone: EmptyView()
                 }
-                if viewModel.match.needsServer {
+                if viewModel.match.currentServer == nil {
                     ModalView(onDismiss: {}) {
                         SelectServerView(match: $viewModel.match) { player in
                             viewModel.serverSelected(playerId: player.id)

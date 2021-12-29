@@ -16,8 +16,7 @@ struct ManualScoreEditView: View {
             EnterScoreView(match: $match)
                 .padding(.bottom, 20)
             SelectServerView(match: $match) { player in
-                let currentServer = match.currentServer
-                guard case var .serving(isFirstServer) = currentServer.servingState else { return }
+                guard let currentServer = match.currentServer, case var .serving(isFirstServer) = currentServer.servingState else { return }
                 if match.isDoubles && currentServer.id == player.id {
                     isFirstServer.toggle()
                 }

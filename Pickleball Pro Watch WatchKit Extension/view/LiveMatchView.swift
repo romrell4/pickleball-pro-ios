@@ -55,7 +55,7 @@ struct LiveMatchView: View {
             }
         }
         .sheet(isPresented: Binding(
-            get: { viewModel.match.needsServer },
+            get: { viewModel.match.currentServer == nil },
             set: { _ in }
         )) {
             SelectServerView(match: $viewModel.match) { player in

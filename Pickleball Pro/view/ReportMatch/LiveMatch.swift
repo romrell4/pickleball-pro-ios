@@ -20,12 +20,12 @@ struct LiveMatch: Codable, Equatable, Identifiable {
     
     var currentGameIndex: Int { team1.scores.count - 1 }
     
-    // TODO: Make this nullable?
-    var currentServer: LiveMatchPlayer { allPlayers.first { $0.isServing }! }
-    var needsServer: Bool { !allPlayers.contains { $0.isServing } }
+    var currentServer: LiveMatchPlayer? { allPlayers.first { $0.isServing } }
     
-    var currentServingTeam: LiveMatchTeam {
-        team1.players.contains { $0.id == currentServer.id } ? team1 : team2
+    var currentServingTeam: LiveMatchTeam? {
+        guard let currentServer = currentServer else { return nil }
+
+        return team1.players.contains { $0.id == currentServer.id } ? team1 : team2
     }
     
     func player(for id: String) -> LiveMatchPlayer {
@@ -62,7 +62,7 @@ struct LiveMatch: Codable, Equatable, Identifiable {
                 scoreResult = .team2Point
             }
         } else {
-            guard case .serving(let isFirstServer) = currentServer.servingState else { return }
+            guard let currentServer = currentServer, case .serving(let isFirstServer) = currentServer.servingState else { return }
             scoreResult = .sideout(previousServerId: currentServer.id, wasFirstServer: isFirstServer)
             sideout()
         }
@@ -122,8 +122,7 @@ struct LiveMatch: Codable, Equatable, Identifiable {
     
     mutating func ensureSinglesServerSide() {
         // In singles, when a sideout happens, the server's side is based on their score (deuce for an even score, ad for an odd score)
-        if !isDoubles {
-            let team = currentServingTeam
+        if !isDoubles, let team = currentServingTeam {
             let evenScore = team.currentScore % 2 == 0
             if (evenScore && team.deucePlayer == nil) || (!evenScore && team.adPlayer == nil) {
                 switchSides(isTeam1Intiating: team1.isServing)
