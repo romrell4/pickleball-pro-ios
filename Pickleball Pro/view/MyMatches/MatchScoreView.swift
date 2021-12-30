@@ -38,10 +38,15 @@ struct IndividualScoreView: View {
                 
             Text(players.map { $0.firstName }.joined(separator: " & "))
             Spacer()
-            ForEach(scores, id: \.self) { score in
-                ScoreNumberView(value: score)
+            ForEach(scores.map { Score(value: $0) }) { score in
+                ScoreNumberView(value: score.value)
             }
         }
+    }
+    
+    private struct Score: Identifiable {
+        let id = UUID().uuidString
+        let value: Int
     }
 }
 
