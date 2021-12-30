@@ -6,7 +6,12 @@ target 'Pickleball Pro' do
 
   # Pods for Pickleball Pro
   pod 'Firebase'
-  pod 'FirebaseUI'
+  pod 'FirebaseUI/Auth'
+  pod 'FirebaseUI/Email'
+  pod 'FirebaseUI/Facebook'
+  pod 'FirebaseUI/Google'
+  pod 'FirebaseUI/OAuth'
+  pod 'FirebaseUI/Phone'
   pod 'SDWebImageSwiftUI'
   pod 'Alamofire'
   pod 'Charts'
