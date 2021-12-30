@@ -37,8 +37,12 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>36</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<false/>
 	<key>FacebookAppID</key>
 	<string>1398503883884267</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<false/>
 	<key>FacebookDisplayName</key>
 	<string>Pickleball Pro</string>
 	<key>LSRequiresIPhoneOS</key>
