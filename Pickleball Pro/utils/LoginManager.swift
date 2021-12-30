@@ -17,7 +17,7 @@ struct User {
 }
 
 class LoginManager: ObservableObject {
-    @Published var user: User? = nil
+    @Published var user: User? = Auth.auth().currentUser.map { User(displayName: $0.displayName) }
     var isLoggedIn: Bool { user != nil }
     private var listeners = [String: LoginListener]()
     

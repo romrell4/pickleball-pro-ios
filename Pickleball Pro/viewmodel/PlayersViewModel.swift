@@ -9,12 +9,7 @@ import Foundation
 
 class PlayersViewModel: BaseViewModel<[Player]> {
     override func loginChanged(isLoggedIn: Bool) {
-        super.loginChanged(isLoggedIn: isLoggedIn)
-        if isLoggedIn {
-            load()
-        } else {
-            state.loggedOut()
-        }
+        load()
     }
     
     func load() {
@@ -22,6 +17,7 @@ class PlayersViewModel: BaseViewModel<[Player]> {
             state.loggedOut()
             return
         }
+        guard !state.isLoading else { return }
         
         state.startLoad()
         repository.loadPlayers {

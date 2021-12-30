@@ -10,11 +10,7 @@ import Combine
 
 class MatchesViewModel: BaseViewModel<[Match]> {
     override func loginChanged(isLoggedIn: Bool) {
-        if isLoggedIn {
-            load()
-        } else {
-            state.loggedOut()
-        }
+        load()
     }
     
     func load() {
@@ -22,6 +18,8 @@ class MatchesViewModel: BaseViewModel<[Match]> {
             state.loggedOut()
             return
         }
+        guard !state.isLoading else { return }
+        
         state.startLoad()
         repository.loadMatches {
             switch $0 {
