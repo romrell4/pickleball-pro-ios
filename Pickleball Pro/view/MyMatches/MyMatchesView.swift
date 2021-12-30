@@ -15,7 +15,6 @@ struct MyMatchesView: View {
         NavigationView {
             DefaultStateView(state: viewModel.state) { matches in
                 if matches.isEmpty {
-                    // TODO: Stop this from displaying while the user is logging in
                     VStack(spacing: 16) {
                         Text("👋")
                             .font(.system(size: 80))
