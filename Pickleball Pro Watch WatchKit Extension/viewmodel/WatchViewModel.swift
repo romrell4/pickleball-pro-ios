@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class WatchViewModel: ObservableObject, WatchSessionManagerObserver {
-    @Published var match: LiveMatch? = nil
+    @Published var match: LiveMatch? = nil //LiveMatch.singles
     
     private let sessionManager: WatchSessionManager = .instance
     

@@ -28,34 +28,28 @@ struct StatTrackerView: View {
     }
     
     var body: some View {
-        VStack(spacing: 1) {
-            Picker("Shot Type", selection: $typeIndex) {
-                ForEach(types.indices, id: \.self) { index in
-                    Text(types[index].rawValue.capitalized).tag(index)
+        GeometryReader { geometry in
+            VStack(spacing: 1) {
+                Picker("Shot Type", selection: $typeIndex) {
+                    ForEach(types.indices, id: \.self) { index in
+                        Text(types[index].rawValue.capitalized).tag(index)
+                    }
                 }
-            }
-            .labelsHidden()
-            .pickerStyle(WheelPickerStyle())
-            
-            Picker("Result", selection: $resultIndex) {
-                ForEach(results.indices, id: \.self) { index in
-                    Text(results[index].rawValue.capitalized).tag(index)
+                .labelsHidden()
+                .pickerStyle(WheelPickerStyle())
+                
+                SegmentedPickerView(items: results.map { $0.rawValue.capitalized }, selection: $resultIndex)
+                
+                SegmentedPickerView(items: sides.map { $0.rawValue.capitalized }, selection: $sideIndex)
+                    .opacity(selectedType == .serve ? 0 : 1)
+                    .disabled(selectedType == .serve)
+                
+                Spacer()
+                
+                Button("Save") {
+                    onButtonTap(LiveMatchShot(playerId: player.id, type: selectedType, result: selectedResult, side: selectedSide))
+                    presentationMode.wrappedValue.dismiss()
                 }
-            }
-            .labelsHidden()
-            
-            Picker("Shot Side", selection: $sideIndex) {
-                ForEach(sides.indices, id: \.self) { index in
-                    Text(sides[index].rawValue.capitalized).tag(index)
-                }
-            }
-            .labelsHidden()
-            .opacity(selectedType == .serve ? 0 : 1)
-            .disabled(selectedType == .serve)
-            
-            Button("Save") {
-                onButtonTap(LiveMatchShot(playerId: player.id, type: selectedType, result: selectedResult, side: selectedSide))
-                presentationMode.wrappedValue.dismiss()
             }
         }
     }

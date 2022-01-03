@@ -197,8 +197,8 @@ struct LiveMatch: Codable, Equatable, Identifiable {
             team2: team2.players.map { $0.player },
             scores: zip(team1.scores, team2.scores)
                 .map { GameScore(team1Score: $0.0, team2Score: $0.1) },
-            stats: pointResults.compactMap {
-                return Stat(
+            stats: pointResults.map {
+                Stat(
                     playerId: $0.shot.playerId,
                     gameIndex: $0.gameIndex,
                     shotType: $0.shot.type,
@@ -290,3 +290,33 @@ extension LiveMatchPlayer {
         }
     }
 }
+
+#if DEBUG
+
+extension LiveMatch {
+    init(match: Match) {
+        self.team1 = LiveMatchTeam(
+            deucePlayer: LiveMatchPlayer(player: match.team1[0]),
+            adPlayer: LiveMatchPlayer(player: match.team1[safe: 1]),
+            scores: match.scores.map { $0.team1Score }
+        )
+        self.team2 = LiveMatchTeam(
+            deucePlayer: LiveMatchPlayer(player: match.team2[0]),
+            adPlayer: LiveMatchPlayer(player: match.team2[safe: 1]),
+            scores: match.scores.map { $0.team2Score }
+        )
+        self.pointResults = match.stats.map {
+            LiveMatchPointResult(
+                gameIndex: $0.gameIndex,
+                shot: LiveMatchShot(playerId: $0.playerId, type: $0.shotType, result: $0.shotResult, side: $0.shotSide),
+                scoreResult: .team1Point
+            )
+        }
+    }
+}
+
+extension LiveMatch {
+    static let singles = LiveMatch(match: Match.singles)
+}
+
+#endif
