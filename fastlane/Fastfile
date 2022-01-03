@@ -41,7 +41,7 @@ platform :ios do
       force: true,
       skip_binary_upload: true,
       skip_screenshots: true,
-      automatic_release: true,
+      automatic_release: false,
       submission_information: {
         add_id_info_uses_idfa: false
       }
